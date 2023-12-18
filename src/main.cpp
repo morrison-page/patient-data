@@ -14,17 +14,21 @@ using namespace std;
 
 int main()
 {
+    
     // Database Pointer Declaration
     sql::mysql::MySQL_Driver* driver;
     sql::Connection* conn;
     sql::Statement* stmt;
     sql::PreparedStatement* pstmt;
     sql::ResultSet* res;
+    
 
+    /*
     // DB Connection Info
     const string server = "plesk.remote.ac";
     const string username = "ws344889_db_user";
     const string password = "1w^9Hcf16";
+    */
 
     // Grab driver and Connect to DB
     driver = sql::mysql::get_mysql_driver_instance();
