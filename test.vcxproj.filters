@@ -3,5 +3,9 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="tests\tests.cpp" />
+    <ClCompile Include="src\database.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\database.h" />
   </ItemGroup>
 </Project>

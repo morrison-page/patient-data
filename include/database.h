@@ -21,12 +21,13 @@ namespace Database
 		Database();
 		~Database();
 		
-		
 		// Class Functions
-
 		inline bool connect();
 		bool createDatabase();
 		inline void error(const string query);
+
+		// Data Fetch Functions
+		
 
 	private:
 		// Database Pointer Declaration
