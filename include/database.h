@@ -24,9 +24,9 @@ namespace Database
 		
 		// Class Functions
 
-		inline bool connect(sql::mysql::MySQL_Driver* driver, sql::Connection* conn);
+		inline bool connect();
 		bool createDatabase();
-		inline void error(const string& query, const sql::SQLException& e, sql::Statement* stmt);
+		inline void error(const string query);
 
 	private:
 		// Database Pointer Declaration

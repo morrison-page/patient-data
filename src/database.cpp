@@ -27,7 +27,7 @@ namespace Database
 
 	};
 
-	inline bool Database::connect(sql::mysql::MySQL_Driver* driver, sql::Connection* conn)
+	inline bool Database::connect()
 	{
 		// Grab Database Driver and Connect
 		driver = sql::mysql::get_driver_instance();
@@ -40,11 +40,13 @@ namespace Database
 
 	bool Database::createDatabase()
 	{
+		connect();
 
+		return false;
 	};
 
 	// Error Handling
-	inline void Database::error(const string& query, const sql::SQLException& e, sql::Statement* stmt)
+	inline void Database::error(const string query)
 	{
 		try {
 			stmt->execute(query);
