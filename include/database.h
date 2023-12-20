@@ -24,7 +24,7 @@ namespace Database
 		// Class Functions
 		inline bool connect();
 		bool createDatabase();
-		inline void error(const string query);
+		void error(const string query);
 
 		// Data Fetch Functions
 		

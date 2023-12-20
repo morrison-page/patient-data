@@ -24,7 +24,8 @@ namespace Database
 	// Destructor
 	Database::~Database()
 	{
-
+        delete stmt;
+        delete conn;
 	};
 
 	inline bool Database::connect()
@@ -117,7 +118,7 @@ namespace Database
 	};
 
 	// Error Handling
-	inline void Database::error(const string query)
+	void Database::error(const string query)
 	{
         connect();
 
@@ -127,15 +128,12 @@ namespace Database
         try {
 			stmt->execute(query);
 		}
-		catch (sql::SQLException& e) {
-			cout << "# ERR: SQLException in " << __FILE__;
-			cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
-			cout << "# ERR: " << e.what();
-			cout << " (MySQL error code: " << e.getErrorCode();
-			cout << ", SQLState: " << e.getSQLState() << ")" << endl;
+        catch (sql::SQLException& e) {
+			cerr << "# ERR: SQLException in " << __FILE__;
+			cerr << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
+			cerr << "# ERR: " << e.what();
+			cerr << " (MySQL error code: " << e.getErrorCode();
+			cerr << ", SQLState: " << e.getSQLState() << ")" << endl;
 		}
-
-        delete stmt;
-        delete conn;
 	};
 }
