@@ -18,7 +18,8 @@ int main()
     {
         int choice;
         cout << "1 - Patient\n";
-        cout << "2 - Staff\n\n";
+        cout << "2 - Staff\n";
+        cout << "3 - Exit\n\n";
         cin >> choice;
         cout << endl;
 
@@ -32,13 +33,14 @@ int main()
             cin >> choice;
             switch (choice)
             {
+            // Login
             case 1:
+                // TODO: Make this menu a function to use after user registers
                 // TODO: Authenticate User
-                switch (choice)
+                if (1 == 1) // if AUTH == TRUE
                 {
-                case 1:
-                    cout << "1 - View Treatment\n";
-                    cout << "2 - View Treatment Cost\n";
+                    cout << "1 - View Personal Detail\n";
+                    cout << "2 - View Treatment & Cost\n";
                     cout << "3 - Exit\n\n";
                     cin >> choice;
                     switch (choice)
@@ -51,8 +53,10 @@ int main()
                         exit(0);
                     }
                 }
+            // Register
             case 2:
                 // TODO: Create Patient
+                // TODO: Output the patient auth menu
             case 3:
                 exit(0);
             }
@@ -66,16 +70,44 @@ int main()
 
             switch (choice)
             {
-            case 1:
+            // Doctor / Nurse
+            case 1 || 2:
+                // TODO: Authenticate user
+                if (1 == 1) // if AUTH == TRUE
+                {
+                    cout << "1 - View Patient Details";
+                    cout << "2 - View Patient Treatment & Cost";
+                    cout << "3 - View Data Analytics";
+                    cout << "4 - Change Patient Medication";
+                    cout << "5 - Exit";
+                    cin >> choice;
 
-            case 2:
-
+                    switch (choice)
+                    {
+                    case 1:
+                        // TODO: View Patient Details
+                    case 2:
+                        // TODO: View Patient Treatment & Cost
+                    case 3:
+                        // TODO: Output Data Analytics
+                    case 4:
+                        // TODO: Change Patient Medication
+                    case 5:
+                        exit(0);
+                    }
+                }
+            // Pharmacist
             case 3:
-
+                // TODO: Authenticate user
+                if (1 == 1) // if AUTH == TRUE
+                {
+                    // TODO: View patient details
+                }
             case 4:
                 exit(0);
             }
-
+        case 3:
+            exit(0);
         }
     }
 
