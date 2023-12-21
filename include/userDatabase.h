@@ -10,6 +10,7 @@ public:
 
 	void createPatient(const User&);
 	void createDoctor(const User&);
+	void createNurse(const User&);
 	void createPharmacist(const User&);
 	AccessLevel authenticate(string username, string password);
 

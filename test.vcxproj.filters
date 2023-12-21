@@ -4,8 +4,13 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="tests\tests.cpp" />
     <ClCompile Include="src\database.cpp" />
+    <ClCompile Include="src\user.cpp" />
+    <ClCompile Include="src\userDatabase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\database.h" />
+    <ClInclude Include="include\user.h" />
+    <ClInclude Include="include\userDatabase.h" />
+    <ClInclude Include="include\accessLevel.h" />
   </ItemGroup>
 </Project>

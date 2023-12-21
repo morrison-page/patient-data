@@ -26,6 +26,9 @@ Database::~Database()
     delete conn;
 };
 
+
+// Class Functions
+
 inline bool Database::connect()
 {
 	// Grab Database Driver and Connect
@@ -42,7 +45,7 @@ inline bool Database::connect()
 
 bool Database::createDatabase()
 {
-	if (connect())
+    if (connect())
     {
         // Create statement Obj
         stmt = conn->createStatement();
@@ -107,15 +110,13 @@ bool Database::createDatabase()
         stmt->execute(createSmokingTable);
 
         return true;
-	};
-
-    delete stmt;
-    delete conn;
-
-	return false;
+    }
+ 
+    return false;
 };
 
-// Error Handling
+// Utility Functions
+
 void Database::error(const string query)
 {
     connect();

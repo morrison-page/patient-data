@@ -15,6 +15,11 @@ void UserDatabase::createDoctor(const User& doctor)
     users.push_back(doctor);
 }
 
+void UserDatabase::createNurse(const User& nurse)
+{
+    users.push_back(nurse);
+}
+
 void UserDatabase::createPharmacist(const User& pharmacist)
 {
     users.push_back(pharmacist);
