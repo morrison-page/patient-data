@@ -75,11 +75,11 @@ int main()
                 // TODO: Authenticate user
                 if (1 == 1) // if AUTH == TRUE
                 {
-                    cout << "1 - View Patient Details";
-                    cout << "2 - View Patient Treatment & Cost";
-                    cout << "3 - View Data Analytics";
-                    cout << "4 - Change Patient Medication";
-                    cout << "5 - Exit";
+                    cout << "1 - View Patient Details\n";
+                    cout << "2 - View Patient Treatment & Cost\n";
+                    cout << "3 - View Data Analytics\n";
+                    cout << "4 - Change Patient Medication\n";
+                    cout << "5 - Exit\n\n";
                     cin >> choice;
 
                     switch (choice)
@@ -101,7 +101,42 @@ int main()
                 // TODO: Authenticate user
                 if (1 == 1) // if AUTH == TRUE
                 {
-                    // TODO: View patient details
+                    cout << "1 - View Patient Details\n";
+                    cout << "2 - View Patient Treatment & Cost\n";
+                    cout << "3 - View Data Analytics\n";
+                    cout << "4 - Change Patient Medication\n";
+                    cout << "5 - Prescriptions and Treatments\n";
+                    cout << "6 - Exit\n\n";
+                    cin >> choice;
+
+                    switch (choice)
+                    {
+                    case 1:
+                        // TODO: View Patient Details
+                    case 2:
+                        // TODO: View Patient Treatment & Cost
+                    case 3:
+                        // TODO: Output Data Analytics
+                    case 4:
+                        // TODO: Change Patient Medication
+                    case 5:
+                        cout << "1 - View\n";
+                        cout << "2 - Change\n";
+                        cout << "3 - Exit\n\n";
+                        cin >> choice;
+
+                        switch (choice)
+                        {
+                        case 1:
+                            // TODO: View Treatments
+                        case 2:
+                            // TODO: Change Treatments
+                        case 3:
+                            exit(0);
+                        }
+                    case 6:
+                        exit(0);
+                    }
                 }
             case 4:
                 exit(0);
