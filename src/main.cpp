@@ -31,6 +31,7 @@ int main()
             cout << "2 - Register\n";
             cout << "3 - Exit\n\n";
             cin >> choice;
+            cout << endl;
             switch (choice)
             {
             // Login
@@ -43,6 +44,7 @@ int main()
                     cout << "2 - View Treatment & Cost\n";
                     cout << "3 - Exit\n\n";
                     cin >> choice;
+                    cout << endl;
                     switch (choice)
                     {
                     case 1:
@@ -67,7 +69,7 @@ int main()
             cout << "3 - Pharmacist\n";
             cout << "4 - Exit\n\n";
             cin >> choice;
-
+            cout << endl;
             switch (choice)
             {
             // Doctor / Nurse
@@ -81,7 +83,7 @@ int main()
                     cout << "4 - Change Patient Medication\n";
                     cout << "5 - Exit\n\n";
                     cin >> choice;
-
+                    cout << endl;
                     switch (choice)
                     {
                     case 1:
@@ -108,7 +110,7 @@ int main()
                     cout << "5 - Prescriptions and Treatments\n";
                     cout << "6 - Exit\n\n";
                     cin >> choice;
-
+                    cout << endl;
                     switch (choice)
                     {
                     case 1:
@@ -124,7 +126,7 @@ int main()
                         cout << "2 - Change\n";
                         cout << "3 - Exit\n\n";
                         cin >> choice;
-
+                        cout << endl;
                         switch (choice)
                         {
                         case 1:
