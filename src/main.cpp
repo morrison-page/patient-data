@@ -4,6 +4,7 @@
 #include "database.h"
 #include "user.h"
 #include "userDatabase.h"
+#include "bcrypt.h";
 
 using namespace std;
 
