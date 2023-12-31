@@ -7,6 +7,7 @@ User::User(std::string username, std::string password, AccessLevel accessLevel)
 
 string User::getUsername() const 
 {
+
 	return username;
 }
 

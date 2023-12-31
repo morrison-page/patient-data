@@ -12,6 +12,9 @@ using namespace std;
 
 int main()
 {
+    // Instantiate Objects
+    Database db;
+
     // Main Program Loop
     while (true)
     {
@@ -33,7 +36,7 @@ int main()
             cout << endl;
             switch (choice)
             {
-            // Login
+                // Login
             case 1:
                 // TODO: Make this menu a function to use after user registers
                 // TODO: Authenticate User
@@ -54,20 +57,69 @@ int main()
                         exit(0);
                     }
                 }
-            // Register
+                // Register
             case 2:
+            {
+                /*
                 // TODO: Create Patient
-                string username, password;
+                string username, password, passwordCheck;
                 cout << "Username: ";
                 cin >> username;
                 cout << "Password: ";
                 cin >> password;
-                
+                cout << "Password again: ";
+                cin >> passwordCheck;
+                // TODO: add error checking
+
                 size_t hashedPassword = Hashing::hashPassword(password);
 
                 User User(username, hashedPassword, AccessLevel::PATIENT);
 
-                // TODO: Output the patient auth menu
+
+                string firstname, lastname;
+                cout << "Firstname: ";
+                cin >> firstname;
+                cout << "Lastname: ";
+                cin >> lastname;
+
+                char cancer, diabetes, smoking;
+                cout << "Do you have Cancer? ";
+                cin >> cancer;
+                if (cancer = 'y')
+                {
+                    int cancerStage;
+                    cout << "1 - Stage 1\n";
+                    cout << "2 - Stage 2\n";
+                    cout << "3 - Stage 3\n";
+                    cout << "4 - Stage 4\n\n";
+                    cin >> cancerStage;
+                }
+                cout << "Do you have Diabetes? ";
+                cin >> diabetes;
+                if (diabetes == 'y')
+                {
+                    int diabetesType;
+                    cout << "1 - Type 1\n";
+                    cout << "2 - Type 2\n\n";
+                    cin >> diabetesType;
+                }
+                cout << "Do you smoke? ";
+                cin >> smoking;
+                if (smoking == 'y')
+                {
+                    int smokingQuantity;
+                    cout << "1 - 1 pack a month\n";
+                    cout << "2 - 1 pack a week\n";
+                    cout << "3 - 1 pack a day\n\n";
+                    cin >> smokingQuantity;
+                }
+                char previouslySmoked, previouslyCancerous;
+                cout << "Previously had Cancer: ";
+                cin >> previouslyCancerous;
+                cout << "Previously Smoked: ";
+                cin >> previouslySmoked;
+                */
+            }
             case 3:
                 exit(0);
             }

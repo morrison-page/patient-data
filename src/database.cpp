@@ -38,9 +38,8 @@ inline bool Database::connect()
     // Use this database for query exec
     conn->setSchema("ws344889_patient_data");
 
-	// Check for Successfull Connection
-	if (conn) return true;
-	return false;
+	// Return Connection status
+	return conn;
 };
 
 bool Database::createDatabase()
@@ -75,14 +74,17 @@ bool Database::createDatabase()
         const string createPatientsTable = "CREATE TABLE IF NOT EXISTS patients ("
             "patient_id INT PRIMARY KEY AUTO_INCREMENT,"
             "user_id INT NOT NULL,"
+            "first_name VARCHAR(255) NOT NULL,"
+            "last_name VARCHAR(255) NOT NULL,"
             "other_patient_info VARCHAR(255),"
             "FOREIGN KEY(user_id) REFERENCES users(user_id)"
             ");";
 
         const string createCancerTable = "CREATE TABLE IF NOT EXISTS cancer ("
             "cancer_id INT PRIMARY KEY AUTO_INCREMENT,"
-            "user_id INT NOT NULL,"
-            "cancer_stage INT NOT NULL"
+            "patient_id INT NOT NULL,"
+            "cancer_stage INT NOT NULL,"
+            "FOREIGN KEY(patient_id) REFERENCES patients(patient_id)"
             ");";
 
         const string createDiabetesTable = "CREATE TABLE IF NOT EXISTS diabetes ("
