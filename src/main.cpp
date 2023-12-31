@@ -1,19 +1,17 @@
+#include <functional>
 #include <iostream>
 #include <cstdlib>
 #include <string>
 #include "database.h"
+#include "hashing.h"
 #include "user.h"
+#include "accessLevel.h"
 #include "userDatabase.h"
-#include "bcrypt.h";
 
 using namespace std;
 
 int main()
 {
-    // Define Objects
-    Database Database;
-    UserDatabase UserDatabase;
-
     // Main Program Loop
     while (true)
     {
@@ -59,6 +57,16 @@ int main()
             // Register
             case 2:
                 // TODO: Create Patient
+                string username, password;
+                cout << "Username: ";
+                cin >> username;
+                cout << "Password: ";
+                cin >> password;
+                
+                size_t hashedPassword = Hashing::hashPassword(password);
+
+                User User(username, hashedPassword, AccessLevel::PATIENT);
+
                 // TODO: Output the patient auth menu
             case 3:
                 exit(0);

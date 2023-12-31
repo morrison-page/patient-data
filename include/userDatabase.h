@@ -8,6 +8,7 @@ public:
 	// Constructor
 	UserDatabase();
 
+	// Class Functions
 	void createPatient(const User&);
 	void createDoctor(const User&);
 	void createNurse(const User&);

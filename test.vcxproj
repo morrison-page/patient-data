@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\hashing.cpp" />
     <ClCompile Include="src\database.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\user.cpp" />
@@ -28,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="include\accessLevel.h" />
     <ClInclude Include="include\database.h" />
+    <ClInclude Include="include\hashing.h" />
     <ClInclude Include="include\user.h" />
     <ClInclude Include="include\userDatabase.h" />
   </ItemGroup>

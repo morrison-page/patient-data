@@ -6,11 +6,13 @@
     <ClCompile Include="src\database.cpp" />
     <ClCompile Include="src\user.cpp" />
     <ClCompile Include="src\userDatabase.cpp" />
+    <ClCompile Include="src\hashing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\database.h" />
     <ClInclude Include="include\user.h" />
     <ClInclude Include="include\userDatabase.h" />
     <ClInclude Include="include\accessLevel.h" />
+    <ClInclude Include="include\hashing.h" />
   </ItemGroup>
 </Project>
