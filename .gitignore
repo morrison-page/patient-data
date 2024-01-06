@@ -4,3 +4,6 @@
 
 # Visual Studio Stuff
 /.vs/
+
+# Visual Studio Code Stuff
+/.vscode/

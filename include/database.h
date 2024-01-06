@@ -8,6 +8,8 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
+#include "patient.h"
+
 using namespace std;
 
 class Database
@@ -21,6 +23,16 @@ public:
 	inline bool connect();
 	bool createDatabase();
 	void error(const string query);
+
+	// User Creation
+	
+	bool createPatient(const Patient& patient);
+
+	/*
+	bool createNurse(const Nurse& nurse);
+	bool createDoctor(const Doctor& doctor);
+	bool createPharmacist(const Pharmacist& pharmacist);
+	*/
 
 	// Data Fetch Functions
 

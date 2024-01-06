@@ -24,6 +24,7 @@ Database::~Database()
 {
     delete stmt;
     delete conn;
+    delete pstmt;
 };
 
 
@@ -76,7 +77,8 @@ bool Database::createDatabase()
             "user_id INT NOT NULL,"
             "first_name VARCHAR(255) NOT NULL,"
             "last_name VARCHAR(255) NOT NULL,"
-            "other_patient_info VARCHAR(255),"
+            "previously_cancerous BOOLEAN NOT NULL"
+            "previously_smoked BOOLEAN NOT NULL"
             "FOREIGN KEY(user_id) REFERENCES users(user_id)"
             ");";
 
@@ -116,6 +118,39 @@ bool Database::createDatabase()
  
     return false;
 };
+
+// User Creation
+
+bool Database::createPatient(const Patient& patient)
+{
+    if (connect())
+    {
+        // Insert patient data into user table
+        pstmt = conn->prepareStatement("INSERT INTO users ("
+            "username, password)"
+            "VALUES (?,?);");
+        pstmt->setString(1,patient.getUsername());
+        pstmt->setInt64(2, patient.getPassword());
+        pstmt->executeUpdate();
+        // Grab auto generated user id
+        stmt = conn->createStatement();
+        stmt->executeQuery("SELECT LAST_INSERT_ID();");
+        if (res->next())
+        {
+            // Insert patient data into patients table
+            int userId = res->getInt(1);
+            pstmt = conn->prepareStatement("INSERT INTO patients ("
+                "user_id, firstname, lastname,"
+                "previous_cancer, previous_smoker)"
+                "VALUES (? , ? , ? , ? , ? )");
+            pstmt->setInt(1, userId);
+            pstmt->setString(2, patient.getFirstname());
+            pstmt->setString(3, patient.getLastname());
+            pstmt->setBoolean(4, patient.getPreviouslyCancerous());
+            pstmt->setBoolean(5, patient.getPreviouslySmoked());
+        }  
+    }
+}
 
 // Utility Functions
 

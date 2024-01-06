@@ -8,16 +8,16 @@ class User
 {
 public:
 	// Constructor
-	User(string username, string password, AccessLevel accessLevel);
+	User(string username, size_t password, AccessLevel accessLevel);
 
 	// Class Functions
 	string getUsername() const;
-	string getPassword() const;
+	size_t getPassword() const;
 	AccessLevel getAccessLevel() const;
 
-private:
+protected:
 	// Class Properties
 	string username;
-	string password;
+	size_t password;
 	AccessLevel accessLevel;
 };

@@ -1,5 +1,4 @@
 #include <functional>
-#include <iostream>
 #include "hashing.h"
 
 using namespace std;

@@ -6,14 +6,14 @@
 #include "hashing.h"
 #include "user.h"
 #include "accessLevel.h"
-#include "userDatabase.h"
 
 using namespace std;
 
 int main()
 {
     // Instantiate Objects
-    Database db;
+    Database Database;
+    Hashing Hashing;
 
     // Main Program Loop
     while (true)
@@ -59,8 +59,7 @@ int main()
                 }
                 // Register
             case 2:
-            {
-                /*
+            {             
                 // TODO: Create Patient
                 string username, password, passwordCheck;
                 cout << "Username: ";
@@ -71,10 +70,7 @@ int main()
                 cin >> passwordCheck;
                 // TODO: add error checking
 
-                size_t hashedPassword = Hashing::hashPassword(password);
-
-                User User(username, hashedPassword, AccessLevel::PATIENT);
-
+                size_t hashedPassword = Hashing.hashPassword(password);
 
                 string firstname, lastname;
                 cout << "Firstname: ";
@@ -82,12 +78,13 @@ int main()
                 cout << "Lastname: ";
                 cin >> lastname;
 
-                char cancer, diabetes, smoking;
+                char hasCancer, hasDiabetes, isSmoker;
+                int diabetesType, cancerStage, smokingQuantity;
+                cout << "Please answer with 'y' or 'n'\n\n";
                 cout << "Do you have Cancer? ";
-                cin >> cancer;
-                if (cancer = 'y')
+                cin >> hasCancer;
+                if (hasCancer == 'y')
                 {
-                    int cancerStage;
                     cout << "1 - Stage 1\n";
                     cout << "2 - Stage 2\n";
                     cout << "3 - Stage 3\n";
@@ -95,30 +92,41 @@ int main()
                     cin >> cancerStage;
                 }
                 cout << "Do you have Diabetes? ";
-                cin >> diabetes;
-                if (diabetes == 'y')
+                cin >> hasDiabetes;
+                if (hasDiabetes == 'y')
                 {
-                    int diabetesType;
                     cout << "1 - Type 1\n";
                     cout << "2 - Type 2\n\n";
                     cin >> diabetesType;
                 }
                 cout << "Do you smoke? ";
-                cin >> smoking;
-                if (smoking == 'y')
+                cin >> isSmoker;
+                if (isSmoker == 'y')
                 {
-                    int smokingQuantity;
                     cout << "1 - 1 pack a month\n";
                     cout << "2 - 1 pack a week\n";
                     cout << "3 - 1 pack a day\n\n";
                     cin >> smokingQuantity;
                 }
-                char previouslySmoked, previouslyCancerous;
+                char hasSmoked, hadCancer;
                 cout << "Previously had Cancer: ";
-                cin >> previouslyCancerous;
+                cin >> hadCancer;
                 cout << "Previously Smoked: ";
-                cin >> previouslySmoked;
-                */
+                cin >> hasSmoked;
+                
+                bool cancer = (hasCancer == 'y');
+                bool diabetes = (hasDiabetes == 'y');
+                bool smoker = (isSmoker == 'y');
+                bool previouslyCancerous = (hadCancer == 'y');
+                bool previouslySmoked = (hasSmoked == 'y');
+
+                Patient Patient(username, hashedPassword, firstname, lastname,
+                    cancer, cancerStage,
+                    diabetes, diabetesType,
+                    smoker, smokingQuantity,
+                    previouslyCancerous, previouslySmoked);
+
+                //Database.createPatient(Patient);
             }
             case 3:
                 exit(0);

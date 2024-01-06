@@ -22,16 +22,16 @@
     <ClCompile Include="src\hashing.cpp" />
     <ClCompile Include="src\database.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\patient.cpp" />
     <ClCompile Include="src\user.cpp" />
-    <ClCompile Include="src\userDatabase.cpp" />
     <ClCompile Include="tests\tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\accessLevel.h" />
     <ClInclude Include="include\database.h" />
     <ClInclude Include="include\hashing.h" />
+    <ClInclude Include="include\patient.h" />
     <ClInclude Include="include\user.h" />
-    <ClInclude Include="include\userDatabase.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

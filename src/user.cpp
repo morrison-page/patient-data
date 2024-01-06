@@ -2,7 +2,7 @@
 
 using namespace std;
 
-User::User(std::string username, std::string password, AccessLevel accessLevel) 
+User::User(string username, size_t password, AccessLevel accessLevel) 
 	: username(username), password(password), accessLevel(accessLevel) {}
 
 string User::getUsername() const 
@@ -11,7 +11,7 @@ string User::getUsername() const
 	return username;
 }
 
-string User::getPassword() const 
+size_t User::getPassword() const 
 {
 	return password; 
 }
