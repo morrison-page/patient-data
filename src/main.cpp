@@ -77,6 +77,7 @@ int main()
                 cin >> firstname;
                 cout << "Lastname: ";
                 cin >> lastname;
+                cout << endl;
 
                 char hasCancer, hasDiabetes, isSmoker;
                 int diabetesType, cancerStage, smokingQuantity;
@@ -113,6 +114,7 @@ int main()
                 cin >> hadCancer;
                 cout << "Previously Smoked: ";
                 cin >> hasSmoked;
+                cout << endl;
                 
                 bool cancer = (hasCancer == 'y');
                 bool diabetes = (hasDiabetes == 'y');
@@ -126,7 +128,7 @@ int main()
                     smoker, smokingQuantity,
                     previouslyCancerous, previouslySmoked);
 
-                //Database.createPatient(Patient);
+                Database.createPatient(Patient);
             }
             case 3:
                 exit(0);

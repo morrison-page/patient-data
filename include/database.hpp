@@ -22,7 +22,7 @@ public:
 	// Class Functions
 	inline bool connect();
 	bool createDatabase();
-	void error(const string query);
+	void exception(const string query);
 
 	// User Creation
 	

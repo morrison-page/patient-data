@@ -3,7 +3,7 @@
 
 using namespace std;
 
-inline size_t Hashing::hashPassword(const string& password)
+size_t Hashing::hashPassword(const string& password)
 {
 	hash<string> strHash;
 	size_t hashedPassword = strHash(password);

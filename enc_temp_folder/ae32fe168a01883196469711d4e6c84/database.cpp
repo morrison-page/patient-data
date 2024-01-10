@@ -149,6 +149,10 @@ bool Database::createPatient(const Patient& patient)
             pstmt->setBoolean(4, patient.getPreviouslyCancerous());
             pstmt->setBoolean(5, patient.getPreviouslySmoked());
         }
+        else 
+        {
+            cout << "Help";
+        }
     }
 }
 
