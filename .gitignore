@@ -4,6 +4,7 @@
 
 # Visual Studio Stuff
 /.vs/
+/enc_temp_folder/
 
 # Visual Studio Code Stuff
 /.vscode/
