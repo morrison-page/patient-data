@@ -84,6 +84,7 @@ int main()
                 cout << "Please answer with 'y' or 'n'\n\n";
                 cout << "Do you have Cancer? ";
                 cin >> hasCancer;
+                cout << endl;
                 if (hasCancer == 'y')
                 {
                     cout << "1 - Stage 1\n";
@@ -94,6 +95,7 @@ int main()
                 }
                 cout << "Do you have Diabetes? ";
                 cin >> hasDiabetes;
+                cout << endl;
                 if (hasDiabetes == 'y')
                 {
                     cout << "1 - Type 1\n";
@@ -102,6 +104,7 @@ int main()
                 }
                 cout << "Do you smoke? ";
                 cin >> isSmoker;
+                cout << endl;
                 if (isSmoker == 'y')
                 {
                     cout << "1 - 1 pack a month\n";
