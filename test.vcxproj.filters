@@ -9,10 +9,10 @@
     <ClCompile Include="src\patient.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\database.h" />
-    <ClInclude Include="include\user.h" />
-    <ClInclude Include="include\accessLevel.h" />
-    <ClInclude Include="include\hashing.h" />
-    <ClInclude Include="include\patient.h" />
+    <ClInclude Include="include\database.hpp" />
+    <ClInclude Include="include\user.hpp" />
+    <ClInclude Include="include\accessLevel.hpp" />
+    <ClInclude Include="include\hashing.hpp" />
+    <ClInclude Include="include\patient.hpp" />
   </ItemGroup>
 </Project>
