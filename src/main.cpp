@@ -92,6 +92,7 @@ int main()
                     cout << "3 - Stage 3\n";
                     cout << "4 - Stage 4\n\n";
                     cin >> cancerStage;
+                    cout << endl;
                 }
                 cout << "Do you have Diabetes? ";
                 cin >> hasDiabetes;
@@ -101,6 +102,7 @@ int main()
                     cout << "1 - Type 1\n";
                     cout << "2 - Type 2\n\n";
                     cin >> diabetesType;
+                    cout << endl;
                 }
                 cout << "Do you smoke? ";
                 cin >> isSmoker;
@@ -111,6 +113,7 @@ int main()
                     cout << "2 - 1 pack a week\n";
                     cout << "3 - 1 pack a day\n\n";
                     cin >> smokingQuantity;
+                    cout << endl;
                 }
                 char hasSmoked, hadCancer;
                 cout << "Previously had Cancer: ";

@@ -135,20 +135,22 @@ bool Database::createPatient(const Patient& patient)
         // Grab auto generated user id
         stmt = conn->createStatement();
         res = stmt->executeQuery("SELECT LAST_INSERT_ID();");
-        cout << res;
         if (res->next())
         {
             // Insert patient data into patients table
             int userId = res->getInt(1);
             pstmt = conn->prepareStatement("INSERT INTO patients ("
-                "user_id, firstname, lastname,"
-                "previous_cancerous, previous_smoked)"
-                "VALUES (? , ? , ? , ? , ? )");
+                "user_id, first_name, last_name,"
+                "previously_cancerous, previously_smoked)"
+                "VALUES (? , ? , ? , ? , ?)");
             pstmt->setInt(1, userId);
             pstmt->setString(2, patient.getFirstname());
             pstmt->setString(3, patient.getLastname());
             pstmt->setBoolean(4, patient.getPreviouslyCancerous());
             pstmt->setBoolean(5, patient.getPreviouslySmoked());
+            pstmt->executeUpdate();
+            
+            // TODO: Insert data into cancer, diabetes, smoking and user_roles
         }
     }
 }
