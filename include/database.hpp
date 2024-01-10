@@ -8,7 +8,7 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-#include "patient.h"
+#include "patient.hpp"
 
 using namespace std;
 

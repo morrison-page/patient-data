@@ -10,7 +10,7 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-#include "database.h"
+#include "database.hpp"
 
 using namespace std;
 

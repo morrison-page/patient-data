@@ -2,10 +2,10 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
-#include "database.h"
-#include "hashing.h"
-#include "user.h"
-#include "accessLevel.h"
+#include "database.hpp"
+#include "hashing.hpp"
+#include "user.hpp"
+#include "accessLevel.hpp"
 
 using namespace std;
 

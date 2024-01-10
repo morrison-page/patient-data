@@ -1,6 +1,6 @@
-#include "database.h"
-#include "patient.h"
-#include "user.h"
+#include "database.hpp"
+#include "patient.hpp"
+#include "user.hpp"
 
 using namespace std;
 
