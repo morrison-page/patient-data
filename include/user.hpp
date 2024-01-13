@@ -11,6 +11,8 @@ public:
 	User(string username, size_t password, AccessLevel accessLevel);
 
 	// Class Functions
+
+	// Getters
 	string getUsername() const;
 	size_t getPassword() const;
 	AccessLevel getAccessLevel() const;

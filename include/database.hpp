@@ -28,11 +28,14 @@ public:
 	
 	bool createPatient(const Patient& patient);
 
-	/*
-	bool createNurse(const Nurse& nurse);
 	bool createDoctor(const Doctor& doctor);
+
 	bool createPharmacist(const Pharmacist& pharmacist);
-	*/
+
+	// Authentication
+
+	bool authenticateUser(const string username, const string password);
+	
 
 	// Data Fetch Functions
 

@@ -16,5 +16,7 @@
     <ClInclude Include="include\hashing.hpp" />
     <ClInclude Include="include\patient.hpp" />
     <ClInclude Include="include\utils.hpp" />
+    <ClInclude Include="include\doctor.hpp" />
+    <ClInclude Include="include\pharmacist.hpp" />
   </ItemGroup>
 </Project>

@@ -175,6 +175,17 @@ bool Database::createPatient(const Patient& patient)
     }
 }
 
+bool Database::createDoctor(const Doctor& doctor);
+
+bool Database::createPharmacist(const Pharmacist& pharmacist);
+
+// Authentication
+
+bool authenticateUser(const string username, const string password)
+{
+    // TODO: Authenticate user
+}
+
 // Utility Functions
 
 void Database::exception(const string query)
