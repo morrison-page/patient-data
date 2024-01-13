@@ -11,7 +11,7 @@ size_t Hashing::hashPassword(const string& password)
 	return hashedPassword;
 }
 
-inline bool Hashing::verifyPassword(const string& password, size_t dbHashedPassword)
+bool Hashing::verifyPassword(const string& password, size_t dbHashedPassword)
 {
 	size_t hashedPassword = hashPassword(password);
 

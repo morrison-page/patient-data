@@ -14,7 +14,6 @@ int main()
 {
     // Instantiate Objects
     Database Database;
-    Hashing Hashing;
 
     // Main Program Loop
     while (true)
@@ -66,7 +65,7 @@ int main()
                 cin >> username;
                 password = Utils::checkPasswordMatch();
                 
-                size_t hashedPassword = Hashing.hashPassword(password);
+                size_t hashedPassword = Hashing::hashPassword(password);
 
                 string firstname, lastname;
                 cout << "Firstname: ";
