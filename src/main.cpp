@@ -2,10 +2,11 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include "accessLevel.hpp"
 #include "database.hpp"
 #include "hashing.hpp"
+#include "utils.hpp"
 #include "user.hpp"
-#include "accessLevel.hpp"
 
 using namespace std;
 
@@ -60,16 +61,11 @@ int main()
                 // Register
             case 2:
             {             
-                // TODO: Create Patient
-                string username, password, passwordCheck;
+                string username, password;
                 cout << "Username: ";
                 cin >> username;
-                cout << "Password: ";
-                cin >> password;
-                cout << "Password again: ";
-                cin >> passwordCheck;
-                // TODO: add error checking
-
+                password = Utils::checkPasswordMatch();
+                
                 size_t hashedPassword = Hashing.hashPassword(password);
 
                 string firstname, lastname;

@@ -11,6 +11,7 @@
 #include <cppconn/prepared_statement.h>
 
 #include "database.hpp"
+#include "utils.hpp"
 
 using namespace std;
 
@@ -57,21 +58,6 @@ bool Database::createDatabase()
             "password VARCHAR(255) NOT NULL"
             ");";
 
-        const string createRolesTable = "CREATE TABLE IF NOT EXISTS roles ("
-            "role_id INT PRIMARY KEY,"
-            "role_name VARCHAR(255) NOT NULL"
-            ");";
-
-        const string createRolesData = "INSERT IGNORE INTO roles (role_id, role_name) VALUES (1, 'patient'), (2, 'doctor'), (3, 'pharmacist');";
-
-        const string createUserRolesTable = "CREATE TABLE IF NOT EXISTS user_roles ("
-            "user_id INT NOT NULL,"
-            "role_id INT NOT NULL,"
-            "PRIMARY KEY(user_id, role_id),"
-            "FOREIGN KEY(user_id) REFERENCES users(user_id),"
-            "FOREIGN KEY(role_id) REFERENCES roles(role_id)"
-            ");";
-
         const string createPatientsTable = "CREATE TABLE IF NOT EXISTS patients ("
             "patient_id INT PRIMARY KEY AUTO_INCREMENT,"
             "user_id INT NOT NULL,"
@@ -105,9 +91,6 @@ bool Database::createDatabase()
 
         // Exec all SQL to create tables
         exception(createUsersTable);
-        exception(createRolesTable);
-        exception(createRolesData);
-        exception(createUserRolesTable);
         exception(createPatientsTable);
         exception(createCancerTable);
         exception(createDiabetesTable);
@@ -127,10 +110,11 @@ bool Database::createPatient(const Patient& patient)
     {
         // Insert patient data into user table
         pstmt = conn->prepareStatement("INSERT INTO users ("
-            "username, password)"
-            "VALUES (?,?);");
+            "username, password, access_level)"
+            "VALUES (?, ?, ?);");
         pstmt->setString(1,patient.getUsername());
         pstmt->setInt64(2, patient.getPassword());
+        pstmt->setString(3, Utils::accessLevelToString(patient.getAccessLevel()));
         pstmt->executeUpdate();
         // Grab auto generated user id
         stmt = conn->createStatement();
@@ -149,8 +133,44 @@ bool Database::createPatient(const Patient& patient)
             pstmt->setBoolean(4, patient.getPreviouslyCancerous());
             pstmt->setBoolean(5, patient.getPreviouslySmoked());
             pstmt->executeUpdate();
-            
-            // TODO: Insert data into cancer, diabetes, smoking and user_roles
+
+            // Grab Inserted ID that auto incriments
+            stmt = conn->createStatement();
+            res = stmt->executeQuery("SELECT LAST_INSERT_ID();");
+            if (res->next())
+            {
+                int patientId = res->getInt(1);
+                // If they have cancer insert data
+                if (patient.getCancer())
+                {
+                    pstmt = conn->prepareStatement("INSERT INTO cancer ("
+                        "patient_id, cancer_stage)"
+                        "VALUES (?, ?)");
+                    pstmt->setInt(1, patientId);
+                    pstmt->setInt(2, patient.getCancerStage());
+                    pstmt->executeUpdate();
+                }
+                // If they have diabetes insert data
+                if (patient.getDiabetes())
+                {
+                    pstmt = conn->prepareStatement("INSERT INTO diabetes ("
+                        "patient_id, diabetes_type)"
+                        "VALUES (?, ?)");
+                    pstmt->setInt(1, patientId);
+                    pstmt->setInt(2, patient.getDiabetesType());
+                    pstmt->executeUpdate();
+                }
+                // If they smoke insert data
+                if (patient.getSmoker())
+                {
+                    pstmt = conn->prepareStatement("INSERT INTO smoking ("
+                        "patient_id, pack_frequency)"
+                        "VALUES (?, ?)");
+                    pstmt->setInt(1, patientId);
+                    pstmt->setInt(2, patient.getSmokingQuantity());
+                    pstmt->executeUpdate();
+                }
+            }
         }
     }
 }
@@ -161,7 +181,6 @@ void Database::exception(const string query)
 {
     connect();
 
-    // Create statement Obj
     stmt = conn->createStatement();
 
     try {
