@@ -24,4 +24,4 @@ int Patient::getDiabetesType() const { return diabetesType; }
 bool Patient::getSmoker() const { return smoker; }
 int Patient::getSmokingQuantity() const { return smokingQuantity; }
 bool Patient::getPreviouslyCancerous() const { return previouslyCancerous; }
-bool Patient::getPreviouslySmoked() const { return previouslySmoked;
+bool Patient::getPreviouslySmoked() const { return previouslySmoked; }

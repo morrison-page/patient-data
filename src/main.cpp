@@ -39,8 +39,7 @@ int main()
                 // Login
             case 1:
                 // TODO: Make this menu a function to use after user registers
-                // TODO: Authenticate User
-                if (1 == 1) // if AUTH == TRUE
+                if (Database.authenticateUser())
                 {
                     cout << "1 - View Personal Detail\n";
                     cout << "2 - View Treatment & Cost\n";
@@ -56,6 +55,10 @@ int main()
                     case 3:
                         exit(0);
                     }
+                }
+                else
+                {
+                    cerr << "sdfhfsdklfsiodfih!(£$^£48";
                 }
                 // Register
             case 2:
