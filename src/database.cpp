@@ -11,6 +11,7 @@
 #include <cppconn/prepared_statement.h>
 
 #include "database.hpp"
+#include "hashing.hpp"
 #include "utils.hpp"
 
 using namespace std;
@@ -180,16 +181,42 @@ bool Database::createPatient(const Patient& patient)
 
 // Authentication
 
-bool authenticateUser(const string username, const string password)
+bool Database::authenticateUser()
 {
     // TODO: Authenticate user
-    // TODO: Add Access Level to User Object
+    
+    // Compare Both if gd 
+
+    string username, password;
+    cout << "Username: ";
+    cin >> username;
+    password = Utils::checkPasswordMatch();
+    
+    size_t hashedPassword = Hashing::hashPassword(password);
 
     // Pull Username & Password from DB
-    // Compare Both if gd 
-    // If not reccursion
+    if (connect())
+    {
+        pstmt = conn->prepareStatement("SELECT * FROM users WHERE username = ?");
+        pstmt->setString(1, username);
+        res = pstmt->executeQuery();
+        if (res->next())
+        {
+            string dbUsername = res->getString(1);
+            size_t dbHashedPassword = res->getInt64(2);
+            // If not use reccursion
+            if (username == dbUsername && hashedPassword == dbHashedPassword)
+            {
+                return true;
+            }
+            else
+            {
+                authenticateUser();
+            }
+        }
+    }
 
-
+    
 }
 
 // Utility Functions
