@@ -183,10 +183,13 @@ bool Database::createPatient(const Patient& patient)
 bool authenticateUser(const string username, const string password)
 {
     // TODO: Authenticate user
+    // TODO: Add Access Level to User Object
 
     // Pull Username & Password from DB
     // Compare Both if gd 
     // If not reccursion
+
+
 }
 
 // Utility Functions
