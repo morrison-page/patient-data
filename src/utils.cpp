@@ -4,7 +4,7 @@
 
 using namespace std;
 
-inline string Utils::accessLevelToString(AccessLevel accessLevel)
+string Utils::accessLevelToString(AccessLevel accessLevel)
 {
     switch (accessLevel) {
     case AccessLevel::PATIENT:

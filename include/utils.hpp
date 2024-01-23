@@ -7,7 +7,7 @@ using namespace std;
 class Utils
 {
 public:
-	static inline string accessLevelToString(AccessLevel accessLevel);
+	static string accessLevelToString(AccessLevel accessLevel);
 	static string checkPasswordMatch();
 };
 

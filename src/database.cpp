@@ -56,7 +56,7 @@ bool Database::createDatabase()
         const string createUsersTable = "CREATE TABLE IF NOT EXISTS users ("
             "user_id INT PRIMARY KEY AUTO_INCREMENT,"
             "username VARCHAR(255) NOT NULL,"
-            "password VARCHAR(255) NOT NULL"
+            "password BIGINT(255) NOT NULL"
             ");";
 
         const string createPatientsTable = "CREATE TABLE IF NOT EXISTS patients ("
@@ -184,39 +184,47 @@ bool Database::createPatient(const Patient& patient)
 bool Database::authenticateUser()
 {
     // TODO: Authenticate user
-    
-    // Compare Both if gd 
-
     string username, password;
-    cout << "Username: ";
-    cin >> username;
-    password = Utils::checkPasswordMatch();
-    
-    size_t hashedPassword = Hashing::hashPassword(password);
-
-    // Pull Username & Password from DB
-    if (connect())
+    while (true)
     {
-        pstmt = conn->prepareStatement("SELECT * FROM users WHERE username = ?");
-        pstmt->setString(1, username);
-        res = pstmt->executeQuery();
-        if (res->next())
+        cout << "Username: ";
+        cin >> username;
+        cout << "Password: ";
+        cin >> password;
+
+        size_t hashedPassword = Hashing::hashPassword(password);
+
+        // Pull Username & Password from DB
+        if (connect())
         {
-            string dbUsername = res->getString(1);
-            size_t dbHashedPassword = res->getInt64(2);
-            // If not use reccursion
-            if (username == dbUsername && hashedPassword == dbHashedPassword)
+            pstmt = conn->prepareStatement("SELECT * FROM users WHERE username = ?");
+            pstmt->setString(1, username);
+            res = pstmt->executeQuery();
+            if (res->next())
             {
-                return true;
+                string dbUsername = res->getString(1);
+                size_t dbHashedPassword = res->getInt64(2);
+                // If not use reccursion
+                if (username == dbUsername && hashedPassword == dbHashedPassword)
+                {
+                    return true;
+                }
+                else
+                {
+                    cout << "Username or Password Incorrect. Try Again: \n\n";
+                }
             }
             else
             {
-                authenticateUser();
+                cout << "Username or Password Incorrect. Try Again: \n\n";
             }
         }
+        else
+        {
+            cerr << "Failed to Connect to the Databse :(";
+            return false;
+        }
     }
-
-    
 }
 
 // Utility Functions

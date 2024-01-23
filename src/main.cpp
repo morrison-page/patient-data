@@ -59,6 +59,7 @@ int main()
                 else
                 {
                     cerr << "sdfhfsdklfsiodfih!(£$^£48";
+                    exit(1);
                 }
                 // Register
             case 2:
