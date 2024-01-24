@@ -1,4 +1,3 @@
-#include "database.hpp"
 #include "patient.hpp"
 #include "user.hpp"
 

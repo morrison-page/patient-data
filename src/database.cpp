@@ -201,7 +201,6 @@ bool Database::authenticateUser()
             {
                 string dbUsername = res->getString(2);
                 size_t dbHashedPassword = res->getInt64(3);
-                // If not use reccursion
                 if (username == dbUsername && hashedPassword == dbHashedPassword)
                 {
                     // TODO: create a user object with all info / find a way to use global uid
@@ -225,6 +224,18 @@ bool Database::authenticateUser()
         }
     }
 }
+
+Patient Database::initialisePatient(int userId)
+{
+    if (connect())
+    {
+        // TODO: get all patient details
+
+    }
+};
+
+//Doctor initialiseDoctor();
+//Pharmacist initialisePharmacist();
 
 // Utility Functions
 

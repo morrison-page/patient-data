@@ -35,6 +35,9 @@ public:
 
 	bool authenticateUser();
 	
+	Patient initialisePatient(int userId);
+	//Doctor initialiseDoctor();
+	//Pharmacist initialisePharmacist();
 
 	// Data Fetch Functions
 

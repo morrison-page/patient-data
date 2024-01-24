@@ -51,16 +51,13 @@ int main()
                     {
                     case 1:
                         // TODO: Output Patient Treatment
+
                     case 2:
                         // TODO: Output Patient Treatment Costs
+
                     case 3:
                         exit(0);
                     }
-                }
-                else
-                {
-                    cerr << "sdfhfsdklfsiodfih!(£$^£48";
-                    exit(1);
                 }
                 // Register
             case 2:
@@ -151,8 +148,7 @@ int main()
             {
             // Doctor / Nurse
             case 1 || 2:
-                // TODO: Authenticate user
-                if (1 == 1) // if AUTH == TRUE
+                if (Database.authenticateUser())
                 {
                     cout << "1 - View Patient Details\n";
                     cout << "2 - View Patient Treatment & Cost\n";
@@ -177,8 +173,7 @@ int main()
                 }
             // Pharmacist
             case 3:
-                // TODO: Authenticate user
-                if (1 == 1) // if AUTH == TRUE
+                if (Database.authenticateUser())
                 {
                     cout << "1 - View Patient Details\n";
                     cout << "2 - View Patient Treatment & Cost\n";

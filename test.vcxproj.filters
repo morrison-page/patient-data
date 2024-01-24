@@ -8,6 +8,7 @@
     <ClCompile Include="src\hashing.cpp" />
     <ClCompile Include="src\patient.cpp" />
     <ClCompile Include="src\utils.cpp" />
+    <ClCompile Include="src\doctor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\database.hpp" />

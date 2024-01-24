@@ -19,6 +19,7 @@ public:
 
 protected:
 	// Class Properties
+	int userId;
 	string username;
 	size_t password;
 	AccessLevel accessLevel;
