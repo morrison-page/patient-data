@@ -183,7 +183,6 @@ bool Database::createPatient(const Patient& patient)
 
 bool Database::authenticateUser()
 {
-    // TODO: Authenticate user
     string username, password;
     while (true)
     {
@@ -191,10 +190,8 @@ bool Database::authenticateUser()
         cin >> username;
         cout << "Password: ";
         cin >> password;
-
         size_t hashedPassword = Hashing::hashPassword(password);
 
-        // Pull Username & Password from DB
         if (connect())
         {
             pstmt = conn->prepareStatement("SELECT * FROM users WHERE username = ?");
@@ -202,11 +199,13 @@ bool Database::authenticateUser()
             res = pstmt->executeQuery();
             if (res->next())
             {
-                string dbUsername = res->getString(1);
-                size_t dbHashedPassword = res->getInt64(2);
+                string dbUsername = res->getString(2);
+                size_t dbHashedPassword = res->getInt64(3);
                 // If not use reccursion
                 if (username == dbUsername && hashedPassword == dbHashedPassword)
                 {
+                    // TODO: create a user object with all info / find a way to use global uid
+                    // TODO: check access level
                     return true;
                 }
                 else

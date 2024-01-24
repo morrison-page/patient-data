@@ -41,6 +41,7 @@ int main()
                 // TODO: Make this menu a function to use after user registers
                 if (Database.authenticateUser())
                 {
+                    cout << endl;
                     cout << "1 - View Personal Detail\n";
                     cout << "2 - View Treatment & Cost\n";
                     cout << "3 - Exit\n\n";
