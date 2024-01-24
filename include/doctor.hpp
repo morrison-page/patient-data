@@ -10,9 +10,6 @@ public:
 
     // Getters and Setters
     int getUserId() const;
-    string getUsername() const;
-    AccessLevel getAccessLevel() const;
-
 private:
     int userId;
     string username;
