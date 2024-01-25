@@ -194,7 +194,7 @@ bool Database::authenticateUser()
 
         if (connect())
         {
-            pstmt = conn->prepareStatement("SELECT * FROM users WHERE username = ?");
+            pstmt = conn->prepareStatement("SELECT * FROM users WHERE username = ?;");
             pstmt->setString(1, username);
             res = pstmt->executeQuery();
             if (res->next())
@@ -230,7 +230,25 @@ Patient Database::initialisePatient(int userId)
     if (connect())
     {
         // TODO: get all patient details
+        pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
+        pstmt->setInt(1, userId);
+        res = pstmt->executeQuery();
+        if (res->next())
+        {
+            int userId = res->getInt(1);
+            string username = res->getString(2);
+            size_t password = res->getInt64(3);
+            AccessLevel accessLevel;
+           
+            pstmt = conn->prepareStatement("SELECT * FROM patients WHERE userId = ?;");
+            pstmt->setInt(1, userId);
+            res = pstmt->executeQuery();
 
+            if (res->next())
+            {
+                
+            }
+        }
     }
 };
 
