@@ -262,6 +262,7 @@ Patient Database::initialisePatient(int userId)
         res = pstmt->executeQuery();
         if (res->next())
         {
+            // TODO: Check user perms
             int userId = res->getInt(1);
             string username = res->getString(2);
             size_t password = res->getInt64(3);
@@ -281,12 +282,12 @@ Patient Database::initialisePatient(int userId)
 
 Doctor Database::initialiseDoctor(int userId)
 {
-    // TODO: get all user details
     pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
     pstmt->setInt(1, userId);
     res = pstmt->executeQuery();
     if (res->next())
     {
+        // TODO: Check user perms
         int userId = res->getInt(1);
         string username = res->getString(2);
         AccessLevel accessLevel;
@@ -299,12 +300,12 @@ Doctor Database::initialiseDoctor(int userId)
 
 Pharmacist Database::initialisePharmacist(int userId)
 {
-    // TODO: get all patient details
     pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
     pstmt->setInt(1, userId);
     res = pstmt->executeQuery();
     if (res->next())
     {
+        // TODO: Check user perms
         int userId = res->getInt(1);
         string username = res->getString(2);
         AccessLevel accessLevel;

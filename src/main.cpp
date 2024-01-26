@@ -150,6 +150,8 @@ int main()
             case 1 || 2:
                 if (Database.authenticateUser())
                 {
+                    // TODO: Work out how to get UID to function
+                    Doctor Doctor = Database.initialiseDoctor(userId);
                     cout << "1 - View Patient Details\n";
                     cout << "2 - View Patient Treatment & Cost\n";
                     cout << "3 - View Data Analytics\n";
@@ -175,6 +177,8 @@ int main()
             case 3:
                 if (Database.authenticateUser())
                 {
+                    // TODO: Work out how to get UID to function
+                    Pharmacist Pharmacist = Database.initialisePharmacist(userId);
                     cout << "1 - View Patient Details\n";
                     cout << "2 - View Patient Treatment & Cost\n";
                     cout << "3 - View Data Analytics\n";
