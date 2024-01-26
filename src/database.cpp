@@ -10,8 +10,11 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
+#include "pharmacist.hpp"
 #include "database.hpp"
 #include "hashing.hpp"
+#include "patient.hpp"
+#include "doctor.hpp"
 #include "utils.hpp"
 
 using namespace std;
@@ -176,8 +179,32 @@ bool Database::createPatient(const Patient& patient)
     }
 }
 
-//bool Database::createDoctor(const Doctor& doctor);
-//bool Database::createPharmacist(const Pharmacist& pharmacist);
+bool Database::createDoctor(const Doctor& doctor)
+{
+    if (connect())
+    {
+        // Insert patient data into user table
+        pstmt = conn->prepareStatement("INSERT INTO users ("
+            "username, password, access_level)"
+            "VALUES (?, ?, ?);");
+        pstmt->setString(1, doctor.getUsername());
+        pstmt->setInt64(2, doctor.getPassword());
+        pstmt->setString(3, Utils::accessLevelToString(doctor.getAccessLevel()));
+        pstmt->executeUpdate();
+    }
+}
+
+bool Database::createPharmacist(const Pharmacist& pharmacist)
+{
+    // Insert patient data into user table
+    pstmt = conn->prepareStatement("INSERT INTO users ("
+        "username, password, access_level)"
+        "VALUES (?, ?, ?);");
+    pstmt->setString(1, pharmacist.getUsername());
+    pstmt->setInt64(2, pharmacist.getPassword());
+    pstmt->setString(3, Utils::accessLevelToString(pharmacist.getAccessLevel()));
+    pstmt->executeUpdate();
+}
 
 // Authentication
 
@@ -252,8 +279,41 @@ Patient Database::initialisePatient(int userId)
     }
 };
 
-//Doctor initialiseDoctor();
-//Pharmacist initialisePharmacist();
+Doctor Database::initialiseDoctor(int userId)
+{
+    // TODO: get all user details
+    pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
+    pstmt->setInt(1, userId);
+    res = pstmt->executeQuery();
+    if (res->next())
+    {
+        int userId = res->getInt(1);
+        string username = res->getString(2);
+        AccessLevel accessLevel;
+
+        pstmt = conn->prepareStatement("SELECT * FROM patients WHERE userId = ?;");
+        pstmt->setInt(1, userId);
+        res = pstmt->executeQuery();
+    }
+}
+
+Pharmacist Database::initialisePharmacist(int userId)
+{
+    // TODO: get all patient details
+    pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
+    pstmt->setInt(1, userId);
+    res = pstmt->executeQuery();
+    if (res->next())
+    {
+        int userId = res->getInt(1);
+        string username = res->getString(2);
+        AccessLevel accessLevel;
+
+        pstmt = conn->prepareStatement("SELECT * FROM patients WHERE userId = ?;");
+        pstmt->setInt(1, userId);
+        res = pstmt->executeQuery();
+    }
+}
 
 // Utility Functions
 
