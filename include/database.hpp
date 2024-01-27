@@ -36,7 +36,7 @@ public:
 
 	// Authentication
 
-	bool authenticateUser();
+	int authenticateUser();
 
 	Patient initialisePatient(int userId);
 	

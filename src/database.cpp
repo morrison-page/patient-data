@@ -208,7 +208,7 @@ bool Database::createPharmacist(const Pharmacist& pharmacist)
 
 // Authentication
 
-bool Database::authenticateUser()
+int Database::authenticateUser()
 {
     string username, password;
     while (true)
@@ -226,13 +226,18 @@ bool Database::authenticateUser()
             res = pstmt->executeQuery();
             if (res->next())
             {
+                int userId = res->getInt(1);
                 string dbUsername = res->getString(2);
                 size_t dbHashedPassword = res->getInt64(3);
+                string accessLevel = res->getString(4);
                 if (username == dbUsername && hashedPassword == dbHashedPassword)
                 {
                     // TODO: create a user object with all info / find a way to use global uid
                     // TODO: check access level
-                    return true;
+                    if (accessLevel == "PATIENT") 
+                    {
+                        return userId;
+                    }
                 }
                 else
                 {
@@ -247,7 +252,7 @@ bool Database::authenticateUser()
         else
         {
             cerr << "Failed to Connect to the Databse :(";
-            return false;
+            return -1;
         }
     }
 }
