@@ -18,6 +18,12 @@ string Utils::accessLevelToString(AccessLevel accessLevel)
     }
 }
 
+// TODO: Complete This
+AccessLevel Utils::checkPermissions(string accessLevel)
+{
+    if (accessLevel == "PATIENT") { return accessLevelToString(accessLevel) }
+}
+
 string Utils::checkPasswordMatch() 
 {
     string password, passwordCheck;

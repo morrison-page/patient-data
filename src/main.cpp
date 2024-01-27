@@ -39,8 +39,9 @@ int main()
                 // Login
             case 1:
                 // TODO: Make this menu a function to use after user registers
-                if (Database.authenticateUser())
+                if (Database.authenticateUser() != -1)
                 {
+                    init
                     cout << endl;
                     cout << "1 - View Personal Detail\n";
                     cout << "2 - View Treatment & Cost\n";
@@ -148,7 +149,7 @@ int main()
             {
             // Doctor / Nurse
             case 1 || 2:
-                if (Database.authenticateUser())
+                if (Database.authenticateUser() != -1)
                 {
                     // TODO: Work out how to get UID to function
                     Doctor Doctor = Database.initialiseDoctor(userId);
@@ -175,7 +176,7 @@ int main()
                 }
             // Pharmacist
             case 3:
-                if (Database.authenticateUser())
+                if (Database.authenticateUser() != -1)
                 {
                     // TODO: Work out how to get UID to function
                     Pharmacist Pharmacist = Database.initialisePharmacist(userId);
