@@ -39,9 +39,10 @@ int main()
                 // Login
             case 1:
                 // TODO: Make this menu a function to use after user registers
-                if (Database.authenticateUser() != -1)
+                int userId = Database.authenticateUser();
+                if (userId != -1)
                 {
-                    init
+                    Patient Patient = Database.initialisePatient(userId);
                     cout << endl;
                     cout << "1 - View Personal Detail\n";
                     cout << "2 - View Treatment & Cost\n";
@@ -52,10 +53,37 @@ int main()
                     {
                     case 1:
                         // TODO: Output Patient Treatment
+                        if (Patient.getCancer() == true)
+                        {
+                            cout << "Cancer Treatment: " << Patient.cancerTreatment();
+                            cout << "Length: " << Patient.cancerTreatmentLength();
+                        }
+                        else if (Patient.getDiabetes() == true)
+                        {
 
+                            cout << "Diabetes Treatment: " << Patient.diabetesTreatment();
+                            cout << "Length: " << Patient.diabetesTreatmentLength();
+                        }
+                        else if (Patient.getSmoker() == true)
+                        {
+                            cout << "Smoking Treatment: " << Patient.smokingTreatment();
+                            cout << "Length: " << Patient.diabetesTreatmentLength();
+                        }
                     case 2:
                         // TODO: Output Patient Treatment Costs
-
+                        if (Patient.getCancer() == true)
+                        {
+                            cout << "Cancer Treatment: " << Patient.calculateCancerCost();
+                        }
+                        else if (Patient.getDiabetes() == true)
+                        {
+                            
+                            cout << "Diabetes Treatment: " << Patient.calculateDiabetesCost();
+                        }
+                        else if (Patient.getSmoker() == true)
+                        {
+                            cout << "Smoking Treatment: " << Patient.calculateSmokingCost();
+                        }
                     case 3:
                         exit(0);
                     }

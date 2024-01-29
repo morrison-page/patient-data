@@ -93,12 +93,23 @@ bool Database::createDatabase()
             "FOREIGN KEY(patient_id) REFERENCES patients(patient_id)"
             ");";
 
+        const string createTreatmentTable = "CREATE TABLE IF NOT EXISTS treatment ("
+            "treatment_id INT PRIMARY KEY AUTO_INCRIMENT,"
+            "patient_id INT NOT NULL,"
+            "treatment ENUM('Insulin', 'Chemotherapy', 'Terminal', 'Nicotine Tablets', 'Nicotine Patch') NOT NULL,"
+            "frequency VARCHAR(255),"
+            "cost FLOAT(10) NOT NULL,"
+            "length ENUM('Forever', 'For 6 months', 'For 12 months', 'For 2 years', 'Never') NOT NULL,"
+            "FOREIGN KEY(patient_id) REFERENCES patients(patient_id)"
+            ");";
+
         // Exec all SQL to create tables
         exception(createUsersTable);
         exception(createPatientsTable);
         exception(createCancerTable);
         exception(createDiabetesTable);
         exception(createSmokingTable);
+        exception(createTreatmentTable);
 
         return true;
     }
@@ -261,16 +272,13 @@ Patient Database::initialisePatient(int userId)
 {
     if (connect())
     {
-        // TODO: get all patient details
         pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
         pstmt->setInt(1, userId);
         res = pstmt->executeQuery();
         if (res->next())
         {
-            // TODO: Check user perms
             int userId = res->getInt(1);
             string username = res->getString(2);
-            size_t password = res->getInt64(3);
             AccessLevel accessLevel;
            
             pstmt = conn->prepareStatement("SELECT * FROM patients WHERE userId = ?;");
@@ -279,7 +287,50 @@ Patient Database::initialisePatient(int userId)
 
             if (res->next())
             {
-                
+                int patientId = res->getInt(1);
+                string firstname = res->getString(1);
+                string lastname = res->getString(2);
+                bool previouslyCancerous = res->getBoolean(1);
+                bool previouslySmoked = res->getBoolean(2);
+
+                pstmt = conn->prepareStatement("SELECT * FROM cancer WHERE patient_id = ?;");
+                pstmt->setInt(1, patientId);
+                res = pstmt->executeQuery();
+
+                if (res->next())
+                {
+                    int cancerStage = res->getInt(3);
+                    bool cancer = true;
+
+                    pstmt = conn->prepareStatement("SELECT * FROM diabetes WHERE patient_id = ?;");
+                    pstmt->setInt(1, patientId);
+                    res = pstmt->executeQuery();
+
+                    if (res->next())
+                    {
+                        int diabetesType = res->getInt(3);
+                        bool diabetes = true;
+
+                        pstmt = conn->prepareStatement("SELECT * FROM smoking WHERE patient_id = ?;");
+                        pstmt->setInt(1, patientId);
+                        res = pstmt->executeQuery();
+
+                        if (res->next())
+                        {
+                            int smokingQuantity = res->getInt(3);
+                            bool smoker = true;
+
+                            // TODO: Redefine Patient constructor w overload
+                            Patient Patient(username, firstname, lastname,
+                                cancer, cancerStage,
+                                diabetes, diabetesType,
+                                smoker, smokingQuantity,
+                                previouslyCancerous, previouslySmoked);
+                            
+                            return Patient;
+                        }
+                    }
+                }
             }
         }
     }
