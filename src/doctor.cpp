@@ -5,4 +5,3 @@
 using namespace std;
 
 int Doctor::getUserId() const { return userId; }
-string Doctor::getUsername() const { return username; }
