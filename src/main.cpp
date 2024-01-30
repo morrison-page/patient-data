@@ -55,34 +55,34 @@ int main()
                         // TODO: Output Patient Treatment
                         if (Patient.getCancer() == true)
                         {
-                            cout << "Cancer Treatment: " << Patient.cancerTreatment();
-                            cout << "Length: " << Patient.cancerTreatmentLength();
+                            //cout << "Cancer Treatment: " << Patient.cancerTreatment();
+                            //cout << "Length: " << Patient.cancerTreatmentLength();
                         }
                         else if (Patient.getDiabetes() == true)
                         {
 
-                            cout << "Diabetes Treatment: " << Patient.diabetesTreatment();
-                            cout << "Length: " << Patient.diabetesTreatmentLength();
+                           //cout << "Diabetes Treatment: " << //Patient.diabetesTreatment();
+                           //cout << "Length: " << //Patient.diabetesTreatmentLength();
                         }
                         else if (Patient.getSmoker() == true)
                         {
-                            cout << "Smoking Treatment: " << Patient.smokingTreatment();
-                            cout << "Length: " << Patient.diabetesTreatmentLength();
+                            //cout << "Smoking Treatment: " << Patient.smokingTreatment();
+                            //cout << "Length: " << Patient.diabetesTreatmentLength();
                         }
                     case 2:
                         // TODO: Output Patient Treatment Costs
                         if (Patient.getCancer() == true)
                         {
-                            cout << "Cancer Treatment: " << Patient.calculateCancerCost();
+                            //cout << "Cancer Treatment: " << Patient.calculateCancerCost();
                         }
                         else if (Patient.getDiabetes() == true)
                         {
                             
-                            cout << "Diabetes Treatment: " << Patient.calculateDiabetesCost();
+                           //cout << "Diabetes Treatment: " << Patient.calculateDiabetesCost();
                         }
                         else if (Patient.getSmoker() == true)
                         {
-                            cout << "Smoking Treatment: " << Patient.calculateSmokingCost();
+                            //cout << "Smoking Treatment: " << Patient.calculateSmokingCost();
                         }
                     case 3:
                         exit(0);
@@ -207,7 +207,7 @@ int main()
                 if (Database.authenticateUser() != -1)
                 {
                     // TODO: Work out how to get UID to function
-                    Pharmacist Pharmacist = Database.initialisePharmacist(userId);
+                    //Pharmacist Pharmacist = Database.initialisePharmacist(userId);
                     cout << "1 - View Patient Details\n";
                     cout << "2 - View Patient Treatment & Cost\n";
                     cout << "3 - View Data Analytics\n";

@@ -57,13 +57,13 @@ bool Database::createDatabase()
 
         // SQL statements to create tables
         const string createUsersTable = "CREATE TABLE IF NOT EXISTS users ("
-            "user_id INT PRIMARY KEY AUTO_INCREMENT,"
+            "user_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,"
             "username VARCHAR(255) NOT NULL,"
             "password BIGINT(255) NOT NULL"
             ");";
 
         const string createPatientsTable = "CREATE TABLE IF NOT EXISTS patients ("
-            "patient_id INT PRIMARY KEY AUTO_INCREMENT,"
+            "patient_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,"
             "user_id INT NOT NULL,"
             "first_name VARCHAR(255) NOT NULL,"
             "last_name VARCHAR(255) NOT NULL,"
@@ -73,33 +73,55 @@ bool Database::createDatabase()
             ");";
 
         const string createCancerTable = "CREATE TABLE IF NOT EXISTS cancer ("
-            "cancer_id INT PRIMARY KEY AUTO_INCREMENT,"
+            "cancer_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,"
             "patient_id INT NOT NULL,"
             "cancer_stage INT NOT NULL,"
             "FOREIGN KEY(patient_id) REFERENCES patients(patient_id)"
             ");";
 
         const string createDiabetesTable = "CREATE TABLE IF NOT EXISTS diabetes ("
-            "diabetes_id INT PRIMARY KEY AUTO_INCREMENT,"
+            "diabetes_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,"
             "patient_id INT NOT NULL,"
             "diabetes_type INT,"
             "FOREIGN KEY(patient_id) REFERENCES patients(patient_id)"
             ");";
 
         const string createSmokingTable = "CREATE TABLE IF NOT EXISTS smoking ("
-            "smoking_id INT PRIMARY KEY AUTO_INCREMENT,"
+            "smoking_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,"
             "patient_id INT NOT NULL,"
             "pack_frequency VARCHAR(255),"
             "FOREIGN KEY(patient_id) REFERENCES patients(patient_id)"
             ");";
 
-        const string createTreatmentTable = "CREATE TABLE IF NOT EXISTS treatment ("
-            "treatment_id INT PRIMARY KEY AUTO_INCRIMENT,"
-            "patient_id INT NOT NULL,"
-            "treatment ENUM('Insulin', 'Chemotherapy', 'Terminal', 'Nicotine Tablets', 'Nicotine Patch') NOT NULL,"
-            "frequency VARCHAR(255),"
-            "cost FLOAT(10) NOT NULL,"
-            "length ENUM('Forever', 'For 6 months', 'For 12 months', 'For 2 years', 'Never') NOT NULL,"
+        // TODO: Check Table Works
+        const string createTreatmentsTable = "CREATE TABLE IF NOT EXISTS treatments ("
+            "treatment_id INT PRIMARY KEY AUTO_INCRIMENT NOT NULL,"
+            "medical_condition VARCHAR(255) NOT NULL,"
+            "frequency VARCHAR(255) NOT NULL,"
+            "cost FLOAT NOT NULL,"
+            "length VARCHAR(255) NOT NULL"
+            ");";
+        
+        // TODO: Check Table Works
+        const string createTreatmentsTableData = "INSERT INTO treatments ("
+            "medical_condition, treatment, frequency, cost, length)"
+            "VALUES"
+            "('Diabetes (type 1)', 'Insulin', '2 shots per day', 7.52, 'Forever')"
+            "('Diabetes (type 2)', 'Insulin', '1 shot per day', 7.52, 'Forever')"
+            "('Lung Cancer (type 1)', 'Chemotherapy', 'Once every 4 weeks', 10000, 'For 6 months'),"
+            "('Lung Cancer (type 2)', 'Chemotherapy', 'Once every 2 weeks', 10000, 'For 6 months'),"
+            "('Lung Cancer (type 3)', 'Chemotherapy', 'Once every week', 10000, 'For 12 months'),"
+            "('Lung Cancer (type 4)', 'Terminal', 'None', 0, 'Never'),"
+            "('Smoking (1 pack per month)', 'Nicotine Tablets', '1 100mg pill a day', 5.63, 'For 6 months'),"
+            "('Smoking (1 pack per week)', 'Nicotine Tablets', '2 500mg pill a day', 5.63, 'For 12 months'),"
+            "('Smoking (1 pack per day)', 'Nicotine Patches', 'One every 24 hours', 3.64, 'For 2 years')";
+
+        const string createPatientTreatmentsTable = "CREATE TABLE IF NOT EXISTS patient_treatments ("
+            "patient_id INT PRIMARY KEY AUTO_INCIMENT NOT NULL,"
+            "treatment_id INT NOT NULL,"
+            "start_date DATE NOT NULL,"
+            "end_date DATE NOT NULL,"
+            "FOREIGN KEY(treatment_id) REFERENCES treatments(treatment_id),"
             "FOREIGN KEY(patient_id) REFERENCES patients(patient_id)"
             ");";
 
@@ -109,7 +131,9 @@ bool Database::createDatabase()
         exception(createCancerTable);
         exception(createDiabetesTable);
         exception(createSmokingTable);
-        exception(createTreatmentTable);
+        exception(createTreatmentsTable);
+        exception(createTreatmentsTableData);
+        exception(createPatientTreatmentsTable);
 
         return true;
     }
@@ -119,6 +143,7 @@ bool Database::createDatabase()
 
 // User Creation
 
+// TODO: Insert in treatment(s)
 bool Database::createPatient(const Patient& patient)
 {
     if (connect())

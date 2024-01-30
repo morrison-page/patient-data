@@ -12,5 +12,4 @@ public:
     int getUserId() const;
 private:
     int userId;
-    string username;
 };

@@ -18,6 +18,8 @@ string Utils::accessLevelToString(AccessLevel accessLevel)
     }
 }
 
+
+/*
 // TODO: Complete These functions for later
 AccessLevel Utils::checkPermissions(string accessLevel)
 {
@@ -33,6 +35,7 @@ AccessLevel Utils::checkPermissions(AccessLevel accessLevel)
     if (accessLevel == PHARMACIST) { return accessLevel; }
     if (accessLevel == UNKOWN) { return accessLevel; }
 }
+*/
 
 string Utils::checkPasswordMatch() 
 {
