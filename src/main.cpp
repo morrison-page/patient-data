@@ -27,8 +27,9 @@ int main()
 
         switch (choice)
         {
-        // Patinet Menu Tree
+            // Patinet Menu Tree
         case 1:
+        {
             cout << "1 - Login\n";
             cout << "2 - Register\n";
             cout << "3 - Exit\n\n";
@@ -38,6 +39,7 @@ int main()
             {
                 // Login
             case 1:
+            {
                 // TODO: Make this menu a function to use after user registers
                 int userId = Database.authenticateUser();
                 if (userId != -1)
@@ -52,6 +54,7 @@ int main()
                     switch (choice)
                     {
                     case 1:
+                    {
                         // TODO: Output Patient Treatment
                         if (Patient.getCancer() == true)
                         {
@@ -61,15 +64,17 @@ int main()
                         else if (Patient.getDiabetes() == true)
                         {
 
-                           //cout << "Diabetes Treatment: " << //Patient.diabetesTreatment();
-                           //cout << "Length: " << //Patient.diabetesTreatmentLength();
+                            //cout << "Diabetes Treatment: " << //Patient.diabetesTreatment();
+                            //cout << "Length: " << //Patient.diabetesTreatmentLength();
                         }
                         else if (Patient.getSmoker() == true)
                         {
                             //cout << "Smoking Treatment: " << Patient.smokingTreatment();
                             //cout << "Length: " << Patient.diabetesTreatmentLength();
                         }
+                    }
                     case 2:
+                    {
                         // TODO: Output Patient Treatment Costs
                         if (Patient.getCancer() == true)
                         {
@@ -77,25 +82,27 @@ int main()
                         }
                         else if (Patient.getDiabetes() == true)
                         {
-                            
-                           //cout << "Diabetes Treatment: " << Patient.calculateDiabetesCost();
+
+                            //cout << "Diabetes Treatment: " << Patient.calculateDiabetesCost();
                         }
                         else if (Patient.getSmoker() == true)
                         {
                             //cout << "Smoking Treatment: " << Patient.calculateSmokingCost();
                         }
+                    }
                     case 3:
                         exit(0);
                     }
                 }
-                // Register
+            }
+            // Register
             case 2:
-            {             
+            {
                 string username, password;
                 cout << "Username: ";
                 cin >> username;
                 password = Utils::checkPasswordMatch();
-                
+
                 size_t hashedPassword = Hashing::hashPassword(password);
 
                 string firstname, lastname;
@@ -147,7 +154,7 @@ int main()
                 cout << "Previously Smoked: ";
                 cin >> hasSmoked;
                 cout << endl;
-                
+
                 bool cancer = (hasCancer == 'y');
                 bool diabetes = (hasDiabetes == 'y');
                 bool smoker = (isSmoker == 'y');
@@ -165,8 +172,10 @@ int main()
             case 3:
                 exit(0);
             }
+        }
         // Staff Menu Tree
         case 2:
+        {
             cout << "1 - Doctor\n";
             cout << "2 - Nurse\n";
             cout << "3 - Pharmacist\n";
@@ -175,12 +184,14 @@ int main()
             cout << endl;
             switch (choice)
             {
-            // Doctor / Nurse
+                // Doctor / Nurse
             case 1 || 2:
+            {
                 if (Database.authenticateUser() != -1)
                 {
-                    // TODO: Work out how to get UID to function
-                    Doctor Doctor = Database.initialiseDoctor(userId);
+                    //userId = Database.authenticateUser();
+                    //Database.initialiseDoctor(userId);
+                    //Doctor Doctor = Database.initialiseDoctor(userId);
                     cout << "1 - View Patient Details\n";
                     cout << "2 - View Patient Treatment & Cost\n";
                     cout << "3 - View Data Analytics\n";
@@ -191,19 +202,29 @@ int main()
                     switch (choice)
                     {
                     case 1:
+                    {
                         // TODO: View Patient Details
+                    }
                     case 2:
+                    {
                         // TODO: View Patient Treatment & Cost
+                    }
                     case 3:
+                    {
                         // TODO: Output Data Analytics
+                    }
                     case 4:
+                    {
                         // TODO: Change Patient Medication
+                    }
                     case 5:
                         exit(0);
                     }
                 }
+            }
             // Pharmacist
             case 3:
+            {
                 if (Database.authenticateUser() != -1)
                 {
                     // TODO: Work out how to get UID to function
@@ -219,14 +240,23 @@ int main()
                     switch (choice)
                     {
                     case 1:
+                    {
                         // TODO: View Patient Details
+                    }
                     case 2:
+                    {
                         // TODO: View Patient Treatment & Cost
+                    }
                     case 3:
+                    {
                         // TODO: Output Data Analytics
+                    }
                     case 4:
+                    {
                         // TODO: Change Patient Medication
+                    }
                     case 5:
+                    {
                         cout << "1 - View\n";
                         cout << "2 - Change\n";
                         cout << "3 - Exit\n\n";
@@ -235,23 +265,29 @@ int main()
                         switch (choice)
                         {
                         case 1:
+                        {
                             // TODO: View Treatments
+                        }
                         case 2:
+                        {
                             // TODO: Change Treatments
+                        }
                         case 3:
                             exit(0);
                         }
+                    }
                     case 6:
                         exit(0);
                     }
                 }
+            }
             case 4:
                 exit(0);
             }
+        }
         case 3:
             exit(0);
         }
     }
-
     return 0;
 }

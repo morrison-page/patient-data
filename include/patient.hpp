@@ -11,6 +11,11 @@ public:
         bool hasDiabetes, int diabetesType, bool isSmoker, int smokingQuantity,
         bool previouslyHadCancer, bool previouslySmoked);
 
+    Patient(const string& username, const string& firstname,
+        const string& lastname, bool hasCancer, int cancerStage,
+        bool hasDiabetes, int diabetesType, bool isSmoker, int smokingQuantity,
+        bool previouslyHadCancer, bool previouslySmoked);
+
     // Getters and Setters
     string getFirstname() const;
     string getLastname() const;

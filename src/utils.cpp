@@ -23,10 +23,10 @@ string Utils::accessLevelToString(AccessLevel accessLevel)
 // TODO: Complete These functions for later
 AccessLevel Utils::checkPermissions(string accessLevel)
 {
-    if (accessLevel == "PATIENT") { return accessLevelToString(accessLevel); }
-    if (accessLevel == "DOCTOR") { return accessLevelToString(accessLevel); }
-    if (accessLevel == "PHARMACIST") { return accessLevelToString(accessLevel); }
-    if (accessLevel == "UNKOWN") { return accessLevelToString(accessLevel); }
+    if (accessLevel == "PATIENT") { return AccessLevel::PATIENT; }
+    if (accessLevel == "DOCTOR") { return AccessLevel::DOCTOR; }
+    if (accessLevel == "PHARMACIST") { return AccessLevel::PHARMACIST; }
+    if (accessLevel == "UNKOWN") { return AccessLevel::UNKNOWN; }
 }
 AccessLevel Utils::checkPermissions(AccessLevel accessLevel)
 {

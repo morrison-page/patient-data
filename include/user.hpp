@@ -10,6 +10,8 @@ public:
 	// Constructor
 	User(string username, size_t password, AccessLevel accessLevel);
 
+	User(string username, AccessLevel accessLevel);
+
 	// Class Functions
 
 	// Getters

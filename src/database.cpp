@@ -89,7 +89,7 @@ bool Database::createDatabase()
         const string createSmokingTable = "CREATE TABLE IF NOT EXISTS smoking ("
             "smoking_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,"
             "patient_id INT NOT NULL,"
-            "pack_frequency VARCHAR(255),"
+            "pack_frequency VARCHAR(255) NOT NULL,"
             "FOREIGN KEY(patient_id) REFERENCES patients(patient_id)"
             ");";
 
@@ -413,6 +413,6 @@ void Database::exception(const string query)
 		cerr << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
 		cerr << "# ERR: " << e.what();
 		cerr << " (MySQL error code: " << e.getErrorCode();
-		cerr << ", SQLState: " << e.getSQLState() << ")" << endl;
+		cerr << ", SQLState: " << e.getSQLState() << ")" << endl << endl;
 	}
 };
