@@ -40,7 +40,6 @@ int main()
                 // Login
             case 1:
             {
-                // TODO: Make this menu a function to use after user registers
                 int userId = Database.authenticateUser();
                 if (userId != -1)
                 {
