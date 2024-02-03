@@ -275,12 +275,7 @@ int Database::authenticateUser()
                 string accessLevel = res->getString(4);
                 if (username == dbUsername && hashedPassword == dbHashedPassword)
                 {
-                    // TODO: create a user object with all info / find a way to use global uid
-                    // TODO: check access level
-                    if (accessLevel == "PATIENT") 
-                    {
-                        return userId;
-                    }
+                    return userId;
                 }
                 else
                 {
@@ -304,7 +299,7 @@ Patient Database::initialisePatient(int userId)
 {
     if (connect())
     {
-        pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
+        pstmt = conn->prepareStatement("SELECT * FROM users WHERE user_id = ?;");
         pstmt->setInt(1, userId);
         res = pstmt->executeQuery();
         if (res->next())
@@ -313,7 +308,7 @@ Patient Database::initialisePatient(int userId)
             string username = res->getString(2);
             AccessLevel accessLevel = Utils::stringToAccessLevel(res->getString(3));
            
-            pstmt = conn->prepareStatement("SELECT * FROM patients WHERE userId = ?;");
+            pstmt = conn->prepareStatement("SELECT * FROM patients WHERE user_id = ?;");
             pstmt->setInt(1, userId);
             res = pstmt->executeQuery();
 
@@ -352,7 +347,6 @@ Patient Database::initialisePatient(int userId)
                             int smokingQuantity = res->getInt(3);
                             bool smoker = true;
 
-                            // TODO: Redefine Patient constructor w overload
                             Patient Patient(username, firstname, lastname,
                                 cancer, cancerStage,
                                 diabetes, diabetesType,
