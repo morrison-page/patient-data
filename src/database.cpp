@@ -361,6 +361,7 @@ Patient Database::initialisePatient(int userId)
     }
 };
 
+/*
 Doctor Database::initialiseDoctor(int userId)
 {
     pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
@@ -396,6 +397,7 @@ Pharmacist Database::initialisePharmacist(int userId)
         res = pstmt->executeQuery();
     }
 }
+*/
 
 // Utility Functions
 

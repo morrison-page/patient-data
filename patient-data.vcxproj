@@ -42,7 +42,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{723a2fd8-dd46-4f70-a5fe-f7a2d5e409fa}</ProjectGuid>
-    <RootNamespace>test</RootNamespace>
+    <RootNamespace>patient-data</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

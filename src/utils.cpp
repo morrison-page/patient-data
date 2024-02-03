@@ -37,21 +37,24 @@ AccessLevel Utils::checkPermissions(AccessLevel accessLevel)
 }
 */
 
-string Utils::checkPasswordMatch() 
+string Utils::checkPasswordMatch()
 {
-    string password, passwordCheck;
-    cout << "Password: ";
-    cin >> password;
-    cout << "Password Again: ";
-    cin >> passwordCheck;
+    while (true)
+    {
+        string password, passwordCheck;
+        cout << "Password: ";
+        cin >> password;
+        cout << "Password Again: ";
+        cin >> passwordCheck;
 
-    if (password != passwordCheck)
-    {
-        cout << "Passwords do not match. Try Again: \n\n";
-        Utils::checkPasswordMatch();
-    }
-    else
-    {
-        return password;
+        if (password != passwordCheck)
+        {
+            cout << "Passwords do not match. Try Again: \n\n";
+            checkPasswordMatch();
+        }
+        else
+        {
+            return password;
+        }
     }
 }
