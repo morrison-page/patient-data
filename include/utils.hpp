@@ -6,7 +6,8 @@ class Utils
 {
 public:
 	static string accessLevelToString(AccessLevel accessLevel);
-	static AccessLevel checkPermissions();
+	static AccessLevel stringToAccessLevel(string accessLevel);
+	static AccessLevel checkPermissions(AccessLevel accessLevel);
 	static string checkPasswordMatch();
 };
 

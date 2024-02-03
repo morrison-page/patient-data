@@ -6,5 +6,6 @@ enum class AccessLevel
 {
 	PATIENT,
 	DOCTOR,
-	PHARMACIST
+	PHARMACIST,
+	UNKNOWN
 };

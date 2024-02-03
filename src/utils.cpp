@@ -18,24 +18,22 @@ string Utils::accessLevelToString(AccessLevel accessLevel)
     }
 }
 
-
-/*
-// TODO: Complete These functions for later
-AccessLevel Utils::checkPermissions(string accessLevel)
+AccessLevel Utils::stringToAccessLevel(string accessLevel)
 {
     if (accessLevel == "PATIENT") { return AccessLevel::PATIENT; }
     if (accessLevel == "DOCTOR") { return AccessLevel::DOCTOR; }
     if (accessLevel == "PHARMACIST") { return AccessLevel::PHARMACIST; }
-    if (accessLevel == "UNKOWN") { return AccessLevel::UNKNOWN; }
+    if (accessLevel == "UNKNOWN") { return AccessLevel::UNKNOWN; }
+    return AccessLevel::UNKNOWN;
 }
 AccessLevel Utils::checkPermissions(AccessLevel accessLevel)
 {
-    if (accessLevel == PATIENT) { return accessLevel; }
-    if (accessLevel == DOCTOR) { return accessLevel; }
-    if (accessLevel == PHARMACIST) { return accessLevel; }
-    if (accessLevel == UNKOWN) { return accessLevel; }
+    if (accessLevel == AccessLevel::PATIENT) { return accessLevel; }
+    if (accessLevel == AccessLevel::DOCTOR) { return accessLevel; }
+    if (accessLevel == AccessLevel::PHARMACIST) { return accessLevel; }
+    if (accessLevel == AccessLevel::UNKNOWN) { return accessLevel; }
+    return AccessLevel::UNKNOWN;
 }
-*/
 
 string Utils::checkPasswordMatch()
 {

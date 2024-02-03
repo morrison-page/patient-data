@@ -5,7 +5,9 @@ using namespace std;
 
 class Patient : public User {
 public:
-    // Constructor
+    // Constructors
+    Patient();
+
     Patient(const string& username, size_t hashedPassword, const string& firstname,
         const string& lastname, bool hasCancer, int cancerStage,
         bool hasDiabetes, int diabetesType, bool isSmoker, int smokingQuantity,

@@ -59,7 +59,8 @@ bool Database::createDatabase()
         const string createUsersTable = "CREATE TABLE IF NOT EXISTS users ("
             "user_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,"
             "username VARCHAR(255) NOT NULL,"
-            "password BIGINT(255) NOT NULL"
+            "password BIGINT(255) NOT NULL,"
+            "access_level ENUM('PATIENT', 'DOCTOR', 'NURSE', 'PHARMACIST') NOT NULL"
             ");";
 
         const string createPatientsTable = "CREATE TABLE IF NOT EXISTS patients ("
@@ -93,31 +94,31 @@ bool Database::createDatabase()
             "FOREIGN KEY(patient_id) REFERENCES patients(patient_id)"
             ");";
 
-        // TODO: Check Table Works
         const string createTreatmentsTable = "CREATE TABLE IF NOT EXISTS treatments ("
-            "treatment_id INT PRIMARY KEY AUTO_INCRIMENT NOT NULL,"
+            "treatment_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,"
             "medical_condition VARCHAR(255) NOT NULL,"
+            "treatment VARCHAR(255) NOT NULL,"
             "frequency VARCHAR(255) NOT NULL,"
             "cost FLOAT NOT NULL,"
             "length VARCHAR(255) NOT NULL"
             ");";
         
-        // TODO: Check Table Works
         const string createTreatmentsTableData = "INSERT INTO treatments ("
             "medical_condition, treatment, frequency, cost, length)"
             "VALUES"
-            "('Diabetes (type 1)', 'Insulin', '2 shots per day', 7.52, 'Forever')"
-            "('Diabetes (type 2)', 'Insulin', '1 shot per day', 7.52, 'Forever')"
+            "('Diabetes (type 1)', 'Insulin', '2 shots per day', 7.52, 'Forever'),"
+            "('Diabetes (type 2)', 'Insulin', '1 shot per day', 7.52, 'Forever'),"
             "('Lung Cancer (type 1)', 'Chemotherapy', 'Once every 4 weeks', 10000, 'For 6 months'),"
             "('Lung Cancer (type 2)', 'Chemotherapy', 'Once every 2 weeks', 10000, 'For 6 months'),"
             "('Lung Cancer (type 3)', 'Chemotherapy', 'Once every week', 10000, 'For 12 months'),"
             "('Lung Cancer (type 4)', 'Terminal', 'None', 0, 'Never'),"
             "('Smoking (1 pack per month)', 'Nicotine Tablets', '1 100mg pill a day', 5.63, 'For 6 months'),"
             "('Smoking (1 pack per week)', 'Nicotine Tablets', '2 500mg pill a day', 5.63, 'For 12 months'),"
-            "('Smoking (1 pack per day)', 'Nicotine Patches', 'One every 24 hours', 3.64, 'For 2 years')";
+            "('Smoking (1 pack per day)', 'Nicotine Patches', 'One every 24 hours', 3.64, 'For 2 years');";
 
         const string createPatientTreatmentsTable = "CREATE TABLE IF NOT EXISTS patient_treatments ("
-            "patient_id INT PRIMARY KEY AUTO_INCIMENT NOT NULL,"
+            "patient_treatment_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,"
+            "patient_id INT NOT NULL,"
             "treatment_id INT NOT NULL,"
             "start_date DATE NOT NULL,"
             "end_date DATE NOT NULL,"
@@ -213,6 +214,7 @@ bool Database::createPatient(const Patient& patient)
             }
         }
     }
+    return false;
 }
 
 bool Database::createDoctor(const Doctor& doctor)
@@ -227,7 +229,10 @@ bool Database::createDoctor(const Doctor& doctor)
         pstmt->setInt64(2, doctor.getPassword());
         pstmt->setString(3, Utils::accessLevelToString(doctor.getAccessLevel()));
         pstmt->executeUpdate();
+        // TODO: Validate Return Value
+        return true;
     }
+    return false;
 }
 
 bool Database::createPharmacist(const Pharmacist& pharmacist)
@@ -240,6 +245,8 @@ bool Database::createPharmacist(const Pharmacist& pharmacist)
     pstmt->setInt64(2, pharmacist.getPassword());
     pstmt->setString(3, Utils::accessLevelToString(pharmacist.getAccessLevel()));
     pstmt->executeUpdate();
+    // TODO: Validate Return Value
+    return true;
 }
 
 // Authentication
@@ -304,7 +311,7 @@ Patient Database::initialisePatient(int userId)
         {
             int userId = res->getInt(1);
             string username = res->getString(2);
-            AccessLevel accessLevel;
+            AccessLevel accessLevel = Utils::stringToAccessLevel(res->getString(3));
            
             pstmt = conn->prepareStatement("SELECT * FROM patients WHERE userId = ?;");
             pstmt->setInt(1, userId);
@@ -411,9 +418,8 @@ void Database::exception(const string query)
 		stmt->execute(query);
 	}
     catch (sql::SQLException& e) {
-		cerr << "# ERR: SQLException in " << __FILE__;
-		cerr << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
-		cerr << "# ERR: " << e.what();
+        cerr << "# ERR: SQLException in " << __FILE__ << endl;
+		cerr << "# ERR: " << e.what() << endl;
 		cerr << " (MySQL error code: " << e.getErrorCode();
 		cerr << ", SQLState: " << e.getSQLState() << ")" << endl << endl;
 	}

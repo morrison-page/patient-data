@@ -3,6 +3,8 @@
 
 using namespace std;
 
+// Constructors
+
 Patient::Patient(const string& username, size_t hashedPassword, const string& firstname,
 	const string& lastname, bool cancer, int cancerStage, 
 	bool diabetes, int diabetesType, bool smoker, int smokingQuantity, 

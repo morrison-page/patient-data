@@ -26,7 +26,6 @@
     <ClCompile Include="src\patient.cpp" />
     <ClCompile Include="src\user.cpp" />
     <ClCompile Include="src\utils.cpp" />
-    <ClCompile Include="tests\tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\accessLevel.hpp" />

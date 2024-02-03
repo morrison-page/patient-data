@@ -27,7 +27,7 @@ int main()
 
         switch (choice)
         {
-            // Patinet Menu Tree
+            // Patient Menu Tree
         case 1:
         {
             cout << "1 - Login\n";

@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="tests\tests.cpp" />
     <ClCompile Include="src\database.cpp" />
     <ClCompile Include="src\user.cpp" />
     <ClCompile Include="src\hashing.cpp" />
