@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 
 #include <mysql_driver.h>
 #include <mysql_connection.h>
@@ -186,10 +187,71 @@ bool Database::createPatient(const Patient& patient)
                 {
                     pstmt = conn->prepareStatement("INSERT INTO cancer ("
                         "patient_id, cancer_stage)"
-                        "VALUES (?, ?)");
+                        "VALUES (?, ?);");
                     pstmt->setInt(1, patientId);
                     pstmt->setInt(2, patient.getCancerStage());
                     pstmt->executeUpdate();
+                    // Insert cancer treatment
+                    if (patient.getCancerStage() == 1)
+                    {
+                        pstmt = conn->prepareStatement("INSERT INTO patient_treatments ("
+                        	"patient_id, treatment_id, start_date, end_date)"
+                        	"VALUES (?, ?, ?, ?);");
+                        pstmt->setInt(1, patientId);
+                        pstmt->setInt(2, 3);
+                        // Get date rangte for treatment
+                        string startDate = Utils::treatmentStartDate();
+                        string endDate = Utils::treatmentEndDate(6);
+                        pstmt->setString(3, startDate);
+                        pstmt->setString(4, endDate);
+                        pstmt->executeUpdate();
+                    }
+                    else if (patient.getCancerStage() == 2)
+                    {
+                        pstmt = conn->prepareStatement("INSERT INTO patient_treatments ("
+                            "patient_id, treatment_id, start_date, end_date)"
+                            "VALUES (?, ?, ?, ?);");
+                        pstmt->setInt(1, patientId);
+                        pstmt->setInt(2, 4);
+                        // Get date rangte for treatment
+                        string startDate = Utils::treatmentStartDate();
+                        string endDate = Utils::treatmentEndDate(6);
+                        pstmt->setString(3, startDate);
+                        pstmt->setString(4, endDate);
+                        pstmt->executeUpdate();
+					}
+                    else if (patient.getCancerStage() == 3)
+                    {
+                        pstmt = conn->prepareStatement("INSERT INTO patient_treatments ("
+                            "patient_id, treatment_id, start_date, end_date)"
+                            "VALUES (?, ?, ?, ?);");
+                        pstmt->setInt(1, patientId);
+                        pstmt->setInt(2, 5);
+                        // Get date rangte for treatment
+                        string startDate = Utils::treatmentStartDate();
+                        string endDate = Utils::treatmentEndDate(12);
+                        pstmt->setString(3, startDate);
+                        pstmt->setString(4, endDate);
+                        pstmt->executeUpdate();
+					}
+                    else if (patient.getCancerStage() == 4)
+                    {
+                        pstmt = conn->prepareStatement("INSERT INTO patient_treatments ("
+                            "patient_id, treatment_id, start_date, end_date)"
+                            "VALUES (?, ?, ?, ?);");
+                        pstmt->setInt(1, patientId);
+                        pstmt->setInt(2, 6);
+                        // Get date rangte for treatment
+                        string startDate = "0000-00-00";
+                        string endDate = "0000-00-00";
+                        pstmt->setString(3, startDate);
+                        pstmt->setString(4, endDate);
+                        pstmt->executeUpdate();
+					}
+                    else
+                    {
+                        cerr << "Invalid Cancer Stage";
+                    }
                 }
                 // If they have diabetes insert data
                 if (patient.getDiabetes())
@@ -200,6 +262,39 @@ bool Database::createPatient(const Patient& patient)
                     pstmt->setInt(1, patientId);
                     pstmt->setInt(2, patient.getDiabetesType());
                     pstmt->executeUpdate();
+                    // Insert diabetes treatment
+                    if (patient.getDiabetesType() == 1)
+                    {
+                        pstmt = conn->prepareStatement("INSERT INTO patient_treatments ("
+                            "patient_id, treatment_id, start_date, end_date)"
+                            "VALUES (?, ?, ?, ?);");
+						pstmt->setInt(1, patientId);
+						pstmt->setInt(2, 1);
+						// Get date rangte for treatment
+						string startDate = Utils::treatmentStartDate();
+						string endDate = Utils::treatmentEndDate(100);
+						pstmt->setString(3, startDate);
+						pstmt->setString(4, endDate);
+						pstmt->executeUpdate();
+					}
+					else if (patient.getDiabetesType() == 2)
+					{
+						pstmt = conn->prepareStatement("INSERT INTO patient_treatments ("
+                            "patient_id, treatment_id, start_date, end_date)"
+                        	"VALUES (?, ?, ?, ?);");
+						pstmt->setInt(1, patientId);
+						pstmt->setInt(2, 2);
+						// Get date rangte for treatment
+						string startDate = Utils::treatmentStartDate();
+						string endDate = Utils::treatmentEndDate(100);
+						pstmt->setString(3, startDate);
+						pstmt->setString(4, endDate);
+						pstmt->executeUpdate();
+					}
+					else
+					{
+						cerr << "Invalid Diabetes Type";
+                    }
                 }
                 // If they smoke insert data
                 if (patient.getSmoker())
@@ -210,6 +305,53 @@ bool Database::createPatient(const Patient& patient)
                     pstmt->setInt(1, patientId);
                     pstmt->setInt(2, patient.getSmokingQuantity());
                     pstmt->executeUpdate();
+                    // Insert smoking treatment
+                    if (patient.getSmokingQuantity() == 1)
+                    {
+                        pstmt = conn->prepareStatement("INSERT INTO patient_treatments ("
+                            "patient_id, treatment_id, start_date, end_date)"
+                            "VALUES (?, ?, ?, ?);");
+						pstmt->setInt(1, patientId);
+						pstmt->setInt(2, 7);
+						// Get date rangte for treatment
+						string startDate = Utils::treatmentStartDate();
+						string endDate = Utils::treatmentEndDate(6);
+						pstmt->setString(3, startDate);
+						pstmt->setString(4, endDate);
+						pstmt->executeUpdate();
+					}
+					else if (patient.getSmokingQuantity() == 2)
+					{
+						pstmt = conn->prepareStatement("INSERT INTO patient_treatments ("
+                            "patient_id, treatment_id, start_date, end_date)"
+                        	"VALUES (?, ?, ?, ?);");
+						pstmt->setInt(1, patientId);
+						pstmt->setInt(2, 8);
+						// Get date rangte for treatment
+						string startDate = Utils::treatmentStartDate();
+						string endDate = Utils::treatmentEndDate(12);
+						pstmt->setString(3, startDate);
+						pstmt->setString(4, endDate);
+						pstmt->executeUpdate();
+					}
+					else if (patient.getSmokingQuantity() == 3)
+					{
+						pstmt = conn->prepareStatement("INSERT INTO patient_treatments ("
+                        	"patient_id, treatment_id, start_date, end_date)"
+                            "VALUES (?, ?, ?, ?);");
+						pstmt->setInt(1, patientId);
+						pstmt->setInt(2, 9);
+						// Get date rangte for treatment
+						string startDate = Utils::treatmentStartDate();
+						string endDate = Utils::treatmentEndDate(24);
+						pstmt->setString(3, startDate);
+						pstmt->setString(4, endDate);
+						pstmt->executeUpdate();
+					}
+					else
+					{
+						cerr << "Invalid Smoking Quantity";
+                    }
                 }
             }
         }
@@ -295,6 +437,7 @@ int Database::authenticateUser()
     }
 }
 
+// TODO: Add in 
 Patient Database::initialisePatient(int userId)
 {
     if (connect())
