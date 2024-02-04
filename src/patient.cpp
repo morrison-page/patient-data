@@ -15,7 +15,7 @@ Patient::Patient(const string& username, size_t hashedPassword, const string& fi
 	smokingQuantity(smokingQuantity), previouslyCancerous(previouslyCancerous),
 	previouslySmoked(previouslySmoked) { };
 
-Patient::Patient(const string& username, const string& firstname,
+Patient::Patient(const int& patientId, const string& username, const string& firstname,
 	const string& lastname, bool cancer, int cancerStage,
 	bool diabetes, int diabetesType, bool smoker, int smokingQuantity,
 	bool previouslyCancerous, bool previouslySmoked) :
@@ -26,6 +26,7 @@ Patient::Patient(const string& username, const string& firstname,
 	previouslySmoked(previouslySmoked) { };
 
 // Getters and Setters
+int Patient::getPatientId() const { return patientId; }
 string Patient::getFirstname() const { return firstname; }
 string Patient::getLastname() const { return lastname; }
 bool Patient::getCancer() const { return cancer; }
@@ -36,3 +37,5 @@ bool Patient::getSmoker() const { return smoker; }
 int Patient::getSmokingQuantity() const { return smokingQuantity; }
 bool Patient::getPreviouslyCancerous() const { return previouslyCancerous; }
 bool Patient::getPreviouslySmoked() const { return previouslySmoked; }
+
+// Class Functions

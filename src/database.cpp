@@ -176,7 +176,7 @@ bool Database::createPatient(const Patient& patient)
             pstmt->setBoolean(5, patient.getPreviouslySmoked());
             pstmt->executeUpdate();
 
-            // Grab Inserted ID that auto incriments
+            // Grab Inserted ID that auto increments
             stmt = conn->createStatement();
             res = stmt->executeQuery("SELECT LAST_INSERT_ID();");
             if (res->next())
@@ -272,7 +272,7 @@ bool Database::createPatient(const Patient& patient)
 						pstmt->setInt(2, 1);
 						// Get date rangte for treatment
 						string startDate = Utils::treatmentStartDate();
-						string endDate = Utils::treatmentEndDate(100);
+						string endDate = "0000-00-00";
 						pstmt->setString(3, startDate);
 						pstmt->setString(4, endDate);
 						pstmt->executeUpdate();
@@ -284,9 +284,9 @@ bool Database::createPatient(const Patient& patient)
                         	"VALUES (?, ?, ?, ?);");
 						pstmt->setInt(1, patientId);
 						pstmt->setInt(2, 2);
-						// Get date rangte for treatment
+						// Get date range for treatment
 						string startDate = Utils::treatmentStartDate();
-						string endDate = Utils::treatmentEndDate(100);
+                        string endDate = "0000-00-00";
 						pstmt->setString(3, startDate);
 						pstmt->setString(4, endDate);
 						pstmt->executeUpdate();
@@ -392,7 +392,6 @@ bool Database::createPharmacist(const Pharmacist& pharmacist)
 }
 
 // Authentication
-
 int Database::authenticateUser()
 {
     string username, password;
@@ -437,7 +436,6 @@ int Database::authenticateUser()
     }
 }
 
-// TODO: Add in 
 Patient Database::initialisePatient(int userId)
 {
     if (connect())
@@ -490,7 +488,7 @@ Patient Database::initialisePatient(int userId)
                             int smokingQuantity = res->getInt(3);
                             bool smoker = true;
 
-                            Patient Patient(username, firstname, lastname,
+                            Patient Patient(patientId, username, firstname, lastname,
                                 cancer, cancerStage,
                                 diabetes, diabetesType,
                                 smoker, smokingQuantity,
@@ -542,6 +540,61 @@ Pharmacist Database::initialisePharmacist(int userId)
     }
 }
 */
+
+// Data Fetch Functions
+
+void Database::getPatientTreatments(int patientId)
+{
+    if (connect())
+    {
+        pstmt = conn->prepareStatement("SELECT t.medical_condition, t.treatment, t.frequency, pt.start_date, pt.end_date "
+            "FROM patient_treatments pt "
+            "JOIN treatments t ON pt.treatment_id = t.treatment_id "
+            "WHERE pt.patient_id = ?;");
+        pstmt->setInt(1, patientId);
+        res = pstmt->executeQuery();
+
+        while (res->next())
+        {
+            cout << "Medical Condition: " << res->getString("medical_condition") << endl;
+            cout << "Treatment: " << res->getString("treatment") << endl;
+            cout << "Frequency: " << res->getString("frequency") << endl;
+            cout << "Start Date: " << res->getString("start_date") << endl;
+            cout << "End Date: " << res->getString("end_date") << endl << endl;
+        }
+    }
+    else
+    {
+        cerr << "Failed to connect to the database." << endl;
+    }
+}
+
+void Database::getPatientCosts(int patientId)
+{
+    if (connect())
+    {
+		pstmt = conn->prepareStatement("SELECT pt.start_date, pt.end_date "
+            "FROM patient_treatments pt "
+        	"WHERE pt.patient_id = ?;");
+		pstmt->setInt(1, patientId);
+		res = pstmt->executeQuery();
+        if (res->next())
+        {
+            // Calculate Daily Cost
+
+            // Calculate Weekly Cost
+
+            // Calculate Monthly Cost
+
+            // Calculate Yearly Cost
+        }
+	}
+    else
+    {
+		cerr << "Failed to connect to the database." << endl;
+	}
+
+}
 
 // Utility Functions
 

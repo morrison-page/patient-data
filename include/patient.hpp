@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "user.hpp"
 
 using namespace std;
@@ -13,12 +14,13 @@ public:
         bool hasDiabetes, int diabetesType, bool isSmoker, int smokingQuantity,
         bool previouslyHadCancer, bool previouslySmoked);
 
-    Patient(const string& username, const string& firstname,
+    Patient(const int& patientId, const string& username, const string& firstname,
         const string& lastname, bool hasCancer, int cancerStage,
         bool hasDiabetes, int diabetesType, bool isSmoker, int smokingQuantity,
         bool previouslyHadCancer, bool previouslySmoked);
 
     // Getters and Setters
+    int getPatientId() const;
     string getFirstname() const;
     string getLastname() const;
     bool getCancer() const;
@@ -31,6 +33,7 @@ public:
     bool getPreviouslySmoked() const;
 
 private:
+    int patientId;
     string firstname;
     string lastname;
     bool cancer;

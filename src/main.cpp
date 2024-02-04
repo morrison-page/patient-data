@@ -45,7 +45,7 @@ int main()
                 {
                     Patient Patient = Database.initialisePatient(userId);
                     cout << endl;
-                    cout << "1 - View Personal Detail\n";
+                    cout << "1 - View Personal Details\n";
                     cout << "2 - View Treatment & Cost\n";
                     cout << "3 - Exit\n\n";
                     cin >> choice;
@@ -55,22 +55,7 @@ int main()
                     case 1:
                     {
                         // TODO: Output Patient Treatment
-                        if (Patient.getCancer() == true)
-                        {
-                            //cout << "Cancer Treatment: " << Patient.cancerTreatment();
-                            //cout << "Length: " << Patient.cancerTreatmentLength();
-                        }
-                        else if (Patient.getDiabetes() == true)
-                        {
-
-                            //cout << "Diabetes Treatment: " << //Patient.diabetesTreatment();
-                            //cout << "Length: " << //Patient.diabetesTreatmentLength();
-                        }
-                        else if (Patient.getSmoker() == true)
-                        {
-                            //cout << "Smoking Treatment: " << Patient.smokingTreatment();
-                            //cout << "Length: " << Patient.diabetesTreatmentLength();
-                        }
+                        Database.getPatientTreatments(Patient.getPatientId());
                     }
                     case 2:
                     {
@@ -285,7 +270,9 @@ int main()
             }
         }
         case 3:
-            exit(0);
+            //Database.getPatientCosts(1);
+            cout << Utils::treatmentStartDate() << endl;
+            cout << Utils::treatmentEndDate(12) << endl << endl;
         }
     }
     return 0;

@@ -84,7 +84,7 @@ string Utils::treatmentEndDate(int length)
     sprintf_s(startDate, sizeof(startDate), "%04d-%02d-%02d", localTime.tm_year + 1900, localTime.tm_mon + 1, localTime.tm_mday);
 
     // Add 6 months
-    localTime.tm_mon += 6;
+    localTime.tm_mon += length;
 
     // Normalize the date (handles cases where adding months results in a change of year)
     mktime(&localTime);

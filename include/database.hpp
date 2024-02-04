@@ -22,30 +22,25 @@ public:
 	~Database();
 
 	// Class Functions
+
 	inline bool connect();
 	bool createDatabase();
 	void exception(const string query);
 
 	// User Creation
-
 	bool createPatient(const Patient& patient);
-
 	bool createDoctor(const Doctor& doctor);
-
 	bool createPharmacist(const Pharmacist& pharmacist);
 
 	// Authentication
-
 	int authenticateUser();
-
 	Patient initialisePatient(int userId);
-	
 	Doctor initialiseDoctor(int userId);
-	
 	Pharmacist initialisePharmacist(int userId);
 
 	// Data Fetch Functions
-
+	void getPatientTreatments(int patientId);
+	void getPatientCosts(int patientId);
 
 private:
 	// Database Pointer Declaration
