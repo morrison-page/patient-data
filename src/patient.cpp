@@ -5,20 +5,20 @@ using namespace std;
 
 // Constructors
 
-Patient::Patient(const string& username, size_t hashedPassword, const string& firstname,
-	const string& lastname, bool cancer, int cancerStage, 
-	bool diabetes, int diabetesType, bool smoker, int smokingQuantity, 
-	bool previouslyCancerous, bool previouslySmoked) : 
+Patient::Patient(const string& username, const size_t& hashedPassword, const string& firstname,
+	const string& lastname, const bool cancer, const int cancerStage, 
+	const bool diabetes, const int diabetesType, const bool smoker, const int smokingQuantity, 
+	const bool previouslyCancerous, const bool previouslySmoked) : 
 	User(username, hashedPassword, AccessLevel::PATIENT),
 	firstname(firstname), lastname(lastname), cancer(cancer), cancerStage(cancerStage),
 	diabetes(diabetes), diabetesType(diabetesType), smoker(smoker),
 	smokingQuantity(smokingQuantity), previouslyCancerous(previouslyCancerous),
 	previouslySmoked(previouslySmoked) { };
 
-Patient::Patient(const int& patientId, const string& username, const string& firstname,
-	const string& lastname, bool& cancer, int& cancerStage,
-	bool& diabetes, int& diabetesType, bool& smoker, int& smokingQuantity,
-	bool& previouslyCancerous, bool& previouslySmoked) :
+Patient::Patient(const int patientId, const string& username, const string& firstname,
+	const string& lastname, bool cancer, int cancerStage,
+	const bool diabetes, const int diabetesType, const bool smoker, const int smokingQuantity,
+	const bool previouslyCancerous, const bool previouslySmoked) :
 	User(username, AccessLevel::PATIENT), patientId(patientId),
 	firstname(firstname), lastname(lastname), cancer(cancer), cancerStage(cancerStage),
 	diabetes(diabetes), diabetesType(diabetesType), smoker(smoker),

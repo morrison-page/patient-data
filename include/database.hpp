@@ -40,6 +40,7 @@ public:
 
 	// Data Fetch Functions
 	void getPatientTreatments(int patientId);
+	void getPatientDetails(int patientId);
 	void getPatientCosts(int patientId);
 
 private:

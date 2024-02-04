@@ -7,17 +7,17 @@ using namespace std;
 class Patient : public User {
 public:
     // Constructors
-    Patient();
 
-    Patient(const string& username, size_t hashedPassword, const string& firstname,
-        const string& lastname, bool hasCancer, int cancerStage,
-        bool hasDiabetes, int diabetesType, bool isSmoker, int smokingQuantity,
-        bool previouslyHadCancer, bool previouslySmoked);
+    Patient(const string& username, const size_t& hashedPassword, const string& firstname,
+        const string& lastname, const bool hasCancer, const int cancerStage,
+        const bool hasDiabetes, const int diabetesType, const bool isSmoker,
+        const int smokingQuantity, const bool previouslyHadCancer,
+        const bool previouslySmoked);
 
-    Patient(const int& patientId, const string& username, const string& firstname,
-        const string& lastname, bool& hasCancer, int& cancerStage,
-        bool& hasDiabetes, int& diabetesType, bool& isSmoker, int& smokingQuantity,
-        bool& previouslyHadCancer, bool& previouslySmoked);
+    Patient(const int patientId, const string& username, const string& firstname,
+        const string& lastname, const bool hasCancer, const int cancerStage,
+        const bool hasDiabetes, const int diabetesType, const bool isSmoker, const int smokingQuantity,
+        const bool previouslyHadCancer, const bool previouslySmoked);
 
     // Getters and Setters
     int getPatientId() const;

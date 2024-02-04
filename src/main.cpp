@@ -54,6 +54,8 @@ int main()
                     {
                     case 1:
                     {
+                        // TODO: figure out bad memory allocation on user x > 1                         
+                        Database.getPatientDetails(Patient.getPatientId());
                         Database.getPatientTreatments(Patient.getPatientId());
                     }
                     case 2:

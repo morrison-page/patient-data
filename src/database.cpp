@@ -145,7 +145,6 @@ bool Database::createDatabase()
 
 // User Creation
 
-// TODO: Insert in treatment(s)
 bool Database::createPatient(const Patient& patient)
 {
     if (connect())
@@ -270,7 +269,7 @@ bool Database::createPatient(const Patient& patient)
                             "VALUES (?, ?, ?, ?);");
 						pstmt->setInt(1, patientId);
 						pstmt->setInt(2, 1);
-						// Get date rangte for treatment
+						// Get date range for treatment
 						string startDate = Utils::treatmentStartDate();
 						string endDate = "0000-00-00";
 						pstmt->setString(3, startDate);
@@ -313,7 +312,7 @@ bool Database::createPatient(const Patient& patient)
                             "VALUES (?, ?, ?, ?);");
 						pstmt->setInt(1, patientId);
 						pstmt->setInt(2, 7);
-						// Get date rangte for treatment
+						// Get date range for treatment
 						string startDate = Utils::treatmentStartDate();
 						string endDate = Utils::treatmentEndDate(6);
 						pstmt->setString(3, startDate);
@@ -327,7 +326,7 @@ bool Database::createPatient(const Patient& patient)
                         	"VALUES (?, ?, ?, ?);");
 						pstmt->setInt(1, patientId);
 						pstmt->setInt(2, 8);
-						// Get date rangte for treatment
+						// Get date range for treatment
 						string startDate = Utils::treatmentStartDate();
 						string endDate = Utils::treatmentEndDate(12);
 						pstmt->setString(3, startDate);
@@ -341,7 +340,7 @@ bool Database::createPatient(const Patient& patient)
                             "VALUES (?, ?, ?, ?);");
 						pstmt->setInt(1, patientId);
 						pstmt->setInt(2, 9);
-						// Get date rangte for treatment
+						// Get date range for treatment
 						string startDate = Utils::treatmentStartDate();
 						string endDate = Utils::treatmentEndDate(24);
 						pstmt->setString(3, startDate);
@@ -567,6 +566,36 @@ void Database::getPatientTreatments(int patientId)
     {
         cerr << "Failed to connect to the database." << endl;
     }
+}
+
+void Database::getPatientDetails(int patientId)
+{
+    if (connect())
+    {
+		pstmt = conn->prepareStatement("SELECT p.first_name, p.last_name, p.previously_cancerous, p.previously_smoked, c.cancer_stage, d.diabetes_type, s.pack_frequency "
+        	"FROM patients p "
+        	"LEFT JOIN cancer c ON p.patient_id = c.patient_id "
+        	"LEFT JOIN diabetes d ON p.patient_id = d.patient_id "
+        	"LEFT JOIN smoking s ON p.patient_id = s.patient_id "
+        	"WHERE p.patient_id = ?;");
+		pstmt->setInt(1, patientId);
+		res = pstmt->executeQuery();
+
+        if (res->next())
+        {
+			cout << "First Name: " << res->getString("first_name") << endl;
+			cout << "Last Name: " << res->getString("last_name") << endl;
+			cout << "Previously Cancerous: " << res->getBoolean("previously_cancerous") << endl;
+			cout << "Previously Smoked: " << res->getBoolean("previously_smoked") << endl;
+			cout << "Cancer Stage: " << res->getInt("cancer_stage") << endl;
+			cout << "Diabetes Type: " << res->getInt("diabetes_type") << endl;
+			cout << "Smoking Frequency: " << res->getInt("pack_frequency") << endl << endl;
+		}
+	}
+    else
+    {
+		cerr << "Failed to connect to the database." << endl;
+	}
 }
 
 void Database::getPatientCosts(int patientId)
