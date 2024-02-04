@@ -54,7 +54,6 @@ int main()
                     {
                     case 1:
                     {
-                        // TODO: Output Patient Treatment
                         Database.getPatientTreatments(Patient.getPatientId());
                     }
                     case 2:

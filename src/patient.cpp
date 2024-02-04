@@ -16,10 +16,10 @@ Patient::Patient(const string& username, size_t hashedPassword, const string& fi
 	previouslySmoked(previouslySmoked) { };
 
 Patient::Patient(const int& patientId, const string& username, const string& firstname,
-	const string& lastname, bool cancer, int cancerStage,
-	bool diabetes, int diabetesType, bool smoker, int smokingQuantity,
-	bool previouslyCancerous, bool previouslySmoked) :
-	User(username, AccessLevel::PATIENT),
+	const string& lastname, bool& cancer, int& cancerStage,
+	bool& diabetes, int& diabetesType, bool& smoker, int& smokingQuantity,
+	bool& previouslyCancerous, bool& previouslySmoked) :
+	User(username, AccessLevel::PATIENT), patientId(patientId),
 	firstname(firstname), lastname(lastname), cancer(cancer), cancerStage(cancerStage),
 	diabetes(diabetes), diabetesType(diabetesType), smoker(smoker),
 	smokingQuantity(smokingQuantity), previouslyCancerous(previouslyCancerous),

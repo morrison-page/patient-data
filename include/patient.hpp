@@ -15,9 +15,9 @@ public:
         bool previouslyHadCancer, bool previouslySmoked);
 
     Patient(const int& patientId, const string& username, const string& firstname,
-        const string& lastname, bool hasCancer, int cancerStage,
-        bool hasDiabetes, int diabetesType, bool isSmoker, int smokingQuantity,
-        bool previouslyHadCancer, bool previouslySmoked);
+        const string& lastname, bool& hasCancer, int& cancerStage,
+        bool& hasDiabetes, int& diabetesType, bool& isSmoker, int& smokingQuantity,
+        bool& previouslyHadCancer, bool& previouslySmoked);
 
     // Getters and Setters
     int getPatientId() const;

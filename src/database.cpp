@@ -455,11 +455,11 @@ Patient Database::initialisePatient(int userId)
 
             if (res->next())
             {
-                int patientId = res->getInt(1);
-                string firstname = res->getString(1);
-                string lastname = res->getString(2);
-                bool previouslyCancerous = res->getBoolean(1);
-                bool previouslySmoked = res->getBoolean(2);
+                int patientId = res->getInt("patient_id");
+                string firstname = res->getString("first_name");
+                string lastname = res->getString("last_name");
+                bool previouslyCancerous = res->getBoolean("previously_cancerous");
+                bool previouslySmoked = res->getBoolean("previously_smoked");
 
                 pstmt = conn->prepareStatement("SELECT * FROM cancer WHERE patient_id = ?;");
                 pstmt->setInt(1, patientId);
@@ -467,7 +467,7 @@ Patient Database::initialisePatient(int userId)
 
                 if (res->next())
                 {
-                    int cancerStage = res->getInt(3);
+                    int cancerStage = res->getInt("cancer_stage");
                     bool cancer = true;
 
                     pstmt = conn->prepareStatement("SELECT * FROM diabetes WHERE patient_id = ?;");
@@ -476,7 +476,7 @@ Patient Database::initialisePatient(int userId)
 
                     if (res->next())
                     {
-                        int diabetesType = res->getInt(3);
+                        int diabetesType = res->getInt("diabetes_type");
                         bool diabetes = true;
 
                         pstmt = conn->prepareStatement("SELECT * FROM smoking WHERE patient_id = ?;");
@@ -485,7 +485,7 @@ Patient Database::initialisePatient(int userId)
 
                         if (res->next())
                         {
-                            int smokingQuantity = res->getInt(3);
+                            int smokingQuantity = res->getInt("pack_frequency");
                             bool smoker = true;
 
                             Patient Patient(patientId, username, firstname, lastname,
@@ -493,7 +493,7 @@ Patient Database::initialisePatient(int userId)
                                 diabetes, diabetesType,
                                 smoker, smokingQuantity,
                                 previouslyCancerous, previouslySmoked);
-                            
+
                             return Patient;
                         }
                     }
