@@ -114,8 +114,8 @@ bool Database::createDatabase()
             "('Lung Cancer (type 3)', 'Chemotherapy', 'Once every week', 10000, 'For 12 months'),"
             "('Lung Cancer (type 4)', 'Terminal', 'None', 0, 'Never'),"
             "('Smoking (1 pack per month)', 'Nicotine Tablets', '1 100mg pill a day', 5.63, 'For 6 months'),"
-            "('Smoking (1 pack per week)', 'Nicotine Tablets', '2 500mg pill a day', 5.63, 'For 12 months'),"
-            "('Smoking (1 pack per day)', 'Nicotine Patches', 'One every 24 hours', 3.64, 'For 2 years');";
+            "('Smoking (1 pack per week)', 'Nicotine Tablets', '2 500mg pills a day', 5.63, 'For 12 months'),"
+            "('Smoking (1 pack per day)', 'Nicotine Patches', 'One every 24 hours', 3.64, 'For 2 years')";
 
         const string createPatientTreatmentsTable = "CREATE TABLE IF NOT EXISTS patient_treatments ("
             "patient_treatment_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,"
@@ -612,27 +612,141 @@ void Database::getPatientCosts(int patientId)
 {
     if (connect())
     {
-		pstmt = conn->prepareStatement("SELECT pt.start_date, pt.end_date "
+        pstmt = conn->prepareStatement("SELECT t.medical_condition, t.treatment, t.cost, t.frequency, t.length "
             "FROM patient_treatments pt "
-        	"WHERE pt.patient_id = ?;");
-		pstmt->setInt(1, patientId);
-		res = pstmt->executeQuery();
-        if (res->next())
+            "JOIN treatments t ON pt.treatment_id = t.treatment_id "
+            "WHERE pt.patient_id = ?;");
+        pstmt->setInt(1, patientId);
+        res = pstmt->executeQuery();
+
+        double totalDailyCost = 0.0;
+        double totalWeeklyCost = 0.0;
+        double totalMonthlyCost = 0.0;
+        double totalYearlyCost = 0.0;
+
+        while (res->next())
         {
-            // Calculate Daily Cost
+            string medicalCondition = res->getString("medical_condition");
+            string treatment = res->getString("treatment");
+            double cost = res->getDouble("cost");
+            string frequency = res->getString("frequency");
 
-            // Calculate Weekly Cost
+            cout << "Medical Condition: " << medicalCondition << endl;
 
-            // Calculate Monthly Cost
-
-            // Calculate Yearly Cost
+            // Diabetes
+            if (medicalCondition == "Diabetes (type 1)" || medicalCondition == "Diabetes (type 2)")
+            {
+                if (frequency == "1 shots per day")
+                {
+                    double dailyCost = cost * 1;
+                    double weeklyCost = cost * 7;
+                    double monthlyCost = cost * 30; // Approx
+                    double yearlyCost = cost * 365;
+                    cout << "Treatment: " << treatment << endl;
+                    cout << "Daily Cost: " << dailyCost << endl;
+                    cout << "Weekly Cost: " << weeklyCost << endl;
+                    cout << "Monthly Cost: " << monthlyCost << endl;
+                    cout << "Yearly Cost: " << yearlyCost << endl << endl;
+                }
+                else if (frequency == "2 shots per day")
+                {
+					double dailyCost = cost * 2;
+                    double weeklyCost = cost * 14;
+                    double monthlyCost = cost * 60; // Approx
+					double yearlyCost = cost * 730;
+                    cout << "Treatment: " << treatment << endl;
+                    cout << "Daily Cost: " << dailyCost << endl;
+                    cout << "Weekly Cost: " << weeklyCost << endl;
+                    cout << "Monthly Cost: " << monthlyCost << endl;
+                    cout << "Yearly Cost: " << yearlyCost << endl << endl;
+				}
+            }
+            // Cancer
+            if (medicalCondition == "Lung Cancer (type 1)" || medicalCondition == "Lung Cancer (type 2)" || medicalCondition == "Lung Cancer (type 3)" || medicalCondition == "Lung Cancer (type 4)")
+            {
+                if (frequency == "Once every week")
+                {
+					double dailyCost = cost / 7;
+                    double weeklyCost = cost;
+                    double monthlyCost = cost * 4; // Approx
+                    double yearlyCost = cost * 52;
+                    cout << "Treatment: " << treatment << endl;
+                    cout << "Daily Cost: " << dailyCost << endl;
+                    cout << "Weekly Cost: " << weeklyCost << endl;
+                    cout << "Monthly Cost: " << monthlyCost << endl;
+                    cout << "Yearly Cost: " << yearlyCost << endl << endl;
+				}
+                else if (frequency == "Once every 2 weeks")
+                {
+					double dailyCost = cost / 14;
+                    double weeklyCost = cost / 2;
+					double monthlyCost = cost * 2; // Approx
+					double yearlyCost = cost * 26;
+                    cout << "Treatment: " << treatment << endl;
+                    cout << "Daily Cost: " << dailyCost << endl;
+                    cout << "Weekly Cost: " << weeklyCost << endl;
+                    cout << "Monthly Cost: " << monthlyCost << endl;
+                    cout << "Yearly Cost: " << yearlyCost << endl << endl;
+				}
+                else if (frequency == "Once every 4 weeks")
+                {
+					double dailyCost = cost / 28;
+                    double weeklyCost = cost / 4;
+                    double monthlyCost = cost;
+                    double yearlyCost = cost * 13;
+                    cout << "Treatment: " << treatment << endl;
+                    cout << "Daily Cost: " << dailyCost << endl;
+                    cout << "Weekly Cost: " << weeklyCost << endl;
+                    cout << "Monthly Cost: " << monthlyCost << endl;
+                    cout << "Yearly Cost: " << yearlyCost << endl << endl;
+				}
+			}
+            // Smoking
+            if (medicalCondition == "Smoking (1 pack per day)" || medicalCondition == "Smoking (1 pack per week)" || medicalCondition == "Smoking (1 pack per month)")
+            {
+                if (frequency == "1 100mg pill a day")
+				{
+                    double dailyCost = cost * 1;
+                    double weeklyCost = cost * 7;
+                    double monthlyCost = cost * 30; // Approx
+                    double yearlyCost = cost * 365;
+                    cout << "Treatment: " << treatment << endl;
+                    cout << "Daily Cost: " << dailyCost << endl;
+                    cout << "Weekly Cost: " << weeklyCost << endl;
+                    cout << "Monthly Cost: " << monthlyCost << endl;
+                    cout << "Yearly Cost: " << yearlyCost << endl << endl;
+                }
+                else if (frequency == "2 500mg pills a day")
+                {
+                    double dailyCost = cost * 2;
+                    double weeklyCost = cost * 14;
+                    double monthlyCost = cost * 60; // Approx
+                    double yearlyCost = cost * 730;
+                    cout << "Treatment: " << treatment << endl;
+                    cout << "Daily Cost: " << dailyCost << endl;
+                    cout << "Weekly Cost: " << weeklyCost << endl;
+                    cout << "Monthly Cost: " << monthlyCost << endl;
+                    cout << "Yearly Cost: " << yearlyCost << endl << endl;
+                }
+                else if (frequency == "One every 24 hours")
+                {
+					double dailyCost = cost * 1;
+					double weeklyCost = cost * 7;
+					double monthlyCost = cost * 30; // Approx
+					double yearlyCost = cost * 365;
+                    cout << "Treatment: " << treatment << endl;
+                    cout << "Daily Cost: " << dailyCost << endl;
+                    cout << "Weekly Cost: " << weeklyCost << endl;
+                    cout << "Monthly Cost: " << monthlyCost << endl;
+                    cout << "Yearly Cost: " << yearlyCost << endl << endl;
+				}
+            }
         }
-	}
+    }
     else
     {
-		cerr << "Failed to connect to the database." << endl;
-	}
-
+        cout << "Cost Free :)" << endl;
+    }
 }
 
 // Utility Functions

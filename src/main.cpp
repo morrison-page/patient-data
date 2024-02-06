@@ -54,26 +54,12 @@ int main()
                     {
                     case 1:
                     {
-                        // TODO: figure out bad memory allocation on user x > 1
                         Database.getPatientDetails(Patient.getPatientId());
                         Database.getPatientTreatments(Patient.getPatientId());
                     }
                     case 2:
                     {
-                        // TODO: Output Patient Treatment Costs
-                        if (Patient.getCancer() == true)
-                        {
-                            //cout << "Cancer Treatment: " << Patient.calculateCancerCost();
-                        }
-                        else if (Patient.getDiabetes() == true)
-                        {
-
-                            //cout << "Diabetes Treatment: " << Patient.calculateDiabetesCost();
-                        }
-                        else if (Patient.getSmoker() == true)
-                        {
-                            //cout << "Smoking Treatment: " << Patient.calculateSmokingCost();
-                        }
+                        Database.getPatientCosts(Patient.getPatientId());
                     }
                     case 3:
                         exit(0);
