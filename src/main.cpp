@@ -54,7 +54,7 @@ int main()
                     {
                     case 1:
                     {
-                        // TODO: figure out bad memory allocation on user x > 1                         
+                        // TODO: figure out bad memory allocation on user x > 1
                         Database.getPatientDetails(Patient.getPatientId());
                         Database.getPatientTreatments(Patient.getPatientId());
                     }
@@ -188,11 +188,26 @@ int main()
                     {
                     case 1:
                     {
-                        // TODO: View Patient Details
+                        // TODO: Search for Patient
+                        
+                        // ask for patient username
+                        // search for patient
+                        // initialise patient
+
+                        // use: Database.getPatientDetails(Patient.getPatientId());
+
                     }
                     case 2:
                     {
                         // TODO: View Patient Treatment & Cost
+                        // TODO: Search for Patient
+
+                        // ask for patient username
+                        // search for patient
+                        // initialise patient
+
+                        //use Database.getPatientDetails(Patient.getPatientId());
+                        //use Database.getPatientTreatments(Patient.getPatientId());
                     }
                     case 3:
                     {

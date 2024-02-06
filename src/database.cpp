@@ -447,7 +447,7 @@ Patient Database::initialisePatient(int userId)
             int userId = res->getInt(1);
             string username = res->getString(2);
             AccessLevel accessLevel = Utils::stringToAccessLevel(res->getString(3));
-           
+
             pstmt = conn->prepareStatement("SELECT * FROM patients WHERE user_id = ?;");
             pstmt->setInt(1, userId);
             res = pstmt->executeQuery();
@@ -460,44 +460,54 @@ Patient Database::initialisePatient(int userId)
                 bool previouslyCancerous = res->getBoolean("previously_cancerous");
                 bool previouslySmoked = res->getBoolean("previously_smoked");
 
+                // Cancer
                 pstmt = conn->prepareStatement("SELECT * FROM cancer WHERE patient_id = ?;");
                 pstmt->setInt(1, patientId);
                 res = pstmt->executeQuery();
-
+                bool cancer = false;
+                int cancerStage = 0;
                 if (res->next())
                 {
                     int cancerStage = res->getInt("cancer_stage");
                     bool cancer = true;
+                }             
 
-                    pstmt = conn->prepareStatement("SELECT * FROM diabetes WHERE patient_id = ?;");
-                    pstmt->setInt(1, patientId);
-                    res = pstmt->executeQuery();
-
-                    if (res->next())
-                    {
-                        int diabetesType = res->getInt("diabetes_type");
-                        bool diabetes = true;
-
-                        pstmt = conn->prepareStatement("SELECT * FROM smoking WHERE patient_id = ?;");
-                        pstmt->setInt(1, patientId);
-                        res = pstmt->executeQuery();
-
-                        if (res->next())
-                        {
-                            int smokingQuantity = res->getInt("pack_frequency");
-                            bool smoker = true;
-
-                            Patient Patient(patientId, username, firstname, lastname,
-                                cancer, cancerStage,
-                                diabetes, diabetesType,
-                                smoker, smokingQuantity,
-                                previouslyCancerous, previouslySmoked);
-
-                            return Patient;
-                        }
-                    }
+                // Diabetes
+                pstmt = conn->prepareStatement("SELECT * FROM diabetes WHERE patient_id = ?;");
+                pstmt->setInt(1, patientId);
+                res = pstmt->executeQuery();
+                bool diabetes = false;
+                int diabetesType = 0;
+                if (res->next())
+                {
+                    int diabetesType = res->getInt("diabetes_type");
+                    bool diabetes = true;
                 }
+
+                // Smoking
+                pstmt = conn->prepareStatement("SELECT * FROM smoking WHERE patient_id = ?;");
+                pstmt->setInt(1, patientId);
+                res = pstmt->executeQuery();
+                bool smoker = false;
+                int smokingQuantity = 0;
+                if (res->next())
+                {
+                    int smokingQuantity = res->getInt("pack_frequency");
+                    bool smoker = true;
+                }
+
+                Patient Patient(patientId, username, firstname, lastname,
+                    cancer, cancerStage,
+                    diabetes, diabetesType,
+                    smoker, smokingQuantity,
+                    previouslyCancerous, previouslySmoked);
+                
+                return Patient;
             }
+            else
+            {
+				cerr << "Patient Not Found";
+			}
         }
     }
 };
