@@ -14,7 +14,7 @@
 #include "database.hpp"
 #include "hashing.hpp"
 #include "patient.hpp"
-#include "users.hpp"
+#include "user.hpp"
 #include "utils.hpp"
 
 using namespace std;

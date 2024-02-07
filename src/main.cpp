@@ -12,7 +12,7 @@ using namespace std;
 
 int main()
 {
-    // Instantiate Objects
+    // Instantiate Object(s)
     Database Database;
 
     // Main Program Loop
@@ -27,7 +27,7 @@ int main()
 
         switch (choice)
         {
-            // Patient Menu Tree
+        // Patient Menu Tree
         case 1:
         {
             cout << "1 - Login\n";
@@ -37,7 +37,7 @@ int main()
             cout << endl;
             switch (choice)
             {
-                // Login
+            // Login
             case 1:
             {
                 int userId = Database.authenticateUser();
@@ -155,7 +155,7 @@ int main()
             cout << endl;
             switch (choice)
             {
-                // Doctor / Nurse
+            // Doctor / Nurse
             case 1 || 2:
             {
                 if (Database.authenticateUser() != -1)
@@ -166,7 +166,8 @@ int main()
                     cout << "2 - View Patient Treatment & Cost\n";
                     cout << "3 - View Data Analytics\n";
                     cout << "4 - Change Patient Medication\n";
-                    cout << "5 - Exit\n\n";
+                    cout << "5 - Create Staff Accounts\n";
+                    cout << "6 - Exit\n\n";
                     cin >> choice;
                     cout << endl;
                     switch (choice)
@@ -203,6 +204,14 @@ int main()
                         // TODO: Change Patient Medication
                     }
                     case 5:
+                    {
+                        cout << "";
+
+                        User User;
+
+                        Database.createStaff(User);
+                    }
+                    case 6:
                         exit(0);
                     }
                 }
@@ -212,8 +221,7 @@ int main()
             {
                 if (Database.authenticateUser() != -1)
                 {
-                    // TODO: Work out how to get UID to function
-                    //Pharmacist Pharmacist = Database.initialisePharmacist(userId);
+                    //User User = Database.initialiseStaff(userId);
                     cout << "1 - View Patient Details\n";
                     cout << "2 - View Patient Treatment & Cost\n";
                     cout << "3 - View Data Analytics\n";
@@ -271,9 +279,8 @@ int main()
             }
         }
         case 3:
-            //Database.getPatientCosts(1);
-            cout << Utils::treatmentStartDate() << endl;
-            cout << Utils::treatmentEndDate(12) << endl << endl;
+            exit(0);
+
         }
     }
     return 0;

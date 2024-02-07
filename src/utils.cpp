@@ -48,7 +48,8 @@ string Utils::treatmentStartDate()
 
     // Convert time_t to std::tm (local time)
     tm localTime;
-    if (localtime_s(&localTime, &currentTime) != 0) {
+    if (localtime_s(&localTime, &currentTime) != 0) 
+    {
         cerr << "Error converting time." << endl;
     }
 
@@ -75,7 +76,8 @@ string Utils::treatmentEndDate(int length)
 
     // Convert time_t to std::tm (local time)
     tm localTime;
-    if (localtime_s(&localTime, &currentTime) != 0) {
+    if (localtime_s(&localTime, &currentTime) != 0) 
+    {
         cerr << "Error converting time." << endl;
     }
 

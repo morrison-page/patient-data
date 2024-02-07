@@ -7,7 +7,6 @@
     <ClCompile Include="src\hashing.cpp" />
     <ClCompile Include="src\patient.cpp" />
     <ClCompile Include="src\utils.cpp" />
-    <ClCompile Include="src\doctor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\database.hpp" />
@@ -16,7 +15,5 @@
     <ClInclude Include="include\hashing.hpp" />
     <ClInclude Include="include\patient.hpp" />
     <ClInclude Include="include\utils.hpp" />
-    <ClInclude Include="include\doctor.hpp" />
-    <ClInclude Include="include\pharmacist.hpp" />
   </ItemGroup>
 </Project>
