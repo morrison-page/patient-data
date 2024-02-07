@@ -170,6 +170,7 @@ int main()
                     cout << "6 - Exit\n\n";
                     cin >> choice;
                     cout << endl;
+
                     switch (choice)
                     {
                     case 1:
@@ -203,11 +204,22 @@ int main()
                     {
                         // TODO: Change Patient Medication
                     }
+                    // Register Doctor/Nurse
                     case 5:
                     {
-                        cout << "";
+                        AccessLevel accessLevel = AccessLevel::DOCTOR;
+                        string username, password;
+                        cout << "Username: ";
+                        cin >> username;
+                        password = Utils::checkPasswordMatch();
+                        
+                        size_t hashedPassword = Hashing::hashPassword(password);
 
-                        User User;
+                        User User(username, hashedPassword, accessLevel);
+                        
+                        // FAILED
+                        //auto user = User();
+                        //user(username, hashedPassword, accessLevel);
 
                         Database.createStaff(User);
                     }

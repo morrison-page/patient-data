@@ -19,7 +19,7 @@ Patient::Patient(const int patientId, const string& username, const string& firs
 	const string& lastname, bool cancer, int cancerStage,
 	const bool diabetes, const int diabetesType, const bool smoker, const int smokingQuantity,
 	const bool previouslyCancerous, const bool previouslySmoked) :
-	User(username, AccessLevel::PATIENT), patientId(patientId),
+	User(userId, username, AccessLevel::PATIENT), patientId(patientId),
 	firstname(firstname), lastname(lastname), cancer(cancer), cancerStage(cancerStage),
 	diabetes(diabetes), diabetesType(diabetesType), smoker(smoker),
 	smokingQuantity(smokingQuantity), previouslyCancerous(previouslyCancerous),
