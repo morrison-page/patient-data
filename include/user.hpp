@@ -15,6 +15,7 @@ public:
 	// Class Functions
 
 	// Getters
+	int getUserId() const;
 	string getUsername() const;
 	size_t getPassword() const;
 	AccessLevel getAccessLevel() const;

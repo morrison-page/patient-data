@@ -11,11 +11,10 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-#include "pharmacist.hpp"
 #include "database.hpp"
 #include "hashing.hpp"
 #include "patient.hpp"
-#include "doctor.hpp"
+#include "users.hpp"
 #include "utils.hpp"
 
 using namespace std;
@@ -358,7 +357,7 @@ bool Database::createPatient(const Patient& patient)
     return false;
 }
 
-bool Database::createDoctor(const Doctor& doctor)
+bool Database::createStaff(const User& user)
 {
     if (connect())
     {
@@ -366,28 +365,13 @@ bool Database::createDoctor(const Doctor& doctor)
         pstmt = conn->prepareStatement("INSERT INTO users ("
             "username, password, access_level)"
             "VALUES (?, ?, ?);");
-        pstmt->setString(1, doctor.getUsername());
-        pstmt->setInt64(2, doctor.getPassword());
-        pstmt->setString(3, Utils::accessLevelToString(doctor.getAccessLevel()));
+        pstmt->setString(1, user.getUsername());
+        pstmt->setInt64(2, user.getPassword());
+        pstmt->setString(3, Utils::accessLevelToString(user.getAccessLevel()));
         pstmt->executeUpdate();
-        // TODO: Validate Return Value
         return true;
     }
     return false;
-}
-
-bool Database::createPharmacist(const Pharmacist& pharmacist)
-{
-    // Insert patient data into user table
-    pstmt = conn->prepareStatement("INSERT INTO users ("
-        "username, password, access_level)"
-        "VALUES (?, ?, ?);");
-    pstmt->setString(1, pharmacist.getUsername());
-    pstmt->setInt64(2, pharmacist.getPassword());
-    pstmt->setString(3, Utils::accessLevelToString(pharmacist.getAccessLevel()));
-    pstmt->executeUpdate();
-    // TODO: Validate Return Value
-    return true;
 }
 
 // Authentication
@@ -512,8 +496,7 @@ Patient Database::initialisePatient(int userId)
     }
 };
 
-/*
-Doctor Database::initialiseDoctor(int userId)
+User Database::initialiseStaff(int userId)
 {
     pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
     pstmt->setInt(1, userId);
@@ -530,25 +513,6 @@ Doctor Database::initialiseDoctor(int userId)
         res = pstmt->executeQuery();
     }
 }
-
-Pharmacist Database::initialisePharmacist(int userId)
-{
-    pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
-    pstmt->setInt(1, userId);
-    res = pstmt->executeQuery();
-    if (res->next())
-    {
-        // TODO: Check user perms
-        int userId = res->getInt(1);
-        string username = res->getString(2);
-        AccessLevel accessLevel;
-
-        pstmt = conn->prepareStatement("SELECT * FROM patients WHERE userId = ?;");
-        pstmt->setInt(1, userId);
-        res = pstmt->executeQuery();
-    }
-}
-*/
 
 // Data Fetch Functions
 

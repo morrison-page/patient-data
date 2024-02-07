@@ -8,9 +8,9 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-#include "pharmacist.hpp"
 #include "patient.hpp"
-#include "doctor.hpp"
+#include "user.hpp"
+
 
 using namespace std;
 
@@ -29,14 +29,12 @@ public:
 
 	// User Creation
 	bool createPatient(const Patient& patient);
-	bool createDoctor(const Doctor& doctor);
-	bool createPharmacist(const Pharmacist& pharmacist);
+	bool createStaff(const User& staff);
 
 	// Authentication
 	int authenticateUser();
 	Patient initialisePatient(int userId);
-	Doctor initialiseDoctor(int userId);
-	Pharmacist initialisePharmacist(int userId);
+	User initialiseStaff(int userId);
 
 	// Data Fetch Functions
 	void getPatientTreatments(int patientId);

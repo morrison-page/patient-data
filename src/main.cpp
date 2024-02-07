@@ -160,9 +160,8 @@ int main()
             {
                 if (Database.authenticateUser() != -1)
                 {
-                    //userId = Database.authenticateUser();
-                    //Database.initialiseDoctor(userId);
-                    //Doctor Doctor = Database.initialiseDoctor(userId);
+                    int userId = Database.authenticateUser();
+                    User User = Database.initialiseStaff(userId);
                     cout << "1 - View Patient Details\n";
                     cout << "2 - View Patient Treatment & Cost\n";
                     cout << "3 - View Data Analytics\n";
