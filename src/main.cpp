@@ -15,6 +15,9 @@ int main()
     // Instantiate Object(s)
     Database Database;
 
+    // TODO: non essential but fix program loop
+    // patient has to continue to login to use menu more than once
+
     // Main Program Loop
     while (true)
     {

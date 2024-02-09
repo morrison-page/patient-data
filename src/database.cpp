@@ -484,7 +484,7 @@ Patient Database::initialisePatient(int userId)
                 }
 
                 Patient Patient(userId, patientId, username, firstname, lastname,
-                    cancer, cancerStage,
+                    age, cancer, cancerStage,
                     diabetes, diabetesType,
                     smoker, smokingQuantity,
                     previouslyCancerous, previouslySmoked);
