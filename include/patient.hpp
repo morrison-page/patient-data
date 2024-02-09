@@ -9,13 +9,13 @@ public:
     // Constructors
 
     Patient(const string& username, const size_t& hashedPassword, const string& firstname,
-        const string& lastname, const bool hasCancer, const int cancerStage,
+        const string& lastname, const int age, const bool hasCancer, const int cancerStage,
         const bool hasDiabetes, const int diabetesType, const bool isSmoker,
         const int smokingQuantity, const bool previouslyHadCancer,
         const bool previouslySmoked);
 
-    Patient(const int patientId, const string& username, const string& firstname,
-        const string& lastname, const bool hasCancer, const int cancerStage,
+    Patient(const int userId, const int patientId, const string& username, const string& firstname,
+        const string& lastname, const int age, const bool hasCancer, const int cancerStage,
         const bool hasDiabetes, const int diabetesType, const bool isSmoker, const int smokingQuantity,
         const bool previouslyHadCancer, const bool previouslySmoked);
 
@@ -23,6 +23,7 @@ public:
     int getPatientId() const;
     string getFirstname() const;
     string getLastname() const;
+    int getAge() const;
     bool getCancer() const;
     int getCancerStage() const;
     bool getDiabetes() const;
@@ -36,6 +37,7 @@ private:
     int patientId;
     string firstname;
     string lastname;
+    int age;
     bool cancer;
     int cancerStage;
     bool diabetes;

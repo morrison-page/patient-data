@@ -41,6 +41,12 @@ public:
 	void getPatientDetails(int patientId);
 	void getPatientCosts(int patientId);
 
+	// Data Analytics Functions
+
+	void averageAgeOfCancerPatients();
+	void averageAgeOfDiabeticPatients();
+	void smokingFrequencyOfCancerPatients();
+
 private:
 	// Database Pointer Declaration
 	sql::mysql::MySQL_Driver* driver;

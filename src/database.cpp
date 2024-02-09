@@ -22,7 +22,7 @@ using namespace std;
 // Constructor
 Database::Database()
 {
-    createDatabase();
+    //createDatabase();
 };
 // Destructor
 Database::~Database()
@@ -68,6 +68,7 @@ bool Database::createDatabase()
             "user_id INT NOT NULL,"
             "first_name VARCHAR(255) NOT NULL,"
             "last_name VARCHAR(255) NOT NULL,"
+            "age int(11) NOT NULL,"
             "previously_cancerous BOOLEAN NOT NULL,"
             "previously_smoked BOOLEAN NOT NULL,"
             "FOREIGN KEY(user_id) REFERENCES users(user_id)"
@@ -164,14 +165,15 @@ bool Database::createPatient(const Patient& patient)
             // Insert patient data into patients table
             int userId = res->getInt(1);
             pstmt = conn->prepareStatement("INSERT INTO patients ("
-                "user_id, first_name, last_name,"
+                "user_id, first_name, last_name, age,"
                 "previously_cancerous, previously_smoked)"
-                "VALUES (? , ? , ? , ? , ?)");
+                "VALUES (? , ? , ? , ? , ?, ?)");
             pstmt->setInt(1, userId);
             pstmt->setString(2, patient.getFirstname());
             pstmt->setString(3, patient.getLastname());
-            pstmt->setBoolean(4, patient.getPreviouslyCancerous());
-            pstmt->setBoolean(5, patient.getPreviouslySmoked());
+            pstmt->setInt(4, patient.getAge());
+            pstmt->setBoolean(5, patient.getPreviouslyCancerous());
+            pstmt->setBoolean(6, patient.getPreviouslySmoked());
             pstmt->executeUpdate();
 
             // Grab Inserted ID that auto increments
@@ -197,7 +199,7 @@ bool Database::createPatient(const Patient& patient)
                         	"VALUES (?, ?, ?, ?);");
                         pstmt->setInt(1, patientId);
                         pstmt->setInt(2, 3);
-                        // Get date rangte for treatment
+                        // Get date range for treatment
                         string startDate = Utils::treatmentStartDate();
                         string endDate = Utils::treatmentEndDate(6);
                         pstmt->setString(3, startDate);
@@ -211,7 +213,7 @@ bool Database::createPatient(const Patient& patient)
                             "VALUES (?, ?, ?, ?);");
                         pstmt->setInt(1, patientId);
                         pstmt->setInt(2, 4);
-                        // Get date rangte for treatment
+                        // Get date range for treatment
                         string startDate = Utils::treatmentStartDate();
                         string endDate = Utils::treatmentEndDate(6);
                         pstmt->setString(3, startDate);
@@ -225,7 +227,7 @@ bool Database::createPatient(const Patient& patient)
                             "VALUES (?, ?, ?, ?);");
                         pstmt->setInt(1, patientId);
                         pstmt->setInt(2, 5);
-                        // Get date rangte for treatment
+                        // Get date range for treatment
                         string startDate = Utils::treatmentStartDate();
                         string endDate = Utils::treatmentEndDate(12);
                         pstmt->setString(3, startDate);
@@ -239,7 +241,7 @@ bool Database::createPatient(const Patient& patient)
                             "VALUES (?, ?, ?, ?);");
                         pstmt->setInt(1, patientId);
                         pstmt->setInt(2, 6);
-                        // Get date rangte for treatment
+                        // Get date range for treatment
                         string startDate = "0000-00-00";
                         string endDate = "0000-00-00";
                         pstmt->setString(3, startDate);
@@ -441,6 +443,7 @@ Patient Database::initialisePatient(int userId)
                 int patientId = res->getInt("patient_id");
                 string firstname = res->getString("first_name");
                 string lastname = res->getString("last_name");
+                int age = res->getInt("age");
                 bool previouslyCancerous = res->getBoolean("previously_cancerous");
                 bool previouslySmoked = res->getBoolean("previously_smoked");
 
@@ -480,7 +483,7 @@ Patient Database::initialisePatient(int userId)
                     bool smoker = true;
                 }
 
-                Patient Patient(patientId, username, firstname, lastname,
+                Patient Patient(userId, patientId, username, firstname, lastname,
                     cancer, cancerStage,
                     diabetes, diabetesType,
                     smoker, smokingQuantity,
@@ -498,19 +501,18 @@ Patient Database::initialisePatient(int userId)
 
 User Database::initialiseStaff(int userId)
 {
-    pstmt = conn->prepareStatement("SELECT * FROM users WHERE userId = ?;");
+    pstmt = conn->prepareStatement("SELECT * FROM users WHERE user_id = ?;");
     pstmt->setInt(1, userId);
     res = pstmt->executeQuery();
     if (res->next())
     {
-        // TODO: Check user perms
-        int userId = res->getInt(1);
-        string username = res->getString(2);
-        AccessLevel accessLevel;
+        int userId = res->getInt("user_id");
+        string username = res->getString("username");
+        AccessLevel accessLevel = Utils::stringToAccessLevel(res->getString("access_level"));
 
-        pstmt = conn->prepareStatement("SELECT * FROM patients WHERE userId = ?;");
-        pstmt->setInt(1, userId);
-        res = pstmt->executeQuery();
+        User User(userId, username, accessLevel);
+
+        return User;
     }
 }
 
@@ -711,6 +713,46 @@ void Database::getPatientCosts(int patientId)
     {
         cout << "Cost Free :)" << endl;
     }
+}
+
+// Data Analytics
+
+void Database::averageAgeOfCancerPatients()
+{
+    if (connect())
+    {
+		pstmt = conn->prepareStatement("SELECT AVG(YEAR(CURDATE()) - YEAR(p.age)) AS average_age "
+        			"FROM patients p" 
+        			"JOIN cancer c ON p.patient_id = c.patient_id;");
+		res = pstmt->executeQuery();
+        if (res->next())
+        {
+			cout << "Average Age of Cancer Patients: " << res->getInt("average_age") << endl;
+		}
+	}
+    else
+    {
+		cerr << "Failed to connect to the database." << endl;
+	}
+}
+
+void Database::averageAgeOfDiabeticPatients()
+{
+    if (connect())
+    {
+		pstmt = conn->prepareStatement("SELECT AVG(YEAR(CURDATE()) - YEAR(p.age)) AS average_age "
+        					"FROM patients p "
+        					"JOIN diabetes d ON p.patient_id = d.patient_id;");
+		res = pstmt->executeQuery();
+        if (res->next())
+        {
+			cout << "Average Age of Diabetic Patients: " << res->getInt("average_age") << endl;
+		}
+	}
+    else
+    {
+		cerr << "Failed to connect to the database." << endl;
+	}
 }
 
 // Utility Functions

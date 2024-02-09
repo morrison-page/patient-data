@@ -6,7 +6,7 @@ using namespace std;
 // Constructors
 
 Patient::Patient(const string& username, const size_t& hashedPassword, const string& firstname,
-	const string& lastname, const bool cancer, const int cancerStage, 
+	const string& lastname, const int age, const bool cancer, const int cancerStage, 
 	const bool diabetes, const int diabetesType, const bool smoker, const int smokingQuantity, 
 	const bool previouslyCancerous, const bool previouslySmoked) : 
 	User(username, hashedPassword, AccessLevel::PATIENT),
@@ -15,8 +15,8 @@ Patient::Patient(const string& username, const size_t& hashedPassword, const str
 	smokingQuantity(smokingQuantity), previouslyCancerous(previouslyCancerous),
 	previouslySmoked(previouslySmoked) { };
 
-Patient::Patient(const int patientId, const string& username, const string& firstname,
-	const string& lastname, bool cancer, int cancerStage,
+Patient::Patient(const int userId, const int patientId, const string& username, const string& firstname,
+	const string& lastname, const int age, bool cancer, int cancerStage,
 	const bool diabetes, const int diabetesType, const bool smoker, const int smokingQuantity,
 	const bool previouslyCancerous, const bool previouslySmoked) :
 	User(userId, username, AccessLevel::PATIENT), patientId(patientId),
@@ -29,6 +29,7 @@ Patient::Patient(const int patientId, const string& username, const string& firs
 int Patient::getPatientId() const { return patientId; }
 string Patient::getFirstname() const { return firstname; }
 string Patient::getLastname() const { return lastname; }
+int Patient::getAge() const { return age; }
 bool Patient::getCancer() const { return cancer; }
 int Patient::getCancerStage() const { return cancerStage; }
 bool Patient::getDiabetes() const { return diabetes; }

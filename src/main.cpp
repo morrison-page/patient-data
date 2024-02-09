@@ -43,7 +43,7 @@ int main()
                 int userId = Database.authenticateUser();
                 if (userId != -1)
                 {
-                    Patient Patient = Database.initialisePatient(userId);
+                    Patient currentPatient = Database.initialisePatient(userId);
                     cout << endl;
                     cout << "1 - View Personal Details\n";
                     cout << "2 - View Treatment & Cost\n";
@@ -54,17 +54,20 @@ int main()
                     {
                     case 1:
                     {
-                        Database.getPatientDetails(Patient.getPatientId());
-                        Database.getPatientTreatments(Patient.getPatientId());
+                        Database.getPatientDetails(currentPatient.getPatientId());
+                        Database.getPatientTreatments(currentPatient.getPatientId());
+                        break;
                     }
                     case 2:
                     {
-                        Database.getPatientCosts(Patient.getPatientId());
+                        Database.getPatientCosts(currentPatient.getPatientId());
+                        break;
                     }
                     case 3:
                         exit(0);
                     }
                 }
+                break;
             }
             // Register
             case 2:
@@ -77,10 +80,13 @@ int main()
                 size_t hashedPassword = Hashing::hashPassword(password);
 
                 string firstname, lastname;
+                int age;
                 cout << "Firstname: ";
                 cin >> firstname;
                 cout << "Lastname: ";
                 cin >> lastname;
+                cout << "Age: ";
+                cin >> age;
                 cout << endl;
 
                 char hasCancer, hasDiabetes, isSmoker;
@@ -132,17 +138,19 @@ int main()
                 bool previouslyCancerous = (hadCancer == 'y');
                 bool previouslySmoked = (hasSmoked == 'y');
 
-                Patient Patient(username, hashedPassword, firstname, lastname,
-                    cancer, cancerStage,
+                Patient newPatient(username, hashedPassword, firstname, lastname,
+                    age, cancer, cancerStage,
                     diabetes, diabetesType,
                     smoker, smokingQuantity,
                     previouslyCancerous, previouslySmoked);
 
-                Database.createPatient(Patient);
+                Database.createPatient(newPatient);
+                break;
             }
             case 3:
                 exit(0);
             }
+            break;
         }
         // Staff Menu Tree
         case 2:
@@ -155,13 +163,19 @@ int main()
             cout << endl;
             switch (choice)
             {
-            // Doctor / Nurse
-            case 1 || 2:
+            // Doctor
+            case 1:
             {
-                if (Database.authenticateUser() != -1)
+                __fallthrough;
+            }
+            // Nurse
+            case 2:
+            {
+                int userId = Database.authenticateUser();
+                if (userId != -1)
                 {
-                    int userId = Database.authenticateUser();
-                    User User = Database.initialiseStaff(userId);
+                    User currentUser = Database.initialiseStaff(userId);
+                    cout << endl;
                     cout << "1 - View Patient Details\n";
                     cout << "2 - View Patient Treatment & Cost\n";
                     cout << "3 - View Data Analytics\n";
@@ -182,7 +196,7 @@ int main()
                         // initialise patient
 
                         // use: Database.getPatientDetails(Patient.getPatientId());
-
+                        break;
                     }
                     case 2:
                     {
@@ -195,14 +209,17 @@ int main()
 
                         //use Database.getPatientDetails(Patient.getPatientId());
                         //use Database.getPatientTreatments(Patient.getPatientId());
+                        break;
                     }
                     case 3:
                     {
                         // TODO: Output Data Analytics
+                        break;
                     }
                     case 4:
                     {
                         // TODO: Change Patient Medication
+                        break;
                     }
                     // Register Doctor/Nurse
                     case 5:
@@ -215,84 +232,100 @@ int main()
                         
                         size_t hashedPassword = Hashing::hashPassword(password);
 
-                        User User(username, hashedPassword, accessLevel);
-                        
-                        // FAILED
-                        //auto user = User();
-                        //user(username, hashedPassword, accessLevel);
+                        User newStaff(username, hashedPassword, accessLevel);
 
-                        Database.createStaff(User);
+                        Database.createStaff(newStaff);
+                        break;
                     }
                     case 6:
                         exit(0);
                     }
                 }
+                break;
             }
             // Pharmacist
             case 3:
             {
-                if (Database.authenticateUser() != -1)
+                int userId = Database.authenticateUser();
+                if (userId != -1)
                 {
-                    //User User = Database.initialiseStaff(userId);
-                    cout << "1 - View Patient Details\n";
-                    cout << "2 - View Patient Treatment & Cost\n";
-                    cout << "3 - View Data Analytics\n";
-                    cout << "4 - Change Patient Medication\n";
-                    cout << "5 - Prescriptions and Treatments\n";
-                    cout << "6 - Exit\n\n";
-                    cin >> choice;
-                    cout << endl;
-                    switch (choice)
+                    User currentUser = Database.initialiseStaff(userId);
+                    if (currentUser.getAccessLevel() == AccessLevel::PHARMACIST)
                     {
-                    case 1:
-                    {
-                        // TODO: View Patient Details
-                    }
-                    case 2:
-                    {
-                        // TODO: View Patient Treatment & Cost
-                    }
-                    case 3:
-                    {
-                        // TODO: Output Data Analytics
-                    }
-                    case 4:
-                    {
-                        // TODO: Change Patient Medication
-                    }
-                    case 5:
-                    {
-                        cout << "1 - View\n";
-                        cout << "2 - Change\n";
-                        cout << "3 - Exit\n\n";
+                        cout << "1 - View Patient Details\n";
+                        cout << "2 - View Patient Treatment & Cost\n";
+                        cout << "3 - View Data Analytics\n";
+                        cout << "4 - Change Patient Medication\n";
+                        cout << "5 - Prescriptions and Treatments\n";
+                        cout << "6 - Exit\n\n";
                         cin >> choice;
                         cout << endl;
                         switch (choice)
                         {
                         case 1:
                         {
-                            // TODO: View Treatments
+                            // TODO: View Patient Details
+                            break;
                         }
                         case 2:
                         {
-                            // TODO: Change Treatments
+                            // TODO: View Patient Treatment & Cost
+                            break;
                         }
                         case 3:
+                        {
+                            // TODO: Output Data Analytics
+                            break;
+                        }
+                        case 4:
+                        {
+                            // TODO: Change Patient Medication
+                            break;
+                        }
+                        case 5:
+                        {
+                            cout << "1 - View\n";
+                            cout << "2 - Change\n";
+                            cout << "3 - Exit\n\n";
+                            cin >> choice;
+                            cout << endl;
+                            switch (choice)
+                            {
+                            case 1:
+                            {
+                                // TODO: View Treatments
+                                break;
+                            }
+                            case 2:
+                            {
+                                // TODO: Change Treatments
+                                break;
+                            }
+                            case 3:
+                                exit(0);
+                            }
+                            break;
+                        }
+                        case 6:
                             exit(0);
                         }
                     }
-                    case 6:
+                    else
+                    {
+                        cout << endl;
+                        cout << "You are not a Pharmacist\n\n";
                         exit(0);
                     }
                 }
+                break;
             }
             case 4:
                 exit(0);
             }
+            break;
         }
         case 3:
             exit(0);
-
         }
     }
     return 0;

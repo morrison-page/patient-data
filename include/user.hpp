@@ -8,7 +8,7 @@ class User
 {
 public:
 	// Constructor
-	User(string& username, size_t& password, AccessLevel accessLevel);
+	User(string username, size_t password, AccessLevel accessLevel);
 
 	User(int userId, string username, AccessLevel accessLevel);
 
