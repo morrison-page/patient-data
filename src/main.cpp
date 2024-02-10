@@ -57,6 +57,7 @@ int main()
                     {
                     case 1:
                     {
+<<<<<<< Updated upstream
                         Database.getPatientDetails(currentPatient.getPatientId());
                         Database.getPatientTreatments(currentPatient.getPatientId());
                         break;
@@ -65,6 +66,16 @@ int main()
                     {
                         Database.getPatientCosts(currentPatient.getPatientId());
                         break;
+=======
+                        // Output Patient Details & Treatment
+                        Database.getPatientDetails(Patient.getPatientId());
+                        Database.getPatientTreatments(Patient.getPatientId());
+                    }
+                    case 2:
+                    {
+                        // Output Patient Costs
+                        Database.getPatientCosts(Patient.getPatientId());
+>>>>>>> Stashed changes
                     }
                     case 3:
                         exit(0);
