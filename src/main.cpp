@@ -166,6 +166,7 @@ int main()
             cout << "4 - Exit\n\n";
             cin >> choice;
             cout << endl;
+
             switch (choice)
             {
             // Doctor
@@ -200,6 +201,8 @@ int main()
                         // search for patient
                         // initialise patient
 
+
+
                         // use: Database.getPatientDetails(Patient.getPatientId());
                         break;
                     }
@@ -216,9 +219,36 @@ int main()
                         //use Database.getPatientTreatments(Patient.getPatientId());
                         break;
                     }
+                    // Show Data Analytics
                     case 3:
                     {
-                        // TODO: Output Data Analytics
+                        cout << "1 - Average Age of Cancer Patients\n";
+                        cout << "2 - Average Age of Diabetic Patients\n";
+                        cout << "3 - Smoking Frequency of Cancer Patients\n";
+                        cout << "4 - Exit\n\n";
+                        cin >> choice;
+                        cout << endl;
+
+                        switch (choice)
+                        {
+						case 1:
+                        {
+						    Database.averageAgeOfCancerPatients();
+							break;
+						}
+						case 2:
+                        {
+						    Database.averageAgeOfDiabeticPatients();
+							break;
+                        }
+						case 3:
+                        {
+						    Database.smokingFrequencyOfCancerPatients();
+						    break;
+						}
+                        case 4:
+						    exit(0);
+                        }
                         break;
                     }
                     case 4:
@@ -257,6 +287,7 @@ int main()
                     User currentUser = Database.initialiseStaff(userId);
                     if (currentUser.getAccessLevel() == AccessLevel::PHARMACIST)
                     {
+                        cout << endl;
                         cout << "1 - View Patient Details\n";
                         cout << "2 - View Patient Treatment & Cost\n";
                         cout << "3 - View Data Analytics\n";
@@ -265,6 +296,7 @@ int main()
                         cout << "6 - Exit\n\n";
                         cin >> choice;
                         cout << endl;
+
                         switch (choice)
                         {
                         case 1:
@@ -277,11 +309,36 @@ int main()
                             // TODO: View Patient Treatment & Cost
                             break;
                         }
+                        // View Data Analytics
                         case 3:
                         {
-                            // TODO: Output Data Analytics
-                            Database.averageAgeOfCancerPatients();
-                            Database.averageAgeOfDiabeticPatients();
+                            cout << "1 - Average Age of Cancer Patients\n";
+                            cout << "2 - Average Age of Diabetic Patients\n";
+                            cout << "3 - Smoking Frequency of Cancer Patients\n";
+                            cout << "4 - Exit\n\n";
+                            cin >> choice;
+                            cout << endl;
+
+                            switch (choice)
+                            {
+                            case 1:
+                            {
+                                Database.averageAgeOfCancerPatients();
+                                break;
+                            }
+                            case 2:
+                            {
+                                Database.averageAgeOfDiabeticPatients();
+                                break;
+                            }
+                            case 3:
+                            {
+                                Database.smokingFrequencyOfCancerPatients();
+                                break;
+                            }
+                            case 4:
+                                exit(0);
+                            }
                             break;
                         }
                         case 4:
@@ -296,6 +353,7 @@ int main()
                             cout << "3 - Exit\n\n";
                             cin >> choice;
                             cout << endl;
+
                             switch (choice)
                             {
                             case 1:
@@ -321,7 +379,6 @@ int main()
                     {
                         cout << endl;
                         cout << "You are not a Pharmacist\n\n";
-                        exit(0);
                     }
                 }
                 break;

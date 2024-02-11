@@ -721,14 +721,18 @@ void Database::averageAgeOfCancerPatients()
 {
     if (connect())
     {
-		stmt = conn->createStatement("SELECT AVG(p.age) AS average_age "
-        			"FROM patients p" 
-        			"JOIN cancer c ON p.patient_id = c.patient_id;");
-		res = stmt->execute();
+		stmt = conn->createStatement();
+        res = stmt->executeQuery("SELECT AVG(p.age) AS average_age "
+                "FROM patients p " 
+        	    "JOIN cancer c ON p.patient_id = c.patient_id;");
         if (res->next())
         {
-			cout << "Average Age of Cancer Patients: " << res->getInt("average_age") << endl;
+			cout << "Average Age of Cancer Patients: " << res->getDouble("average_age") << endl;
 		}
+        else
+        {
+            cout << "Failed to connect to the database." << endl;
+        }
 	}
     else
     {
@@ -740,14 +744,56 @@ void Database::averageAgeOfDiabeticPatients()
 {
     if (connect())
     {
-		pstmt = conn->prepareStatement("SELECT AVG(p.age) AS average_age "
-        					"FROM patients p "
-        					"JOIN diabetes d ON p.patient_id = d.patient_id;");
-		res = pstmt->executeQuery();
+        stmt = conn->createStatement();
+        res = stmt->executeQuery("SELECT AVG(p.age) AS average_age "
+                "FROM patients p "
+                "JOIN diabetes d ON p.patient_id = d.patient_id;");
         if (res->next())
         {
-			cout << "Average Age of Diabetic Patients: " << res->getInt("average_age") << endl;
+			cout << "Average Age of Diabetic Patients: " << res->getDouble("average_age") << endl;
 		}
+	}
+    else
+    {
+		cerr << "Failed to connect to the database." << endl;
+	}
+}
+
+void Database::smokingFrequencyOfCancerPatients()
+{
+    if (connect())
+    {
+		stmt = conn->createStatement();
+        res = stmt->executeQuery("SELECT COUNT(c.cancer_stage) AS cancer_patients "
+        						"FROM cancer c;");
+        if (res->next())
+        {
+            int totalCancerPatients = res->getInt("cancer_patients");
+
+            stmt = conn->createStatement();
+            res = stmt->executeQuery("SELECT COUNT(s.pack_frequency) AS smoking_frequency "
+                "FROM smoking s "
+                "JOIN patients p ON s.patient_id = p.patient_id "
+                "JOIN cancer c ON p.patient_id = c.patient_id;");
+            if (res->next())
+            {
+                int smokingFrequency = res->getInt("smoking_frequency");
+
+                if (smokingFrequency > 0)
+                {
+                    cout << "Out of " << totalCancerPatients << " cancer patients, " << smokingFrequency << " smoke." << endl;
+                }
+                else
+                {
+                    cout << "No Cancer Patients Smoke" << endl;
+                }
+            }
+        }
+        else
+        {
+            cerr << "Failed to connect to the database." << endl;
+        }
+		
 	}
     else
     {
