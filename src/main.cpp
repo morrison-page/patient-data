@@ -280,6 +280,8 @@ int main()
                         case 3:
                         {
                             // TODO: Output Data Analytics
+                            Database.averageAgeOfCancerPatients();
+                            Database.averageAgeOfDiabeticPatients();
                             break;
                         }
                         case 4:

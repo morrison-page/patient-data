@@ -721,10 +721,10 @@ void Database::averageAgeOfCancerPatients()
 {
     if (connect())
     {
-		pstmt = conn->prepareStatement("SELECT AVG(YEAR(CURDATE()) - YEAR(p.age)) AS average_age "
+		stmt = conn->createStatement("SELECT AVG(p.age) AS average_age "
         			"FROM patients p" 
         			"JOIN cancer c ON p.patient_id = c.patient_id;");
-		res = pstmt->executeQuery();
+		res = stmt->execute();
         if (res->next())
         {
 			cout << "Average Age of Cancer Patients: " << res->getInt("average_age") << endl;
@@ -740,7 +740,7 @@ void Database::averageAgeOfDiabeticPatients()
 {
     if (connect())
     {
-		pstmt = conn->prepareStatement("SELECT AVG(YEAR(CURDATE()) - YEAR(p.age)) AS average_age "
+		pstmt = conn->prepareStatement("SELECT AVG(p.age) AS average_age "
         					"FROM patients p "
         					"JOIN diabetes d ON p.patient_id = d.patient_id;");
 		res = pstmt->executeQuery();
