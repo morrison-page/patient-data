@@ -17,6 +17,7 @@ int main()
 
     // TODO: non essential but fix program loop
     // patient has to continue to login to use menu more than once
+    // maybe add a while loop after the user logs in
 
     // Main Program Loop
     while (true)
@@ -55,16 +56,16 @@ int main()
                     cout << endl;
                     switch (choice)
                     {
+                    // Output Patient Details
                     case 1:
                     {
-                        // Output Patient Details
                         Database.getPatientDetails(currentPatient.getPatientId());
                         Database.getPatientTreatments(currentPatient.getPatientId());
                         break;
                     }
+                    // Output Patient Costs
                     case 2:
                     {
-                        // Output Patient Costs
                         Database.getPatientCosts(currentPatient.getPatientId());
                         break;
                     }
@@ -193,30 +194,23 @@ int main()
 
                     switch (choice)
                     {
+                    // View Patient Details
                     case 1:
                     {
-                        // TODO: Search for Patient
-                        
-                        // ask for patient username
-                        // search for patient
-                        // initialise patient
-
-
-
-                        // use: Database.getPatientDetails(Patient.getPatientId());
+                        int patientId;
+                        cout << "Enter patients ID: ";
+                        cin >> patientId;
+                        Database.getPatientDetails(patientId);
                         break;
                     }
+                    // View Patient Treatment & Cost
                     case 2:
                     {
-                        // TODO: View Patient Treatment & Cost
-                        // TODO: Search for Patient
-
-                        // ask for patient username
-                        // search for patient
-                        // initialise patient
-
-                        //use Database.getPatientDetails(Patient.getPatientId());
-                        //use Database.getPatientTreatments(Patient.getPatientId());
+                        int patientId;
+                        cout << "Enter patients ID: ";
+                        cin >> patientId;
+                        Database.getPatientTreatments(patientId);
+                        Database.getPatientCosts(patientId);
                         break;
                     }
                     // Show Data Analytics
@@ -231,16 +225,19 @@ int main()
 
                         switch (choice)
                         {
+                        // Average Age of Cancer Patients
 						case 1:
                         {
 						    Database.averageAgeOfCancerPatients();
 							break;
 						}
+                        // Average Age of Diabetic Patients
 						case 2:
                         {
 						    Database.averageAgeOfDiabeticPatients();
 							break;
                         }
+                        // Smoking Frequency of Cancer Patients
 						case 3:
                         {
 						    Database.smokingFrequencyOfCancerPatients();
@@ -254,6 +251,26 @@ int main()
                     case 4:
                     {
                         // TODO: Change Patient Medication
+                        int patientId;
+                        cout << "Enter patients ID: ";
+                        cin >> patientId;
+                        Patient searchedPatient = Database.initialisePatient(patientId);
+
+                        // Sort out condution numbers
+                        if (searchedPatient.getCancer() == true)
+                        {
+                            cout << "1 - Change Cancer Medication\n";
+                        }
+                        if (searchedPatient.getDiabetes() == true)
+                        {
+							cout << "2 - Change Diabetes Medication\n";
+						}
+                        if (searchedPatient.getSmoker() == true)
+                        {
+                            cout << "3 - Change Smoking Medication\n";
+                        }
+                        cout << "4 - Exit\n\n";
+
                         break;
                     }
                     // Register Doctor/Nurse
@@ -299,11 +316,13 @@ int main()
 
                         switch (choice)
                         {
+                        // View Patient Details
                         case 1:
                         {
                             // TODO: View Patient Details
                             break;
                         }
+                        // View Patient Treatment & Cost
                         case 2:
                         {
                             // TODO: View Patient Treatment & Cost
@@ -321,16 +340,19 @@ int main()
 
                             switch (choice)
                             {
+                            // Average Age of Cancer Patients
                             case 1:
                             {
                                 Database.averageAgeOfCancerPatients();
                                 break;
                             }
+                            // Average Age of Diabetic Patients
                             case 2:
                             {
                                 Database.averageAgeOfDiabeticPatients();
                                 break;
                             }
+                            // Smoking Frequency of Cancer Patients
                             case 3:
                             {
                                 Database.smokingFrequencyOfCancerPatients();
@@ -341,11 +363,13 @@ int main()
                             }
                             break;
                         }
+                        // Change Patient Medication
                         case 4:
                         {
                             // TODO: Change Patient Medication
                             break;
                         }
+                        // Prescriptions and Treatments
                         case 5:
                         {
                             cout << "1 - View\n";
@@ -356,11 +380,13 @@ int main()
 
                             switch (choice)
                             {
+                            // View Treatments
                             case 1:
                             {
                                 // TODO: View Treatments
                                 break;
                             }
+                            // Change Treatments
                             case 2:
                             {
                                 // TODO: Change Treatments
