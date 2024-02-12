@@ -200,6 +200,8 @@ int main()
                         int patientId;
                         cout << "Enter patients ID: ";
                         cin >> patientId;
+                        cout << endl;
+                        cout << "Details: ";
                         Database.getPatientDetails(patientId);
                         break;
                     }
@@ -209,7 +211,11 @@ int main()
                         int patientId;
                         cout << "Enter patients ID: ";
                         cin >> patientId;
+                        cout << endl;
+                        cout << "Treatments: ";
                         Database.getPatientTreatments(patientId);
+                        cout << endl;
+                        cout << "Costs: ";
                         Database.getPatientCosts(patientId);
                         break;
                     }
@@ -229,18 +235,21 @@ int main()
 						case 1:
                         {
 						    Database.averageAgeOfCancerPatients();
+                            cout << endl;
 							break;
 						}
                         // Average Age of Diabetic Patients
 						case 2:
                         {
 						    Database.averageAgeOfDiabeticPatients();
+                            cout << endl;
 							break;
                         }
                         // Smoking Frequency of Cancer Patients
 						case 3:
                         {
 						    Database.smokingFrequencyOfCancerPatients();
+                            cout << endl;
 						    break;
 						}
                         case 4:
@@ -251,6 +260,8 @@ int main()
                     case 4:
                     {
                         // TODO: Change Patient Medication
+                        
+                        /*
                         int patientId;
                         cout << "Enter patients ID: ";
                         cin >> patientId;
@@ -271,6 +282,27 @@ int main()
                         }
                         cout << "4 - Exit\n\n";
 
+                        switch (choice)
+                        {
+                        case 1:
+                        {
+                            // Output Current Medication
+                            
+                            // Change Medication to
+                            
+                        }
+                        case 2:
+                        {
+                            // Output Current Medication
+                        }
+                        case 3:
+                        {
+                            // Output Current Medication
+                        }
+                        case 4:
+                            exit(0);
+                        }
+                        */
                         break;
                     }
                     // Register Doctor/Nurse
