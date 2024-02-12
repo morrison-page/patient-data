@@ -529,6 +529,10 @@ void Database::getPatientTreatments(int patientId)
         pstmt->setInt(1, patientId);
         res = pstmt->executeQuery();
 
+        if (!res->next())
+        {
+            cout << "UserId supplied was not valid" << endl;
+        }
         while (res->next())
         {
             cout << "Medical Condition: " << res->getString("medical_condition") << endl;
