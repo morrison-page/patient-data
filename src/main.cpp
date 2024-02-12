@@ -417,104 +417,17 @@ int main()
                     User currentUser = Database.initialiseStaff(userId);
                     if (currentUser.getAccessLevel() == AccessLevel::PHARMACIST)
                     {
-                        cout << endl;
-                        cout << "1 - View Patient Details\n";
-                        cout << "2 - View Patient Treatment & Cost\n";
-                        cout << "3 - View Data Analytics\n";
-                        cout << "4 - Change Patient Medication\n";
-                        cout << "5 - Prescriptions and Treatments\n";
-                        cout << "6 - Exit\n\n";
-                        cin >> choice;
-                        while (choice < 1 || choice > 6)
+                        while (true)
                         {
-                            cout << "\nInvalid choice, try again\n\n";
+                            cout << endl;
+                            cout << "1 - View Patient Details\n";
+                            cout << "2 - View Patient Treatment & Cost\n";
+                            cout << "3 - View Data Analytics\n";
+                            cout << "4 - Change Patient Medication\n";
+                            cout << "5 - Prescriptions and Treatments\n";
+                            cout << "6 - Exit\n\n";
                             cin >> choice;
-                        }
-                        cout << endl;
-
-                        switch (choice)
-                        {
-                        // View Patient Details
-                        case 1:
-                        {
-                            int patientId;
-                            cout << "Enter patients ID: ";
-                            cin >> patientId;
-                            cout << endl;
-                            cout << "Details: ";
-                            Database.getPatientDetails(patientId);
-                            break;
-                        }
-                        // View Patient Treatment & Cost
-                        case 2:
-                        {
-                            int patientId;
-                            cout << "Enter patients ID: ";
-                            cin >> patientId;
-                            cout << endl;
-                            cout << "Treatments: ";
-                            Database.getPatientTreatments(patientId);
-                            cout << endl;
-                            cout << "Costs: ";
-                            Database.getPatientCosts(patientId);
-                            break;
-                        }
-                        // View Data Analytics
-                        case 3:
-                        {
-                            cout << "1 - Average Age of Cancer Patients\n";
-                            cout << "2 - Average Age of Diabetic Patients\n";
-                            cout << "3 - Smoking Frequency of Cancer Patients\n";
-                            cout << "4 - Exit\n\n";
-                            cin >> choice;
-                            while (choice < 1 || choice > 4)
-                            {
-								cout << "\nInvalid choice, try again\n\n";
-								cin >> choice;
-							}
-                            cout << endl;
-
-                            switch (choice)
-                            {
-                            // Average Age of Cancer Patients
-                            case 1:
-                            {
-                                Database.averageAgeOfCancerPatients();
-                                break;
-                            }
-                            // Average Age of Diabetic Patients
-                            case 2:
-                            {
-                                Database.averageAgeOfDiabeticPatients();
-                                break;
-                            }
-                            // Smoking Frequency of Cancer Patients
-                            case 3:
-                            {
-                                Database.smokingFrequencyOfCancerPatients();
-                                break;
-                            }
-                            case 4:
-                                exit(0);
-                            }
-                            break;
-                        }
-                        // Change Patient Medication
-                        case 4:
-                        {
-                            // ######################### FEATURE DELAYED #########################
-                            // TODO: Change Patient Medication
-                            break;
-                        }
-                        // Prescriptions and Treatments
-                        // ######################### FEATURE DELAYED #########################
-                        case 5:
-                        {
-                            cout << "1 - View\n";
-                            cout << "2 - Change\n";
-                            cout << "3 - Exit\n\n";
-                            cin >> choice;
-                            while (choice < 1 || choice > 3)
+                            while (choice < 1 || choice > 6)
                             {
                                 cout << "\nInvalid choice, try again\n\n";
                                 cin >> choice;
@@ -523,25 +436,115 @@ int main()
 
                             switch (choice)
                             {
-                            // View Treatments
+                                // View Patient Details
                             case 1:
                             {
-                                // TODO: View Treatments
+                                int patientId;
+                                cout << "Enter patients ID: ";
+                                cin >> patientId;
+                                cout << endl;
+                                cout << "Details: ";
+                                Database.getPatientDetails(patientId);
                                 break;
                             }
-                            // Change Treatments
+                            // View Patient Treatment & Cost
                             case 2:
                             {
-                                // TODO: Change Treatments
+                                int patientId;
+                                cout << "Enter patients ID: ";
+                                cin >> patientId;
+                                cout << endl;
+                                cout << "Treatments: ";
+                                Database.getPatientTreatments(patientId);
+                                cout << endl;
+                                cout << "Costs: ";
+                                Database.getPatientCosts(patientId);
                                 break;
                             }
+                            // View Data Analytics
                             case 3:
+                            {
+                                cout << "1 - Average Age of Cancer Patients\n";
+                                cout << "2 - Average Age of Diabetic Patients\n";
+                                cout << "3 - Smoking Frequency of Cancer Patients\n";
+                                cout << "4 - Exit\n\n";
+                                cin >> choice;
+                                while (choice < 1 || choice > 4)
+                                {
+                                    cout << "\nInvalid choice, try again\n\n";
+                                    cin >> choice;
+                                }
+                                cout << endl;
+
+                                switch (choice)
+                                {
+                                    // Average Age of Cancer Patients
+                                case 1:
+                                {
+                                    Database.averageAgeOfCancerPatients();
+                                    break;
+                                }
+                                // Average Age of Diabetic Patients
+                                case 2:
+                                {
+                                    Database.averageAgeOfDiabeticPatients();
+                                    break;
+                                }
+                                // Smoking Frequency of Cancer Patients
+                                case 3:
+                                {
+                                    Database.smokingFrequencyOfCancerPatients();
+                                    break;
+                                }
+                                case 4:
+                                    exit(0);
+                                }
+                                break;
+                            }
+                            // Change Patient Medication
+                            case 4:
+                            {
+                                // ######################### FEATURE DELAYED #########################
+                                // TODO: Change Patient Medication
+                                break;
+                            }
+                            // Prescriptions and Treatments
+                            // ######################### FEATURE DELAYED #########################
+                            case 5:
+                            {
+                                cout << "1 - View\n";
+                                cout << "2 - Change\n";
+                                cout << "3 - Exit\n\n";
+                                cin >> choice;
+                                while (choice < 1 || choice > 3)
+                                {
+                                    cout << "\nInvalid choice, try again\n\n";
+                                    cin >> choice;
+                                }
+                                cout << endl;
+
+                                switch (choice)
+                                {
+                                    // View Treatments
+                                case 1:
+                                {
+                                    // TODO: View Treatments
+                                    break;
+                                }
+                                // Change Treatments
+                                case 2:
+                                {
+                                    // TODO: Change Treatments
+                                    break;
+                                }
+                                case 3:
+                                    exit(0);
+                                }
+                                break;
+                            }
+                            case 6:
                                 exit(0);
                             }
-                            break;
-                        }
-                        case 6:
-                            exit(0);
                         }
                     }
                     else
