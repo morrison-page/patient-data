@@ -27,6 +27,11 @@ int main()
         cout << "2 - Staff\n";
         cout << "3 - Exit\n\n";
         cin >> choice;
+        while (choice < 1 || choice > 3)
+        {
+			cout << "\nInvalid choice, try again\n\n";
+			cin >> choice;
+		}
         cout << endl;
 
         switch (choice)
@@ -38,7 +43,13 @@ int main()
             cout << "2 - Register\n";
             cout << "3 - Exit\n\n";
             cin >> choice;
+            while (choice < 1 || choice > 3)
+            {
+                cout << "\nInvalid choice, try again\n\n";
+                cin >> choice;
+            }
             cout << endl;
+
             switch (choice)
             {
             // Login
@@ -53,7 +64,13 @@ int main()
                     cout << "2 - View Treatment & Cost\n";
                     cout << "3 - Exit\n\n";
                     cin >> choice;
+                    while (choice < 1 || choice > 3)
+                    {
+						cout << "\nInvalid choice, try again\n\n";
+						cin >> choice;
+					}
                     cout << endl;
+                    
                     switch (choice)
                     {
                     // Output Patient Details
@@ -93,6 +110,11 @@ int main()
                 cin >> lastname;
                 cout << "Age: ";
                 cin >> age;
+                while (age < 0 || age > 120)
+                {
+                    cout << "Invalid age, try again\n\n";
+                    cin >> age;
+                }
                 cout << endl;
 
                 char hasCancer, hasDiabetes, isSmoker;
@@ -100,6 +122,11 @@ int main()
                 cout << "Please answer with 'y' or 'n'\n\n";
                 cout << "Do you have Cancer? ";
                 cin >> hasCancer;
+                while (hasCancer != 'y' && hasCancer != 'n')
+                {
+					cout << "\nInvalid input, try again\n\n";
+					cin >> hasCancer;
+				}
                 cout << endl;
                 if (hasCancer == 'y')
                 {
@@ -108,20 +135,40 @@ int main()
                     cout << "3 - Stage 3\n";
                     cout << "4 - Stage 4\n\n";
                     cin >> cancerStage;
+                    while (cancerStage < 1 || cancerStage > 4)
+                    {
+                        cout << "\nInvalid stage, try again\n\n";
+                        cin >> cancerStage;
+                    }
                     cout << endl;
                 }
                 cout << "Do you have Diabetes? ";
                 cin >> hasDiabetes;
+                while (hasDiabetes != 'y' && hasDiabetes != 'n')
+                {
+                    cout << "\nInvalid input, try again\n\n";
+                    cin >> hasDiabetes;
+                }
                 cout << endl;
                 if (hasDiabetes == 'y')
                 {
                     cout << "1 - Type 1\n";
                     cout << "2 - Type 2\n\n";
                     cin >> diabetesType;
+                    while (diabetesType < 1 || diabetesType > 2)
+                    {
+						cout << "\nInvalid type, try again\n\n";
+						cin >> diabetesType;
+					}
                     cout << endl;
                 }
                 cout << "Do you smoke? ";
                 cin >> isSmoker;
+                while (isSmoker != 'y' && isSmoker != 'n')
+                {
+					cout << "\nInvalid input, try again\n\n";
+					cin >> isSmoker;
+				}
                 cout << endl;
                 if (isSmoker == 'y')
                 {
@@ -129,13 +176,28 @@ int main()
                     cout << "2 - 1 pack a week\n";
                     cout << "3 - 1 pack a day\n\n";
                     cin >> smokingQuantity;
+                    while (smokingQuantity < 1 || smokingQuantity > 3)
+                    {
+                        cout << "\nInvalid quantity, try again\n\n";
+                        cin >> smokingQuantity;
+                    }
                     cout << endl;
                 }
                 char hasSmoked, hadCancer;
                 cout << "Previously had Cancer: ";
                 cin >> hadCancer;
+                while (hadCancer != 'y' && hadCancer != 'n')
+                {
+                    cout << "\nInvalid input, try again\n\n";
+                    cin >> hadCancer;
+                }
                 cout << "Previously Smoked: ";
                 cin >> hasSmoked;
+                while (hasSmoked != 'y' && hasSmoked != 'n')
+                {
+					cout << "\nInvalid input, try again\n\n";
+					cin >> hasSmoked;
+				}
                 cout << endl;
 
                 bool cancer = (hasCancer == 'y');
@@ -166,6 +228,11 @@ int main()
             cout << "3 - Pharmacist\n";
             cout << "4 - Exit\n\n";
             cin >> choice;
+            while (choice < 1 || choice > 4)
+            {
+				cout << "\nInvalid choice, try again\n\n";
+				cin >> choice;
+			}
             cout << endl;
 
             switch (choice)
@@ -190,6 +257,11 @@ int main()
                     cout << "5 - Create Staff Accounts\n";
                     cout << "6 - Exit\n\n";
                     cin >> choice;
+                    while (choice < 1 || choice > 6)
+                    {
+                        cout << "\nInvalid choice, try again\n\n";
+                        cin >> choice;
+                    }
                     cout << endl;
 
                     switch (choice)
@@ -227,6 +299,11 @@ int main()
                         cout << "3 - Smoking Frequency of Cancer Patients\n";
                         cout << "4 - Exit\n\n";
                         cin >> choice;
+                        while (choice < 1 || choice > 4)
+                        {
+							cout << "\nInvalid choice, try again\n\n";
+							cin >> choice;
+						}
                         cout << endl;
 
                         switch (choice)
@@ -344,6 +421,11 @@ int main()
                         cout << "5 - Prescriptions and Treatments\n";
                         cout << "6 - Exit\n\n";
                         cin >> choice;
+                        while (choice < 1 || choice > 6)
+                        {
+                            cout << "\nInvalid choice, try again\n\n";
+                            cin >> choice;
+                        }
                         cout << endl;
 
                         switch (choice)
@@ -368,6 +450,11 @@ int main()
                             cout << "3 - Smoking Frequency of Cancer Patients\n";
                             cout << "4 - Exit\n\n";
                             cin >> choice;
+                            while (choice < 1 || choice > 4)
+                            {
+								cout << "\nInvalid choice, try again\n\n";
+								cin >> choice;
+							}
                             cout << endl;
 
                             switch (choice)
@@ -408,6 +495,11 @@ int main()
                             cout << "2 - Change\n";
                             cout << "3 - Exit\n\n";
                             cin >> choice;
+                            while (choice < 1 || choice > 3)
+                            {
+                                cout << "\nInvalid choice, try again\n\n";
+                                cin >> choice;
+                            }
                             cout << endl;
 
                             switch (choice)
