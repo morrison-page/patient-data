@@ -1,6 +1,8 @@
 # Build directories
 /bin/
 /obj/
+/tests/obj/
+/tests/bin/
 
 # Visual Studio Stuff
 /.vs/
