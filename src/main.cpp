@@ -586,8 +586,9 @@ int main()
                                 int patientId;
                                 cout << "Enter patients ID: ";
                                 cin >> patientId;
+                                cout << endl;
                                 Patient searchedPatient = Database.initialisePatient(patientId);
-
+                                
                                 cout << "1 - Change Cancer Condition\n";
                                 cout << "2 - Change Diabetes Condition\n";
                                 cout << "3 - Change Smoking Condition\n";
@@ -605,7 +606,7 @@ int main()
 
                                 switch (choice)
                                 {
-                                    // Alter Cancer Condition
+                                // Alter Cancer Condition
                                 case 1:
                                 {
                                     cout << "1 - Stage 1\n";
