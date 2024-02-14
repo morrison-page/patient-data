@@ -721,45 +721,90 @@ void Database::getPatientCosts(int patientId)
 
 // Data Update Functions
 
-void Database::updateCancer(int patientId)
+void Database::updateCancer(int patientId, const int cancerStage)
 {
     if (connect())
     {
-		pstmt = conn->prepareStatement("SELECT * FROM cancer WHERE patient_id = ?;");
-		pstmt->setInt(1, patientId);
-		res = pstmt->executeQuery();
-        if (res->next())
+        pstmt = conn->prepareStatement("UPDATE cancer SET cancer_stage = ? "
+            "WHERE patient_id = ?;");
+        pstmt->setInt(1, cancerStage);
+        pstmt->setInt(2, patientId);
+        int updatedRows = pstmt->executeUpdate();
+        
+        if (updatedRows > 0)
         {
-			cout << "Cancer Stage: " << res->getInt("cancer_stage") << endl;
-			cout << "Would you like to update the cancer stage? (y/n): ";
-			char response;
-			cin >> response;
-            if (response == 'y')
-            {
-				cout << "Enter New Cancer Stage: ";
-				int newCancerStage;
-				cin >> newCancerStage;
-				pstmt = conn->prepareStatement("UPDATE cancer SET cancer_stage = ? WHERE patient_id = ?;");
-				pstmt->setInt(1, newCancerStage);
-				pstmt->setInt(2, patientId);
-				pstmt->executeUpdate();
-				cout << "Cancer Stage Updated" << endl;
-			}
-            else
-            {
-				cout << "Cancer Stage Not Updated" << endl;
-			}
-		}
-        else
-        {
-			cout << "Patient does not have cancer" << endl;
-		}
-	}
+            pstmt = conn->prepareStatement("UPDATE patient_treatments "
+                "SET treatment_id = ?, start_date = ? , end_date = ? "
+                "WHERE patient_id = ?;");
+            int treatmentId = cancerStage + 2;
+            pstmt->setInt(1, treatmentId);
+            pstmt->setString(2, Utils::treatmentStartDate());
+            int months = (cancerStage == 1 || cancerStage == 2) ? 6 : (cancerStage == 3 ? 12 : 0);
+            pstmt->setString(3, Utils::treatmentEndDate(months));
+            pstmt->setInt(4, patientId);
+            pstmt->executeUpdate();
+        }
+    }
     else
     {
 		cerr << "Failed to connect to the database." << endl;
 	}
+}
 
+void Database::updateDiabetes(int patientId, const int diabetesType)
+{
+    if (connect())
+    {
+        pstmt = conn->prepareStatement("UPDATE diabetes SET diabetes_type = ? WHERE patient_id = ?;");
+        pstmt->setInt(1, diabetesType);
+        pstmt->setInt(2, patientId);
+        int updatedRows = pstmt->executeUpdate();
+
+        if (updatedRows > 0)
+        {
+            pstmt = conn->prepareStatement("UPDATE patient_treatments "
+                "SET treatment_id = ?, start_date = ? , end_date = ? "
+                "WHERE patient_id = ?;");
+            pstmt->setInt(1, diabetesType);
+            pstmt->setString(2, Utils::treatmentStartDate());
+            pstmt->setString(3, "0000-00-00");
+            pstmt->setInt(4, patientId);
+            pstmt->executeUpdate();
+        }
+    }
+    else
+    {
+        cerr << "Failed to connect to the database." << endl;
+    }
+}
+
+void Database::updateSmoking(int patientId, const int smokingFrequency)
+{
+    if (connect())
+    {
+        pstmt = conn->prepareStatement("UPDATE smoking SET pack_frequency = ? WHERE patient_id = ?;");
+        pstmt->setInt(1, smokingFrequency);
+        pstmt->setInt(2, patientId);
+        int updatedRows = pstmt->executeUpdate();
+
+        if (updatedRows > 0)
+        {
+            pstmt = conn->prepareStatement("UPDATE patient_treatments "
+                "SET treatment_id = ?, start_date = ? , end_date = ? "
+                "WHERE patient_id = ?;");
+            int treatmentId = smokingFrequency + 6;
+            pstmt->setInt(1, treatmentId);
+            pstmt->setString(2, Utils::treatmentStartDate());
+            int months = (smokingFrequency == 1) ? 6 : (smokingFrequency == 2 ? 12 : 24);
+            pstmt->setString(3, Utils::treatmentEndDate(months));
+            pstmt->setInt(4, patientId);
+            pstmt->executeUpdate();
+        }
+    }
+    else
+    {
+        cerr << "Failed to connect to the database." << endl;
+    }
 }
 
 // Data Analytics

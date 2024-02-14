@@ -43,7 +43,9 @@ public:
 
 	// Data Update Functions
 
-	void updateCancer(int patientId);
+	void updateCancer(int patientId, const int cancerStage);
+	void updateDiabetes(int patientId, const int diabetesType);
+	void updateSmoking(int patientId, const int smokingFequency);
 
 	// Data Analytics Functions
 	void averageAgeOfCancerPatients();
