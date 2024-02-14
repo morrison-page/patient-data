@@ -631,7 +631,7 @@ int main()
                                 case 2:
                                 {
                                     cout << "1 - Type 1\n";
-                                    cout << "1 - Type 2\n";
+                                    cout << "2 - Type 2\n\n";
                                     cin >> choice;
                                     while (cin.fail() || choice < 1 || choice > 2)
                                     {
