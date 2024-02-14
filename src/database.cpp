@@ -719,6 +719,49 @@ void Database::getPatientCosts(int patientId)
     }
 }
 
+// Data Update Functions
+
+void Database::updateCancer(int patientId)
+{
+    if (connect())
+    {
+		pstmt = conn->prepareStatement("SELECT * FROM cancer WHERE patient_id = ?;");
+		pstmt->setInt(1, patientId);
+		res = pstmt->executeQuery();
+        if (res->next())
+        {
+			cout << "Cancer Stage: " << res->getInt("cancer_stage") << endl;
+			cout << "Would you like to update the cancer stage? (y/n): ";
+			char response;
+			cin >> response;
+            if (response == 'y')
+            {
+				cout << "Enter New Cancer Stage: ";
+				int newCancerStage;
+				cin >> newCancerStage;
+				pstmt = conn->prepareStatement("UPDATE cancer SET cancer_stage = ? WHERE patient_id = ?;");
+				pstmt->setInt(1, newCancerStage);
+				pstmt->setInt(2, patientId);
+				pstmt->executeUpdate();
+				cout << "Cancer Stage Updated" << endl;
+			}
+            else
+            {
+				cout << "Cancer Stage Not Updated" << endl;
+			}
+		}
+        else
+        {
+			cout << "Patient does not have cancer" << endl;
+		}
+	}
+    else
+    {
+		cerr << "Failed to connect to the database." << endl;
+	}
+
+}
+
 // Data Analytics
 
 void Database::averageAgeOfCancerPatients()

@@ -23,8 +23,11 @@ int main()
         cout << "2 - Staff\n";
         cout << "3 - Exit\n\n";
         cin >> choice;
-        while (choice < 1 || choice > 3)
+        while (cin.fail() || choice < 1 || choice > 3)
         {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 			cout << "\nInvalid choice, try again\n\n";
 			cin >> choice;
 		}
@@ -39,8 +42,11 @@ int main()
             cout << "2 - Register\n";
             cout << "3 - Exit\n\n";
             cin >> choice;
-            while (choice < 1 || choice > 3)
+            while (cin.fail() || choice < 1 || choice > 3)
             {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                 cout << "\nInvalid choice, try again\n\n";
                 cin >> choice;
             }
@@ -62,8 +68,11 @@ int main()
                         cout << "2 - View Treatment & Cost\n";
                         cout << "3 - Exit\n\n";
                         cin >> choice;
-                        while (choice < 1 || choice > 3)
+                        while (cin.fail() || choice < 1 || choice > 3)
                         {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                             cout << "\nInvalid choice, try again\n\n";
                             cin >> choice;
                         }
@@ -109,9 +118,12 @@ int main()
                 cin >> lastname;
                 cout << "Age: ";
                 cin >> age;
-                while (age < 0 || age > 120)
+                while (cin.fail() || age < 0 || age > 120)
                 {
-                    cout << "Invalid age, try again\n\n";
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    
+                    cout << "\nInvalid age, try again\n\n";
                     cin >> age;
                 }
                 cout << endl;
@@ -134,8 +146,11 @@ int main()
                     cout << "3 - Stage 3\n";
                     cout << "4 - Stage 4\n\n";
                     cin >> cancerStage;
-                    while (cancerStage < 1 || cancerStage > 4)
+                    while (cin.fail() || cancerStage < 1 || cancerStage > 4)
                     {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                         cout << "\nInvalid stage, try again\n\n";
                         cin >> cancerStage;
                     }
@@ -154,8 +169,11 @@ int main()
                     cout << "1 - Type 1\n";
                     cout << "2 - Type 2\n\n";
                     cin >> diabetesType;
-                    while (diabetesType < 1 || diabetesType > 2)
+                    while (cin.fail() || diabetesType < 1 || diabetesType > 2)
                     {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 						cout << "\nInvalid type, try again\n\n";
 						cin >> diabetesType;
 					}
@@ -175,8 +193,11 @@ int main()
                     cout << "2 - 1 pack a week\n";
                     cout << "3 - 1 pack a day\n\n";
                     cin >> smokingQuantity;
-                    while (smokingQuantity < 1 || smokingQuantity > 3)
+                    while (cin.fail() || smokingQuantity < 1 || smokingQuantity > 3)
                     {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                         cout << "\nInvalid quantity, try again\n\n";
                         cin >> smokingQuantity;
                     }
@@ -227,8 +248,11 @@ int main()
             cout << "3 - Pharmacist\n";
             cout << "4 - Exit\n\n";
             cin >> choice;
-            while (choice < 1 || choice > 4)
+            while (cin.fail() || choice < 1 || choice > 4)
             {
+                cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 				cout << "\nInvalid choice, try again\n\n";
 				cin >> choice;
 			}
@@ -254,12 +278,15 @@ int main()
                         cout << "1 - View Patient Details\n";
                         cout << "2 - View Patient Treatment & Cost\n";
                         cout << "3 - View Data Analytics\n";
-                        cout << "4 - Change Patient Medication\n";
+                        cout << "4 - Change Patient Condition\n";
                         cout << "5 - Create Staff Accounts\n";
                         cout << "6 - Exit\n\n";
                         cin >> choice;
-                        while (choice < 1 || choice > 6)
+                        while (cin.fail() || choice < 1 || choice > 6)
                         {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                             cout << "\nInvalid choice, try again\n\n";
                             cin >> choice;
                         }
@@ -300,8 +327,11 @@ int main()
                             cout << "3 - Smoking Frequency of Cancer Patients\n";
                             cout << "4 - Exit\n\n";
                             cin >> choice;
-                            while (choice < 1 || choice > 4)
+                            while (cin.fail() || choice < 1 || choice > 4)
                             {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                                 cout << "\nInvalid choice, try again\n\n";
                                 cin >> choice;
                             }
@@ -335,32 +365,73 @@ int main()
                             }
                             break;
                         }
-                        // Change Patient Medication
-                        // ######################### FEATURE DELAYED #########################
+                        // Change Patient Condition
                         case 4:
                         {
-                            // TODO: Change Patient Medication
+                            // TODO: Change Patient Condition & Medication
 
-                            /*
                             int patientId;
                             cout << "Enter patients ID: ";
                             cin >> patientId;
                             Patient searchedPatient = Database.initialisePatient(patientId);
 
                             // Sort out condition numbers
-                            if (searchedPatient.getCancer() == true)
-                            {
-                                cout << "1 - Change Cancer Medication\n";
-                            }
-                            if (searchedPatient.getDiabetes() == true)
-                            {
-                                cout << "2 - Change Diabetes Medication\n";
-                            }
-                            if (searchedPatient.getSmoker() == true)
-                            {
-                                cout << "3 - Change Smoking Medication\n";
-                            }
+                            cout << "1 - Change Cancer Condition\n";
+                            cout << "2 - Change Diabetes Condition\n";
+                            cout << "3 - Change Smoking Condition\n";
                             cout << "4 - Exit\n\n";
+                            cin >> choice;
+                            while (cin.fail() || choice < 1 || choice > 4)
+                            {
+								cin.clear();
+								cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+								cout << "\nInvalid choice, try again\n\n";
+								cin >> choice;
+							}
+                            cout << endl;
+
+                            switch (choice)
+                            {
+                            case 1:
+                            {
+                                if (searchedPatient.getCancer())
+                                {
+                                    cout << "1 - Stage 1\n";
+                                    cout << "2 - Stage 2\n";
+                                    cout << "3 - Stage 3\n";
+                                    cout << "4 - Stage 4\n\n";
+                                    cin >> choice;
+                                    while (cin.fail() || choice < 1 || choice > 4)
+                                    {
+                                        cin.clear();
+                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                                        cout << "\nInvalid stage, try again\n\n";
+                                        cin >> choice;
+                                    }
+                                    cout << endl;
+
+                                    // Write to Database
+									Database.updateCancer(searchedPatient.getPatientId());
+                                }
+                                else
+                                {
+									cout << "Patient does not have Cancer\n\n";
+								}
+                            }
+                            case 2:
+                            {
+
+                            }
+                            case 3:
+                            {
+
+                            }
+                            case 4:
+								exit(0);
+                            }
+
 
                             switch (choice)
                             {
@@ -382,7 +453,7 @@ int main()
                             case 4:
                                 exit(0);
                             }
-                            */
+                            
                             break;
                         }
                         // Register Doctor/Nurse
@@ -427,8 +498,11 @@ int main()
                             cout << "5 - Prescriptions and Treatments\n";
                             cout << "6 - Exit\n\n";
                             cin >> choice;
-                            while (choice < 1 || choice > 6)
+                            while (cin.fail() || choice < 1 || choice > 6)
                             {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                                 cout << "\nInvalid choice, try again\n\n";
                                 cin >> choice;
                             }
@@ -469,8 +543,11 @@ int main()
                                 cout << "3 - Smoking Frequency of Cancer Patients\n";
                                 cout << "4 - Exit\n\n";
                                 cin >> choice;
-                                while (choice < 1 || choice > 4)
+                                while (cin.fail() || choice < 1 || choice > 4)
                                 {
+                                    cin.clear();
+									cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                                     cout << "\nInvalid choice, try again\n\n";
                                     cin >> choice;
                                 }
@@ -516,8 +593,11 @@ int main()
                                 cout << "2 - Change\n";
                                 cout << "3 - Exit\n\n";
                                 cin >> choice;
-                                while (choice < 1 || choice > 3)
+                                while (cin.fail() || choice < 1 || choice > 3)
                                 {
+                                    cin.clear();
+                                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                                     cout << "\nInvalid choice, try again\n\n";
                                     cin >> choice;
                                 }

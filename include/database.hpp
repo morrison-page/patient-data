@@ -41,8 +41,11 @@ public:
 	void getPatientDetails(int patientId);
 	void getPatientCosts(int patientId);
 
-	// Data Analytics Functions
+	// Data Update Functions
 
+	void updateCancer(int patientId);
+
+	// Data Analytics Functions
 	void averageAgeOfCancerPatients();
 	void averageAgeOfDiabeticPatients();
 	void smokingFrequencyOfCancerPatients();
