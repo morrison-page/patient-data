@@ -735,7 +735,7 @@ void Database::updateCancer(int patientId, const int cancerStage)
         {
             pstmt = conn->prepareStatement("UPDATE patient_treatments "
                 "SET treatment_id = ?, start_date = ? , end_date = ? "
-                "WHERE patient_id = ?;");
+                "WHERE patient_id = ? AND treatment_id BETWEEN 3 AND 6;");
             int treatmentId = cancerStage + 2;
             pstmt->setInt(1, treatmentId);
             pstmt->setString(2, Utils::treatmentStartDate());
@@ -755,7 +755,8 @@ void Database::updateDiabetes(int patientId, const int diabetesType)
 {
     if (connect())
     {
-        pstmt = conn->prepareStatement("UPDATE diabetes SET diabetes_type = ? WHERE patient_id = ?;");
+        pstmt = conn->prepareStatement("UPDATE diabetes SET diabetes_type = ? "
+            "WHERE patient_id = ? AND treatment_id BETWEEN 1 AND 2;");
         pstmt->setInt(1, diabetesType);
         pstmt->setInt(2, patientId);
         int updatedRows = pstmt->executeUpdate();
@@ -782,7 +783,8 @@ void Database::updateSmoking(int patientId, const int smokingFrequency)
 {
     if (connect())
     {
-        pstmt = conn->prepareStatement("UPDATE smoking SET pack_frequency = ? WHERE patient_id = ?;");
+        pstmt = conn->prepareStatement("UPDATE smoking SET pack_frequency = ? "
+            "WHERE patient_id = ? AND treatment_id BETWEEN 7 AND 9;");
         pstmt->setInt(1, smokingFrequency);
         pstmt->setInt(2, patientId);
         int updatedRows = pstmt->executeUpdate();
