@@ -9,6 +9,7 @@
 #include "patient.hpp"
 #include "user.hpp"
 #include "utils.hpp"
+
 #include "database.cpp"
 #include "hashing.cpp"
 #include "main.cpp"
@@ -23,7 +24,6 @@ namespace tests
 	TEST_CLASS(tests)
 	{
 	public:
-		
 		TEST_METHOD(TestMethod1)
 		{
 			Assert::AreEqual(1, 1);
@@ -31,27 +31,27 @@ namespace tests
 		
 		TEST_METHOD(createPatientAccount)
 		{
-			// TODO: Create Patient Account
-
-			Assert::IsTrue(true);
+			Database Database;
+			Patient Patient("test", Hashing::hashPassword("test"), "test", "test",
+				0, false, NULL,
+				false, NULL,
+				false, NULL,
+				false, false);
+			Assert::IsTrue(Database.createPatient(Patient));
+		}
+		
+		TEST_METHOD(createDoctorAccount)
+		{
+			Database Database;
+			User User("test", Hashing::hashPassword("test"), AccessLevel::DOCTOR);
+			Assert::IsTrue(Database.createStaff(User));
 		}
 
-		TEST_METHOD(deletePatientAccount)
+		TEST_METHOD(createPharmacistAccount)
 		{
-			// TODO: Delete Patient Account
-			Assert::IsTrue(true);
-		}
-
-		TEST_METHOD(createStaffAccount)
-		{
-			// TODO: Create Staff Account
-			Assert::IsTrue(true);
-		}
-
-		TEST_METHOD(deleteStaffAccount)
-		{
-			// TODO: Delete Staff Account
-			Assert::IsTrue(true);
+			Database Database;
+			User User("test", Hashing::hashPassword("test"), AccessLevel::PHARMACIST);
+			Assert::IsTrue(Database.createStaff(User));
 		}
 	};
 }
