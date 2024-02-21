@@ -19,6 +19,9 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+// My Database Connetion is Oracle and is being difficult
+// Comment for Jack ^
+
 namespace tests
 {
 	TEST_CLASS(tests)
@@ -31,7 +34,6 @@ namespace tests
 		
 		TEST_METHOD(createPatientAccount)
 		{
-			Database Database;
 			Patient Patient("test", Hashing::hashPassword("test"), "test", "test",
 				0, false, NULL,
 				false, NULL,
@@ -42,16 +44,18 @@ namespace tests
 		
 		TEST_METHOD(createDoctorAccount)
 		{
-			Database Database;
 			User User("test", Hashing::hashPassword("test"), AccessLevel::DOCTOR);
 			Assert::IsTrue(Database.createStaff(User));
 		}
 
 		TEST_METHOD(createPharmacistAccount)
 		{
-			Database Database;
 			User User("test", Hashing::hashPassword("test"), AccessLevel::PHARMACIST);
 			Assert::IsTrue(Database.createStaff(User));
 		}
+	private:
+		Database Database;
 	};
 }
+
+
