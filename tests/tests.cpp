@@ -19,7 +19,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-// My Database Connetion is Oracle and is being difficult
+// My Database Connection is Oracle and is being difficult
 // Comment for Jack ^
 
 namespace tests
