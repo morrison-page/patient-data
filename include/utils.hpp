@@ -5,6 +5,7 @@ using namespace std;
 class Utils
 {
 public:
+	// Class Functions
 	static string accessLevelToString(AccessLevel accessLevel);
 	static AccessLevel stringToAccessLevel(string accessLevel);
 	static AccessLevel checkPermissions(AccessLevel accessLevel);

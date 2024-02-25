@@ -390,11 +390,13 @@ int Database::authenticateUser()
 
         if (connect())
         {
+            // Get User ID from database using username
             pstmt = conn->prepareStatement("SELECT * FROM users WHERE username = ?;");
             pstmt->setString(1, username);
             res = pstmt->executeQuery();
             if (res->next())
             {
+                // Check if the hashed password matches the one in the database
                 int userId = res->getInt(1);
                 string dbUsername = res->getString(2);
                 size_t dbHashedPassword = res->getInt64(3);
@@ -425,11 +427,13 @@ Patient Database::initialisePatient(int userId)
 {
     if (connect())
     {
+        // Get User Data
         pstmt = conn->prepareStatement("SELECT * FROM users WHERE user_id = ?;");
         pstmt->setInt(1, userId);
         res = pstmt->executeQuery();
         if (res->next())
         {
+            // Get Patient Data
             int userId = res->getInt(1);
             string username = res->getString(2);
             AccessLevel accessLevel = Utils::stringToAccessLevel(res->getString(3));
@@ -440,6 +444,7 @@ Patient Database::initialisePatient(int userId)
 
             if (res->next())
             {
+                // Get Patient Data
                 int patientId = res->getInt("patient_id");
                 string firstname = res->getString("first_name");
                 string lastname = res->getString("last_name");
@@ -483,6 +488,7 @@ Patient Database::initialisePatient(int userId)
                     bool smoker = true;
                 }
 
+                // Instantiate Patient Object
                 Patient Patient(userId, patientId, username, firstname, lastname,
                     age, cancer, cancerStage,
                     diabetes, diabetesType,
@@ -501,15 +507,18 @@ Patient Database::initialisePatient(int userId)
 
 User Database::initialiseStaff(int userId)
 {
+    // Get User Data
     pstmt = conn->prepareStatement("SELECT * FROM users WHERE user_id = ?;");
     pstmt->setInt(1, userId);
     res = pstmt->executeQuery();
     if (res->next())
     {
+        // Get User Data
         int userId = res->getInt("user_id");
         string username = res->getString("username");
         AccessLevel accessLevel = Utils::stringToAccessLevel(res->getString("access_level"));
 
+        // Instantiate User Object
         User User(userId, username, accessLevel);
 
         return User;
@@ -522,6 +531,7 @@ void Database::getPatientTreatments(int patientId)
 {
     if (connect())
     {
+        // Get Patient Treatments
         pstmt = conn->prepareStatement("SELECT t.medical_condition, t.treatment, t.frequency, pt.start_date, pt.end_date "
             "FROM patient_treatments pt "
             "JOIN treatments t ON pt.treatment_id = t.treatment_id "
@@ -535,6 +545,7 @@ void Database::getPatientTreatments(int patientId)
         }
         while (res->next())
         {
+            // Print out the treatments
             cout << "Medical Condition: " << res->getString("medical_condition") << endl;
             cout << "Treatment: " << res->getString("treatment") << endl;
             cout << "Frequency: " << res->getString("frequency") << endl;
@@ -552,6 +563,7 @@ void Database::getPatientDetails(int patientId)
 {
     if (connect())
     {
+        // Get Patient Details and Medical History
 		pstmt = conn->prepareStatement("SELECT p.first_name, p.last_name, p.previously_cancerous, p.previously_smoked, c.cancer_stage, d.diabetes_type, s.pack_frequency "
         	"FROM patients p "
         	"LEFT JOIN cancer c ON p.patient_id = c.patient_id "
@@ -563,6 +575,7 @@ void Database::getPatientDetails(int patientId)
 
         if (res->next())
         {
+            // Print out the patient details
 			cout << "First Name: " << res->getString("first_name") << endl;
 			cout << "Last Name: " << res->getString("last_name") << endl;
 			cout << "Previously Cancerous: " << res->getBoolean("previously_cancerous") << endl;
@@ -582,6 +595,7 @@ void Database::getPatientCosts(int patientId)
 {
     if (connect())
     {
+        // Get Patient Treatments
         pstmt = conn->prepareStatement("SELECT t.medical_condition, t.treatment, t.cost, t.frequency, t.length "
             "FROM patient_treatments pt "
             "JOIN treatments t ON pt.treatment_id = t.treatment_id "
@@ -725,6 +739,7 @@ void Database::updateCancer(int patientId, const int cancerStage)
 {
     if (connect())
     {
+        // Update Cancer Stage
         pstmt = conn->prepareStatement("UPDATE cancer SET cancer_stage = ? "
             "WHERE patient_id = ?;");
         pstmt->setInt(1, cancerStage);
@@ -733,6 +748,7 @@ void Database::updateCancer(int patientId, const int cancerStage)
         
         if (updatedRows > 0)
         {
+            // Update Patient Treatments
             pstmt = conn->prepareStatement("UPDATE patient_treatments "
                 "SET treatment_id = ?, start_date = ? , end_date = ? "
                 "WHERE patient_id = ? AND treatment_id BETWEEN 3 AND 6;");
@@ -755,6 +771,7 @@ void Database::updateDiabetes(int patientId, const int diabetesType)
 {
     if (connect())
     {
+        // Update Diabetes Type
         pstmt = conn->prepareStatement("UPDATE diabetes SET diabetes_type = ? "
             "WHERE patient_id = ? AND treatment_id BETWEEN 1 AND 2;");
         pstmt->setInt(1, diabetesType);
@@ -763,6 +780,7 @@ void Database::updateDiabetes(int patientId, const int diabetesType)
 
         if (updatedRows > 0)
         {
+            // Update Patient Treatments
             pstmt = conn->prepareStatement("UPDATE patient_treatments "
                 "SET treatment_id = ?, start_date = ? , end_date = ? "
                 "WHERE patient_id = ?;");
@@ -783,6 +801,7 @@ void Database::updateSmoking(int patientId, const int smokingFrequency)
 {
     if (connect())
     {
+        // Update Smoking Frequency
         pstmt = conn->prepareStatement("UPDATE smoking SET pack_frequency = ? "
             "WHERE patient_id = ? AND treatment_id BETWEEN 7 AND 9;");
         pstmt->setInt(1, smokingFrequency);
@@ -791,6 +810,7 @@ void Database::updateSmoking(int patientId, const int smokingFrequency)
 
         if (updatedRows > 0)
         {
+            // Update Patient Treatments
             pstmt = conn->prepareStatement("UPDATE patient_treatments "
                 "SET treatment_id = ?, start_date = ? , end_date = ? "
                 "WHERE patient_id = ?;");
@@ -815,12 +835,14 @@ void Database::averageAgeOfCancerPatients()
 {
     if (connect())
     {
+        // Get Average Age of Cancer Patients
 		stmt = conn->createStatement();
         res = stmt->executeQuery("SELECT AVG(p.age) AS average_age "
                 "FROM patients p " 
         	    "JOIN cancer c ON p.patient_id = c.patient_id;");
         if (res->next())
         {
+            // Print out the average age
 			cout << "Average Age of Cancer Patients: " << res->getDouble("average_age") << endl;
 		}
         else
@@ -838,12 +860,14 @@ void Database::averageAgeOfDiabeticPatients()
 {
     if (connect())
     {
+        // Get Average Age of Diabetic Patients
         stmt = conn->createStatement();
         res = stmt->executeQuery("SELECT AVG(p.age) AS average_age "
                 "FROM patients p "
                 "JOIN diabetes d ON p.patient_id = d.patient_id;");
         if (res->next())
         {
+            // Print out the average age
 			cout << "Average Age of Diabetic Patients: " << res->getDouble("average_age") << endl;
 		}
 	}
@@ -857,11 +881,13 @@ void Database::smokingFrequencyOfCancerPatients()
 {
     if (connect())
     {
+        // Get Smoking Frequency of Cancer Patients
 		stmt = conn->createStatement();
         res = stmt->executeQuery("SELECT COUNT(c.cancer_stage) AS cancer_patients "
         						"FROM cancer c;");
         if (res->next())
         {
+            // Get the total number of cancer patients
             int totalCancerPatients = res->getInt("cancer_patients");
 
             stmt = conn->createStatement();
@@ -871,10 +897,12 @@ void Database::smokingFrequencyOfCancerPatients()
                 "JOIN cancer c ON p.patient_id = c.patient_id;");
             if (res->next())
             {
+                // Get the number of cancer patients that smoke
                 int smokingFrequency = res->getInt("smoking_frequency");
 
                 if (smokingFrequency > 0)
                 {
+                    // Print out the smoking frequency
                     cout << "Out of " << totalCancerPatients << " cancer patients, " << smokingFrequency << " smoke." << endl;
                 }
                 else

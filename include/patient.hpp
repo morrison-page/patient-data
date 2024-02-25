@@ -34,6 +34,7 @@ public:
     bool getPreviouslySmoked() const;
 
 private:
+    // Class Properties
     int patientId;
     string firstname;
     string lastname;
