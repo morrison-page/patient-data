@@ -737,6 +737,8 @@ void Database::getPatientCosts(int patientId)
 
 void Database::updateCancer(int patientId, const int cancerStage)
 {
+    cout << "Patient ID: " << patientId << endl;
+    cout << "Cancer Stage: " << cancerStage << endl;
     if (connect())
     {
         // Update Cancer Stage

@@ -370,7 +370,7 @@ int main()
                         {
                             int patientId;
                             cout << "Enter patients ID: ";
-                            cin >> patientId;
+                        	cin >> patientId;
                             Patient searchedPatient = Database.initialisePatient(patientId);
 
                             cout << "1 - Change Cancer Condition\n";
@@ -408,7 +408,7 @@ int main()
                                 }
                                 cout << endl;
 
-                                Database.updateCancer(searchedPatient.getPatientId(), choice);
+                                Database.updateCancer(patientId, choice);
                                 break;
                             }
                             // Alter Diabetes Condition
