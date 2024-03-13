@@ -353,8 +353,17 @@ bool Database::createPatient(const Patient& patient)
 						cerr << "Invalid Smoking Quantity";
                     }
                 }
+                cout << "\nPatient Created Successfully\n\n";
             }
         }
+        else
+        {
+            cerr << "\nPatient Account Failed to create\n\n";
+        }
+    }
+    else
+    {
+        cerr << "\nFailed to connect to the database\n\n";
     }
     return false;
 }
@@ -371,7 +380,12 @@ bool Database::createStaff(const User& user)
         pstmt->setInt64(2, user.getPassword());
         pstmt->setString(3, Utils::accessLevelToString(user.getAccessLevel()));
         pstmt->executeUpdate();
+        cout << "\nStaff Account Created Successfully\n\n";
         return true;
+    }
+    else
+    {
+        cerr << "\nFailed to connect to the database\n\n";
     }
     return false;
 }
@@ -407,12 +421,12 @@ int Database::authenticateUser()
                 }
                 else
                 {
-                    cout << "Username or Password Incorrect. Try Again: \n\n";
+                    cout << "\nUsername or Password Incorrect, Try Again: \n\n";
                 }
             }
             else
             {
-                cout << "Username or Password Incorrect. Try Again: \n\n";
+                cout << "\nUsername or Password Incorrect, Try Again: \n\n";
             }
         }
         else
@@ -539,10 +553,6 @@ void Database::getPatientTreatments(int patientId)
         pstmt->setInt(1, patientId);
         res = pstmt->executeQuery();
 
-        if (!res->next())
-        {
-            cout << "UserId supplied was not valid" << endl;
-        }
         while (res->next())
         {
             // Print out the treatments
@@ -584,6 +594,10 @@ void Database::getPatientDetails(int patientId)
 			cout << "Diabetes Type: " << res->getInt("diabetes_type") << endl;
 			cout << "Smoking Frequency: " << res->getInt("pack_frequency") << endl << endl;
 		}
+        else
+        {
+            cerr << "\nPatients User ID was Invalid\n\n";
+        }
 	}
     else
     {
@@ -620,7 +634,7 @@ void Database::getPatientCosts(int patientId)
             // Diabetes
             if (medicalCondition == "Diabetes (type 1)" || medicalCondition == "Diabetes (type 2)")
             {
-                if (frequency == "1 shots per day")
+                if (frequency == "1 shot per day")
                 {
                     double dailyCost = cost * 1;
                     double weeklyCost = cost * 7;

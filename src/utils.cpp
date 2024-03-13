@@ -110,7 +110,7 @@ string Utils::checkPasswordMatch()
 
         if (password != passwordCheck)
         {
-            cout << "Passwords do not match. Try Again: \n\n";
+            cout << "\nPasswords do not match, Try Again: \n\n";
         }
         else
         {

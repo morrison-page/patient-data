@@ -61,42 +61,50 @@ int main()
                 if (userId != -1)
                 {
                     Patient currentPatient = Database.initialisePatient(userId);
-                    while (true)
+                    if (currentPatient.getAccessLevel() == AccessLevel::PATIENT)
                     {
-                        cout << endl;
-                        cout << "1 - View Personal Details\n";
-                        cout << "2 - View Treatment & Cost\n";
-                        cout << "3 - Exit\n\n";
-                        cin >> choice;
-                        while (cin.fail() || choice < 1 || choice > 3)
+                        while (true)
                         {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-                            cout << "\nInvalid choice, try again\n\n";
+                            cout << endl;
+                            cout << "1 - View Personal Details\n";
+                            cout << "2 - View Treatment & Cost\n";
+                            cout << "3 - Exit\n\n";
                             cin >> choice;
-                        }
-                        cout << endl;
+                            while (cin.fail() || choice < 1 || choice > 3)
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-                        switch (choice)
-                        {
-                            // Output Patient Details
-                        case 1:
-                        {
-                            Database.getPatientDetails(currentPatient.getPatientId());
-                            Database.getPatientTreatments(currentPatient.getPatientId());
-                            break;
-                        }
-                        // Output Patient Costs
-                        case 2:
-                        {
-                            Database.getPatientCosts(currentPatient.getPatientId());
-                            break;
-                        }
-                        case 3:
-                            exit(0);
+                                cout << "\nInvalid choice, try again\n\n";
+                                cin >> choice;
+                            }
+                            cout << endl;
+
+                            switch (choice)
+                            {
+                                // Output Patient Details
+                            case 1:
+                            {
+                                Database.getPatientDetails(currentPatient.getPatientId());
+                                Database.getPatientTreatments(currentPatient.getPatientId());
+                                break;
+                            }
+                            // Output Patient Costs
+                            case 2:
+                            {
+                                Database.getPatientCosts(currentPatient.getPatientId());
+                                break;
+                            }
+                            case 3:
+                                exit(0);
+                            }
                         }
                     }
+                    else
+                    {
+						cout << endl;
+						cout << "Incorrect Username or Password\n\n";
+					}
                 }
                 break;
             }
@@ -272,62 +280,19 @@ int main()
                 if (userId != -1)
                 {
                     User currentUser = Database.initialiseStaff(userId);
-                    while (true)
+                    if (currentUser.getAccessLevel() == AccessLevel::DOCTOR)
                     {
-                        cout << endl;
-                        cout << "1 - View Patient Details\n";
-                        cout << "2 - View Patient Treatment & Cost\n";
-                        cout << "3 - View Data Analytics\n";
-                        cout << "4 - Change Patient Condition\n";
-                        cout << "5 - Create Staff Accounts\n";
-                        cout << "6 - Exit\n\n";
-                        cin >> choice;
-                        while (cin.fail() || choice < 1 || choice > 6)
+                        while (true)
                         {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-                            cout << "\nInvalid choice, try again\n\n";
+                            cout << endl;
+                            cout << "1 - View Patient Details\n";
+                            cout << "2 - View Patient Treatment & Cost\n";
+                            cout << "3 - View Data Analytics\n";
+                            cout << "4 - Change Patient Condition\n";
+                            cout << "5 - Create Staff Accounts\n";
+                            cout << "6 - Exit\n\n";
                             cin >> choice;
-                        }
-                        cout << endl;
-
-                        switch (choice)
-                        {
-                        // View Patient Details
-                        case 1:
-                        {
-                            int patientId;
-                            cout << "Enter patients ID: ";
-                            cin >> patientId;
-                            cout << endl;
-                            cout << "Details: \n\n";
-                            Database.getPatientDetails(patientId);
-                            break;
-                        }
-                        // View Patient Treatment & Cost
-                        case 2:
-                        {
-                            int patientId;
-                            cout << "Enter patients ID: ";
-                            cin >> patientId;
-                            cout << endl;
-                            cout << "Treatments: ";
-                            Database.getPatientTreatments(patientId);
-                            cout << endl;
-                            cout << "Costs: ";
-                            Database.getPatientCosts(patientId);
-                            break;
-                        }
-                        // Show Data Analytics
-                        case 3:
-                        {
-                            cout << "1 - Average Age of Cancer Patients\n";
-                            cout << "2 - Average Age of Diabetic Patients\n";
-                            cout << "3 - Smoking Frequency of Cancer Patients\n";
-                            cout << "4 - Exit\n\n";
-                            cin >> choice;
-                            while (cin.fail() || choice < 1 || choice > 4)
+                            while (cin.fail() || choice < 1 || choice > 6)
                             {
                                 cin.clear();
                                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -339,142 +304,192 @@ int main()
 
                             switch (choice)
                             {
-                            // Average Age of Cancer Patients
+                                // View Patient Details
                             case 1:
                             {
-                                Database.averageAgeOfCancerPatients();
+                                int patientId;
+                                cout << "Enter patients ID: ";
+                                cin >> patientId;
                                 cout << endl;
+                                Database.getPatientDetails(patientId);
                                 break;
                             }
-                            // Average Age of Diabetic Patients
+                            // View Patient Treatment & Cost
                             case 2:
                             {
-                                Database.averageAgeOfDiabeticPatients();
+                                int patientId;
+                                cout << "Enter patients ID: ";
+                                cin >> patientId;
                                 cout << endl;
+                                Database.getPatientTreatments(patientId);
+                                cout << endl;
+                                cout << "Costs: ";
+                                Database.getPatientCosts(patientId);
                                 break;
                             }
-                            // Smoking Frequency of Cancer Patients
+                            // Show Data Analytics
                             case 3:
                             {
-                                Database.smokingFrequencyOfCancerPatients();
-                                cout << endl;
-                                break;
-                            }
-                            case 4:
-                                exit(0);
-                            }
-                            break;
-                        }
-                        // Change Patient Condition
-                        case 4:
-                        {
-                            int patientId;
-                            cout << "Enter patients ID: ";
-                        	cin >> patientId;
-                            Patient searchedPatient = Database.initialisePatient(patientId);
-
-                            cout << "1 - Change Cancer Condition\n";
-                            cout << "2 - Change Diabetes Condition\n";
-                            cout << "3 - Change Smoking Condition\n";
-                            cout << "4 - Exit\n\n";
-                            cin >> choice;
-                            while (cin.fail() || choice < 1 || choice > 4)
-                            {
-								cin.clear();
-								cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-								cout << "\nInvalid choice, try again\n\n";
-								cin >> choice;
-							}
-                            cout << endl;
-
-                            switch (choice)
-                            {
-                            // Alter Cancer Condition
-                            case 1:
-                            {
-                                cout << "1 - Stage 1\n";
-                                cout << "2 - Stage 2\n";
-                                cout << "3 - Stage 3\n";
-                                cout << "4 - Stage 4\n\n";
+                                cout << "1 - Average Age of Cancer Patients\n";
+                                cout << "2 - Average Age of Diabetic Patients\n";
+                                cout << "3 - Smoking Frequency of Cancer Patients\n";
+                                cout << "4 - Exit\n\n";
                                 cin >> choice;
                                 while (cin.fail() || choice < 1 || choice > 4)
                                 {
                                     cin.clear();
                                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-                                    cout << "\nInvalid stage, try again\n\n";
+                                    cout << "\nInvalid choice, try again\n\n";
                                     cin >> choice;
                                 }
                                 cout << endl;
 
-                                Database.updateCancer(patientId, choice);
-                                break;
-                            }
-                            // Alter Diabetes Condition
-                            case 2:
-                            {
-                                cout << "1 - Type 1\n";
-                                cout << "1 - Type 2\n";
-                                cin >> choice;
-                                while (cin.fail() || choice < 1 || choice > 2)
+                                switch (choice)
                                 {
-									cin.clear();
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-									cout << "\nInvalid type, try again\n\n";
-									cin >> choice;
-								}
-                                cout << endl;
-
-                                Database.updateDiabetes(searchedPatient.getPatientId(), choice);
-                                break;
-                            }
-                            // Alter Smoking Condition
-                            case 3:
-                            {
-                                cout << "1 - 1 pack a month\n";
-                                cout << "2 - 1 pack a week\n";
-                                cout << "3 - 1 pack a day\n\n";
-                                cin >> choice;
-                                while (cin.fail() || choice < 1 || choice > 3)
+                                    // Average Age of Cancer Patients
+                                case 1:
                                 {
-									cin.clear();
-									cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-									cout << "\nInvalid quantity, try again\n\n";
-									cin >> choice;
-								}
-                                cout << endl;
-
-                                Database.updateSmoking(searchedPatient.getPatientId(), choice);
+                                    Database.averageAgeOfCancerPatients();
+                                    cout << endl;
+                                    break;
+                                }
+                                // Average Age of Diabetic Patients
+                                case 2:
+                                {
+                                    Database.averageAgeOfDiabeticPatients();
+                                    cout << endl;
+                                    break;
+                                }
+                                // Smoking Frequency of Cancer Patients
+                                case 3:
+                                {
+                                    Database.smokingFrequencyOfCancerPatients();
+                                    cout << endl;
+                                    break;
+                                }
+                                case 4:
+                                    exit(0);
+                                }
                                 break;
                             }
+                            // Change Patient Condition
                             case 4:
+                            {
+                                int userId;
+                                cout << "Enter patients user ID: ";
+                                cin >> userId;
+                                cout << endl;
+                                Patient searchedPatient = Database.initialisePatient(userId);
+
+                                cout << "1 - Change Cancer Condition\n";
+                                cout << "2 - Change Diabetes Condition\n";
+                                cout << "3 - Change Smoking Condition\n";
+                                cout << "4 - Exit\n\n";
+                                cin >> choice;
+                                while (cin.fail() || choice < 1 || choice > 4)
+                                {
+                                    cin.clear();
+                                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                                    cout << "\nInvalid choice, try again\n\n";
+                                    cin >> choice;
+                                }
+                                cout << endl;
+
+                                switch (choice)
+                                {
+                                    // Alter Cancer Condition
+                                case 1:
+                                {
+                                    cout << "1 - Stage 1\n";
+                                    cout << "2 - Stage 2\n";
+                                    cout << "3 - Stage 3\n";
+                                    cout << "4 - Stage 4\n\n";
+                                    cin >> choice;
+                                    while (cin.fail() || choice < 1 || choice > 4)
+                                    {
+                                        cin.clear();
+                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                                        cout << "\nInvalid stage, try again\n\n";
+                                        cin >> choice;
+                                    }
+                                    cout << endl;
+
+                                    Database.updateCancer(searchedPatient.getPatientId(), choice);
+                                    break;
+                                }
+                                // Alter Diabetes Condition
+                                case 2:
+                                {
+                                    cout << "1 - Type 1\n";
+                                    cout << "1 - Type 2\n";
+                                    cin >> choice;
+                                    while (cin.fail() || choice < 1 || choice > 2)
+                                    {
+                                        cin.clear();
+                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                                        cout << "\nInvalid type, try again\n\n";
+                                        cin >> choice;
+                                    }
+                                    cout << endl;
+
+                                    Database.updateDiabetes(searchedPatient.getPatientId(), choice);
+                                    break;
+                                }
+                                // Alter Smoking Condition
+                                case 3:
+                                {
+                                    cout << "1 - 1 pack a month\n";
+                                    cout << "2 - 1 pack a week\n";
+                                    cout << "3 - 1 pack a day\n\n";
+                                    cin >> choice;
+                                    while (cin.fail() || choice < 1 || choice > 3)
+                                    {
+                                        cin.clear();
+                                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                                        cout << "\nInvalid quantity, try again\n\n";
+                                        cin >> choice;
+                                    }
+                                    cout << endl;
+
+                                    Database.updateSmoking(searchedPatient.getPatientId(), choice);
+                                    break;
+                                }
+                                case 4:
+                                    exit(0);
+                                }
+                                break;
+                            }
+                            // Register Doctor/Nurse
+                            case 5:
+                            {
+                                AccessLevel accessLevel = AccessLevel::DOCTOR;
+                                string username, password;
+                                cout << "Username: ";
+                                cin >> username;
+                                password = Utils::checkPasswordMatch();
+
+                                size_t hashedPassword = Hashing::hashPassword(password);
+
+                                User newStaff(username, hashedPassword, accessLevel);
+
+                                Database.createStaff(newStaff);
+                                break;
+                            }
+                            case 6:
                                 exit(0);
                             }
-                            break;
-                        }
-                        // Register Doctor/Nurse
-                        case 5:
-                        {
-                            AccessLevel accessLevel = AccessLevel::DOCTOR;
-                            string username, password;
-                            cout << "Username: ";
-                            cin >> username;
-                            password = Utils::checkPasswordMatch();
-
-                            size_t hashedPassword = Hashing::hashPassword(password);
-
-                            User newStaff(username, hashedPassword, accessLevel);
-
-                            Database.createStaff(newStaff);
-                            break;
-                        }
-                        case 6:
-                            exit(0);
                         }
                     }
+                    else
+                    {
+						cout << endl;
+						cout << "Incorrect Username or Password\n\n";
+					}
                 }
                 break;
             }
@@ -516,7 +531,6 @@ int main()
                                 cout << "Enter patients ID: ";
                                 cin >> patientId;
                                 cout << endl;
-                                cout << "Details: \n\n";
                                 Database.getPatientDetails(patientId);
                                 break;
                             }
@@ -527,7 +541,6 @@ int main()
                                 cout << "Enter patients ID: ";
                                 cin >> patientId;
                                 cout << endl;
-                                cout << "Treatments: ";
                                 Database.getPatientTreatments(patientId);
                                 cout << endl;
                                 cout << "Costs: ";
@@ -583,11 +596,11 @@ int main()
                             // Change Patient Condition
                             case 4:
                             {
-                                int patientId;
-                                cout << "Enter patients ID: ";
-                                cin >> patientId;
+                                int userId;
+                                cout << "Enter patients user ID: ";
+                                cin >> userId;
                                 cout << endl;
-                                Patient searchedPatient = Database.initialisePatient(patientId);
+                                Patient searchedPatient = Database.initialisePatient(userId);
                                 
                                 cout << "1 - Change Cancer Condition\n";
                                 cout << "2 - Change Diabetes Condition\n";
@@ -695,7 +708,7 @@ int main()
                     else
                     {
                         cout << endl;
-                        cout << "You are not a Pharmacist\n\n";
+                        cout << "Incorrect Username or Password\n\n";
                     }
                 }
                 break;
